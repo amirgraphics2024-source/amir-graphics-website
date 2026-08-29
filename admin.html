@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amir Graphics — Admin</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/config.js"></script>
+<style>
+body{font:15px Arial;background:#f4f4f4;margin:0;color:#111}.wrap{max-width:1100px;margin:auto;padding:35px 20px}
+.card{background:#fff;padding:25px;margin-bottom:20px;border:1px solid #ddd}input,select,button{padding:12px;margin:5px 0}input{width:100%}
+button{cursor:pointer;background:#e10600;color:white;border:0;font-weight:bold}.lead{border-top:1px solid #ddd;padding:20px 0}.muted{color:#777}
+</style></head><body><div class="wrap">
+<div id="login" class="card"><h1>Amir Graphics Admin</h1>
+<input id="email" type="email" placeholder="Admin email"><input id="password" type="password" placeholder="Password">
+<button id="loginBtn">LOGIN</button><p id="loginMsg"></p></div>
+<div id="dashboard" style="display:none"><div class="card"><h1>Leads</h1><button id="refresh">REFRESH</button> <button id="logout">LOGOUT</button><span id="count"></span></div><div id="leads"></div></div>
+</div>
+<script>
+const {createClient}=supabase;
+const client=createClient(window.AMIR_CONFIG.SUPABASE_URL,window.AMIR_CONFIG.SUPABASE_PUBLISHABLE_KEY);
+const login=document.getElementById('login'), dash=document.getElementById('dashboard'), leads=document.getElementById('leads');
+async function load(){
+ const {data,error}=await client.from('leads').select('*').order('created_at',{ascending:false});
+ if(error){leads.textContent=error.message;return}
+ document.getElementById('count').textContent='  '+data.length+' enquiries';
+ leads.innerHTML=data.map(x=>`<div class="card lead"><h2>${escapeHtml(x.name)} ${x.company?'— '+escapeHtml(x.company):''}</h2>
+ <div class="muted">${escapeHtml(x.email)} ${x.phone?' • '+escapeHtml(x.phone):''}</div>
+ <p><b>Service:</b> ${escapeHtml(x.service||'—')} &nbsp; <b>Budget:</b> ${escapeHtml(x.budget||'—')}</p>
+ <p>${escapeHtml(x.message||'')}</p>
+ <label>Status: <select data-id="${x.id}" class="status">${['new','contacted','quoted','won','lost'].map(s=>`<option ${s===x.status?'selected':''}>${s}</option>`).join('')}</select></label>
+ <div class="muted">${new Date(x.created_at).toLocaleString()}</div></div>`).join('');
+ document.querySelectorAll('.status').forEach(s=>s.onchange=async()=>{await client.from('leads').update({status:s.value}).eq('id',s.dataset.id);});
+}
+function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));}
+document.getElementById('loginBtn').onclick=async()=>{
+ const {error}=await client.auth.signInWithPassword({email:email.value,password:password.value});
+ document.getElementById('loginMsg').textContent=error?error.message:'';
+ if(!error){login.style.display='none';dash.style.display='block';load();}
+};
+document.getElementById('refresh').onclick=load;
+document.getElementById('logout').onclick=async()=>{await client.auth.signOut();location.reload()};
+</script></body></html>
