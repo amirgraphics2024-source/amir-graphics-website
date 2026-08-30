@@ -1172,20 +1172,50 @@ body::before{
 }
 
 .industry{
-    min-height:170px;
+    position:relative;
+    min-height:190px;
 
     padding:25px;
 
     border-right:1px solid var(--border);
     border-bottom:1px solid var(--border);
 
+    overflow:hidden;
+
     transition:
-        background .4s ease,
-        color .4s ease;
+        background .45s var(--ease),
+        color .45s var(--ease),
+        transform .45s var(--ease),
+        box-shadow .45s var(--ease);
 }
 
-.industry:hover{
+.industry::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:100%;
+    height:3px;
     background:var(--red);
+
+    transform:scaleX(0);
+    transform-origin:left center;
+
+    transition:transform .55s var(--ease);
+}
+
+.industry:hover,
+.industry.industry-active{
+    background:var(--red);
+    color:#fff;
+    transform:translateY(-3px);
+    box-shadow:0 18px 45px rgba(0,0,0,.22);
+}
+
+.industry:hover::after,
+.industry.industry-active::after{
+    background:#fff;
+    transform:scaleX(1);
 }
 
 .industry small{
@@ -1195,18 +1225,94 @@ body::before{
     font-weight:800;
 
     letter-spacing:.15em;
+
+    transition:color .35s ease;
 }
 
-.industry:hover small{
-    color:rgba(255,255,255,.7);
+.industry:hover small,
+.industry.industry-active small{
+    color:rgba(255,255,255,.72);
+}
+
+.industry-icon{
+    width:38px;
+    height:38px;
+
+    margin-top:24px;
+    margin-bottom:22px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#777;
+
+    transition:
+        color .35s ease,
+        transform .45s var(--ease);
+}
+
+.industry-icon svg{
+    width:30px;
+    height:30px;
+
+    display:block;
+
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.7;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.industry:hover .industry-icon,
+.industry.industry-active .industry-icon{
+    color:#fff;
+    transform:translateY(-3px) scale(1.06);
 }
 
 .industry h3{
-    margin-top:40px;
+    margin:0;
 
     font-size:21px;
 
     letter-spacing:-.03em;
+
+    transition:color .35s ease;
+}
+
+@media(max-width:900px){
+    .industry{
+        min-height:175px;
+    }
+
+    .industry-icon{
+        margin-top:18px;
+        margin-bottom:18px;
+    }
+}
+
+@media(max-width:600px){
+    .industry{
+        min-height:165px;
+        padding:20px;
+    }
+
+    .industry-icon{
+        width:34px;
+        height:34px;
+        margin-top:16px;
+        margin-bottom:16px;
+    }
+
+    .industry-icon svg{
+        width:27px;
+        height:27px;
+    }
+
+    .industry h3{
+        font-size:18px;
+    }
 }
 
 
@@ -2962,186 +3068,6 @@ body.lightbox-open{overflow:hidden;}
     .project-lightbox-counter{top:13px;font-size:9px;}
 }
 
-
-/* =========================================================
-   SELECTED WORK — FLEXIBLE CURATED SHOWCASE
-========================================================= */
-
-.selected-work{background:var(--black);}
-
-.selected-work .section-subtitle{max-width:760px;}
-
-.work-grid{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:18px;
-    margin-top:70px;
-}
-
-.work-card{
-    position:relative;
-    background:#0a0a0a;
-    border:1px solid rgba(255,255,255,.10);
-    overflow:hidden;
-    transition:transform .55s var(--ease),box-shadow .55s var(--ease);
-}
-
-.work-card-feature{grid-row:span 2;}
-
-.work-card:hover{
-    transform:translateY(-6px);
-    box-shadow:0 24px 60px rgba(0,0,0,.35);
-}
-
-.work-media{
-    position:relative;
-    min-height:300px;
-    overflow:hidden;
-    background:#111;
-}
-
-.work-card-feature .work-media{min-height:640px;}
-
-.work-media img{
-    display:block;
-    width:100%;
-    height:100%;
-    min-height:300px;
-    object-fit:cover;
-    transition:transform 1s var(--ease),filter .6s ease;
-}
-
-.work-card-feature .work-media img{min-height:640px;}
-
-.work-card:hover .work-media img{transform:scale(1.035);}
-
-.work-media-overlay{
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-    background:linear-gradient(to top,rgba(0,0,0,.52),transparent 48%);
-}
-
-.work-type-label{
-    position:absolute;
-    top:18px;
-    left:18px;
-    z-index:2;
-    padding:8px 11px;
-    background:rgba(0,0,0,.72);
-    border:1px solid rgba(255,255,255,.18);
-    color:#fff;
-    font-size:8px;
-    font-weight:800;
-    letter-spacing:.16em;
-    text-transform:uppercase;
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
-}
-
-.work-info{
-    padding:24px 25px 27px;
-    background:#0a0a0a;
-}
-
-.work-client{
-    color:#aaa;
-    font-size:9px;
-    font-weight:800;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-}
-
-.work-info h3{
-    margin-top:9px;
-    font-size:23px;
-    letter-spacing:-.035em;
-}
-
-.work-info p{
-    margin-top:9px;
-    color:#aaa;
-    font-size:13px;
-    line-height:1.6;
-}
-
-.work-media-placeholder{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    min-height:300px;
-    padding:45px;
-    background:#0a0a0a;
-    color:#fff;
-}
-
-.work-flex-content{
-    display:flex;
-    flex-direction:column;
-    max-width:340px;
-    gap:14px;
-}
-
-.work-flex-kicker{
-    color:#888;
-    font-size:9px;
-    font-weight:800;
-    letter-spacing:.18em;
-}
-
-.work-flex-content strong{
-    font-size:28px;
-    line-height:1.05;
-    letter-spacing:-.04em;
-}
-
-.work-flex-note{
-    color:#888;
-    font-size:11px;
-    line-height:1.6;
-}
-
-.work-media-placeholder .work-type-label{
-    background:var(--red);
-    border-color:var(--red);
-}
-
-@media(max-width:800px){
-    .work-grid{
-        grid-template-columns:1fr;
-        gap:14px;
-        margin-top:50px;
-    }
-
-    .work-card-feature{grid-row:auto;}
-
-    .work-media,
-    .work-card-feature .work-media,
-    .work-media img,
-    .work-card-feature .work-media img{
-        min-height:380px;
-    }
-}
-
-@media(max-width:600px){
-    .work-media,
-    .work-card-feature .work-media,
-    .work-media img,
-    .work-card-feature .work-media img{
-        min-height:300px;
-    }
-
-    .work-info{padding:20px;}
-    .work-info h3{font-size:20px;}
-
-    .work-media-placeholder{
-        min-height:300px;
-        padding:30px;
-    }
-
-    .work-flex-content strong{font-size:23px;}
-}
-
 </style>
 </head>
 
@@ -3709,125 +3635,137 @@ body.lightbox-open{overflow:hidden;}
      WORK
 ====================================================== -->
 
-<section class="selected-work section" id="work">
+<section
+    class="work section"
+    id="work"
+>
+
     <div class="container">
 
-        <div class="reveal">
-            <div class="eyebrow">02 / Selected Work</div>
+        <div class="work-head reveal">
 
-            <h2 class="section-title">
-                What we create.
-            </h2>
+            <div>
 
-            <p class="section-subtitle">
-                A rotating showcase of branding, packaging, product,
-                websites, UI, video, reels, campaigns, social creative
-                and digital marketing.
+                <div class="eyebrow">
+                    02 / Selected Work
+                </div>
+
+                <h2
+                    class="section-title"
+                    style="margin-top:25px;"
+                >
+                    Work that means business.
+                </h2>
+
+            </div>
+
+            <p class="section-intro">
+
+                Selected work is presented as a focused mix of
+                creative direction, brand systems and digital experiences.
+
             </p>
+
         </div>
+
 
         <div class="work-grid">
 
-            <!--
-                FLEXIBLE SELECTED WORK SLOT
-                Any client + any work type can be featured here.
-                Supported: Branding / Packaging / Product / Website /
-                UI / Video / Reel / Campaign / Social Creative /
-                Digital Marketing.
-            -->
 
-            <article class="work-card work-card-feature reveal"
-                     data-work-type="packaging"
-                     data-client="Mountain Aura">
+            <article class="work-card large reveal">
 
-                <div class="work-media">
-                    <img src="assets/clients/mountain-aura/cover/mountain-aura-cover.webp?v=1"
-                         alt="Mountain Aura selected packaging and brand project"
-                         loading="lazy"
-                         decoding="async">
+                <div
+                    class="work-card-image"
+                    style="
+                    background-image:url(
+                    'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1800&q=85'
+                    );
+                    "
+                ></div>
 
-                    <div class="work-media-overlay"></div>
+                <div class="work-card-content">
 
-                    <div class="work-type-label">Packaging</div>
-                </div>
-
-                <div class="work-info">
-                    <div class="work-client">Mountain Aura</div>
-                    <h3>Product &amp; Packaging</h3>
-                    <p>Brand identity, packaging and promotional creative.</p>
-                </div>
-            </article>
-
-            <article class="work-card reveal"
-                     data-work-type="branding"
-                     data-client="EXZELLENT">
-
-                <div class="work-media">
-                    <img src="assets/clients/exzellent/cover/exzellent-cover.webp?v=1"
-                         alt="EXZELLENT branding project"
-                         loading="lazy"
-                         decoding="async">
-
-                    <div class="work-media-overlay"></div>
-
-                    <div class="work-type-label">Branding</div>
-                </div>
-
-                <div class="work-info">
-                    <div class="work-client">EXZELLENT</div>
-                    <h3>Brand Experience</h3>
-                    <p>Brand direction, digital identity and communication.</p>
-                </div>
-            </article>
-
-            <article class="work-card reveal"
-                     data-work-type="digital"
-                     data-client="Sudha Healthcare">
-
-                <div class="work-media">
-                    <img src="assets/clients/sudha-healthcare/cover/sudha-healthcare-cover.webp?v=1"
-                         alt="Sudha Healthcare selected digital project"
-                         loading="lazy"
-                         decoding="async">
-
-                    <div class="work-media-overlay"></div>
-
-                    <div class="work-type-label">Digital</div>
-                </div>
-
-                <div class="work-info">
-                    <div class="work-client">Sudha Healthcare</div>
-                    <h3>Digital Communication</h3>
-                    <p>Digital campaigns, social creative and healthcare communication.</p>
-                </div>
-            </article>
-
-            <!-- Flexible fourth slot: replace with any future work. -->
-            <article class="work-card work-card-flex reveal"
-                     data-work-type="website"
-                     data-client="Future Project">
-
-                <div class="work-media work-media-placeholder">
-                    <div class="work-flex-content">
-                        <span class="work-flex-kicker">FEATURED WORK</span>
-                        <strong>Website / UI / Video / Campaign / Digital Marketing</strong>
-                        <span class="work-flex-note">
-                            Replace this visual with any real client work.
-                        </span>
+                    <div class="work-card-category">
+                        Branding
                     </div>
 
-                    <div class="work-type-label">Website</div>
+                    <h3 class="work-card-title">
+                        Brand Identity
+                    </h3>
+
+                    <p class="work-card-description">
+                        Strategy, identity and visual systems.
+                    </p>
+
                 </div>
 
-                <div class="work-info">
-                    <div class="work-client">Your Next Featured Project</div>
-                    <h3>Your Work. Your Choice.</h3>
-                    <p>Refresh this slot whenever you want to highlight new work.</p>
-                </div>
             </article>
 
+
+            <article class="work-card reveal">
+
+                <div
+                    class="work-card-image"
+                    style="
+                    background-image:url(
+                    'https://images.unsplash.com/photo-1605648916361-9bc12ad6a569?auto=format&fit=crop&w=1600&q=85'
+                    );
+                    "
+                ></div>
+
+                <div class="work-card-content">
+
+                    <div class="work-card-category">
+                        Packaging
+                    </div>
+
+                    <h3 class="work-card-title">
+                        Product Story
+                    </h3>
+
+                    <p class="work-card-description">
+                        Packaging built for shelf impact.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <article class="work-card reveal">
+
+                <div
+                    class="work-card-image"
+                    style="
+                    background-image:url(
+                    'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=1600&q=85'
+                    );
+                    "
+                ></div>
+
+                <div class="work-card-content">
+
+                    <div class="work-card-category">
+                        Digital
+                    </div>
+
+                    <h3 class="work-card-title">
+                        Digital Experience
+                    </h3>
+
+                    <p class="work-card-description">
+                        Digital presence designed to perform.
+                    </p>
+
+                </div>
+
+            </article>
+
+
         </div>
+
     </div>
+
 </section>
 
 
@@ -4785,78 +4723,125 @@ body.lightbox-open{overflow:hidden;}
 
         <div class="industry-grid">
 
-
-            <div class="industry reveal">
+            <div class="industry reveal" data-industry-index="0">
                 <small>01</small>
+
+                <div class="industry-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg>
+                </div>
+
                 <h3>FMCG & Products</h3>
             </div>
 
-
-            <div class="industry reveal">
+            <div class="industry reveal" data-industry-index="1">
                 <small>02</small>
+
+                <div class="industry-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11h18v8H3z"/><path d="M5 11l3-5h8l3 5M7 19v2M17 19v2"/></svg>
+                </div>
+
                 <h3>Hospitality</h3>
             </div>
 
-
-            <div class="industry reveal">
+            <div class="industry reveal" data-industry-index="2">
                 <small>03</small>
+
+                <div class="industry-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 7.8-8 9-4.5-1.2-8-4-8-9V6z"/><path d="M9 12l2 2 4-5"/></svg>
+                </div>
+
                 <h3>Healthcare</h3>
             </div>
 
-
-            <div class="industry reveal">
+            <div class="industry reveal" data-industry-index="3">
                 <small>04</small>
+
+                <div class="industry-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>
+                </div>
+
                 <h3>Education</h3>
             </div>
 
-
-            <div class="industry reveal">
+            <div class="industry reveal" data-industry-index="4">
                 <small>05</small>
+
+                <div class="industry-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V9l8-5 8 5v11H4z"/><path d="M8 20v-6h8v6M9 10h6"/></svg>
+                </div>
+
                 <h3>Real Estate</h3>
             </div>
 
-
-            <div class="industry reveal">
+            <div class="industry reveal" data-industry-index="5">
                 <small>06</small>
+
+                <div class="industry-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5h16v14H4z"/><path d="M7 16V9M11 16V7M15 16v-4M19 16v-6"/></svg>
+                </div>
+
                 <h3>Manufacturing</h3>
             </div>
 
-
-            <div class="industry reveal">
+            <div class="industry reveal" data-industry-index="6">
                 <small>07</small>
+
+                <div class="industry-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14v12H5z"/><path d="M8 9h8M8 13h5"/><path d="M3 8h2M19 8h2"/></svg>
+                </div>
+
                 <h3>Retail & Fashion</h3>
             </div>
 
-
-            <div class="industry reveal">
+            <div class="industry reveal" data-industry-index="7">
                 <small>08</small>
+
+                <div class="industry-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M8 14l2-5 3 6 3-5"/><circle cx="12" cy="12" r="2"/></svg>
+                </div>
+
                 <h3>Automotive</h3>
             </div>
 
-
-            <div class="industry reveal">
+            <div class="industry reveal" data-industry-index="8">
                 <small>09</small>
+
+                <div class="industry-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="M7 9h10M7 13h6"/><path d="M18 4v4"/></svg>
+                </div>
+
                 <h3>Restaurants</h3>
             </div>
 
-
-            <div class="industry reveal">
+            <div class="industry reveal" data-industry-index="9">
                 <small>10</small>
+
+                <div class="industry-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 3v4M16 3v4M4 10h16M9 14h6"/></svg>
+                </div>
+
                 <h3>Events</h3>
             </div>
 
-
-            <div class="industry reveal">
+            <div class="industry reveal" data-industry-index="10">
                 <small>11</small>
+
+                <div class="industry-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M3 19c.5-3 2.2-5 5-5s4.5 2 5 5M11 19c.5-3 2.2-5 5-5s4.5 2 5 5"/></svg>
+                </div>
+
                 <h3>Professional Services</h3>
             </div>
 
-
-            <div class="industry reveal">
+            <div class="industry reveal" data-industry-index="11">
                 <small>12</small>
+
+                <div class="industry-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M3 12h18"/><path d="M5 7l3-3M19 7l-3-3M5 17l3 3M19 17l-3 3"/></svg>
+                </div>
+
                 <h3>Growing Businesses</h3>
             </div>
-
 
         </div>
 
@@ -6666,6 +6651,149 @@ lightboxTriggers.forEach(trigger => {
 
 });
 
+
+
+/* =========================================================
+   INDUSTRIES — AUTO SEQUENCE HIGHLIGHT
+   One industry activates at a time when the section is visible.
+========================================================= */
+
+(function(){
+
+    const industrySection =
+        document.getElementById("industries");
+
+    const industryItems =
+        Array.from(
+            document.querySelectorAll(
+                "#industries .industry"
+            )
+        );
+
+    if(
+        !industrySection ||
+        !industryItems.length
+    ){
+        return;
+    }
+
+    const reduceMotion =
+        window.matchMedia &&
+        window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+    if(reduceMotion){
+        return;
+    }
+
+    let current = 0;
+    let timer = null;
+    let sectionVisible = false;
+
+    function activateIndustry(index){
+
+        industryItems.forEach(
+            (item, itemIndex) => {
+
+                item.classList.toggle(
+                    "industry-active",
+                    itemIndex === index
+                );
+
+            }
+        );
+
+        current = index;
+    }
+
+    function startIndustrySequence(){
+
+        if(timer || !sectionVisible){
+            return;
+        }
+
+        activateIndustry(current);
+
+        timer = window.setInterval(
+            () => {
+
+                if(!sectionVisible){
+                    return;
+                }
+
+                const next =
+                    (current + 1) %
+                    industryItems.length;
+
+                activateIndustry(next);
+
+            },
+            1400
+        );
+    }
+
+    function stopIndustrySequence(){
+
+        if(timer){
+
+            window.clearInterval(timer);
+            timer = null;
+
+        }
+    }
+
+    const observer =
+        new IntersectionObserver(
+            entries => {
+
+                entries.forEach(
+                    entry => {
+
+                        sectionVisible =
+                            entry.isIntersecting;
+
+                        if(sectionVisible){
+
+                            startIndustrySequence();
+
+                        }else{
+
+                            stopIndustrySequence();
+
+                            industryItems.forEach(
+                                item =>
+                                    item.classList.remove(
+                                        "industry-active"
+                                    )
+                            );
+
+                        }
+
+                    }
+                );
+
+            },
+            {
+                threshold:0.18
+            }
+        );
+
+    observer.observe(industrySection);
+
+    /* Hover remains available as an additional interaction. */
+    industryItems.forEach(
+        (item,index) => {
+
+            item.addEventListener(
+                "mouseenter",
+                () => activateIndustry(index)
+            );
+
+        }
+    );
+
+})();
 
 
 </script>
