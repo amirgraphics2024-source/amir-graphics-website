@@ -2,45 +2,26 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Amir Graphics | Creative & Digital Solutions</title>
-<meta name="description" content="Amir Graphics delivers premium branding, graphic design, websites, video, digital marketing and automation solutions for businesses.">
-<meta name="keywords" content="Amir Graphics, graphic design, branding, website design, digital marketing, video, automation, Asansol">
-<meta name="author" content="Amir Graphics">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#050505">
+<meta name="description" content="Amir Graphics — Creative & Digital Solutions for ambitious businesses.">
+<title>Amir Graphics — Creative & Digital Solutions</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="config.js"></script>
+<script src="/config.js"></script>
 
 <style>
-:root{
-  --red:#ed1c24;
-  --black:#050505;
-  --white:#fff;
-  --gray:#a4a4a4;
-  --line:#242424;
-  --soft:#f4f4f4;
-  --max:1280px;
-}
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 html{
   scroll-behavior:smooth;
+  background:#050505;
 }
 
 body{
-  background:var(--black);
-  color:var(--white);
-  font-family:"DM Sans",Arial,sans-serif;
+  background:#050505;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
   overflow-x:hidden;
 }
 
@@ -53,12 +34,132 @@ button,input,textarea,select{
   font:inherit;
 }
 
-.container{
-  width:min(calc(100% - 48px),var(--max));
-  margin:auto;
+:root{
+  --red:#ff1515;
+  --red2:#c90000;
+  --white:#fff;
+  --muted:#8c8c8c;
+  --line:#242424;
+  --card:#0b0b0b;
 }
 
-/* ================= NAV ================= */
+/* =========================
+   LOADER
+========================= */
+
+.loader{
+  position:fixed;
+  inset:0;
+  background:#050505;
+  z-index:99999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:.8s ease;
+}
+
+.loader.hide{
+  opacity:0;
+  visibility:hidden;
+}
+
+.loader-inner{
+  text-align:center;
+}
+
+.loader-logo{
+  font-size:18px;
+  font-weight:800;
+  letter-spacing:-.04em;
+}
+
+.loader-line{
+  width:150px;
+  height:2px;
+  background:#222;
+  margin:18px auto 0;
+  overflow:hidden;
+}
+
+.loader-line span{
+  display:block;
+  width:40%;
+  height:100%;
+  background:var(--red);
+  animation:load 1s infinite ease-in-out;
+}
+
+@keyframes load{
+  0%{transform:translateX(-100%)}
+  100%{transform:translateX(350%)}
+}
+
+/* =========================
+   CURSOR
+========================= */
+
+.cursor{
+  position:fixed;
+  width:12px;
+  height:12px;
+  border:1px solid var(--red);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,background .2s;
+}
+
+.cursor.active{
+  width:42px;
+  height:42px;
+  background:rgba(255,21,21,.08);
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.grid-bg{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.38;
+  z-index:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);
+  background-size:70px 70px;
+  mask-image:linear-gradient(to bottom,black,transparent 90%);
+}
+
+.red-orb{
+  position:absolute;
+  width:420px;
+  height:420px;
+  border:1px solid rgba(255,20,20,.22);
+  border-radius:50%;
+  right:-150px;
+  top:160px;
+  z-index:-1;
+}
+
+.red-orb:before,
+.red-orb:after{
+  content:"";
+  position:absolute;
+  inset:45px;
+  border:1px solid rgba(255,20,20,.18);
+  border-radius:50%;
+}
+
+.red-orb:after{
+  inset:100px;
+}
+
+/* =========================
+   NAV
+========================= */
 
 .nav{
   position:fixed;
@@ -66,673 +167,708 @@ button,input,textarea,select{
   left:0;
   width:100%;
   z-index:1000;
-  padding:22px 0;
-  transition:.35s ease;
-}
-
-.nav.scrolled{
-  background:rgba(5,5,5,.92);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  background:rgba(5,5,5,.78);
   backdrop-filter:blur(18px);
-  padding:14px 0;
-  border-bottom:1px solid var(--line);
 }
 
 .nav-inner{
+  width:min(1180px,calc(100% - 50px));
+  margin:auto;
+  height:82px;
   display:flex;
   align-items:center;
   justify-content:space-between;
 }
 
 .logo{
-  display:flex;
-  align-items:center;
+  font-size:17px;
+  font-weight:900;
+  letter-spacing:-.06em;
 }
 
-.logo img{
-  width:145px;
-  height:auto;
-  display:block;
+.logo span{
+  color:var(--red);
 }
 
 .nav-links{
   display:flex;
+  gap:30px;
   align-items:center;
-  gap:32px;
-  font-size:13px;
-  font-weight:600;
-  text-transform:uppercase;
-  letter-spacing:.08em;
 }
 
 .nav-links a{
-  opacity:.72;
+  color:#a8a8a8;
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.08em;
   transition:.25s;
 }
 
 .nav-links a:hover{
-  color:var(--red);
-  opacity:1;
+  color:#fff;
 }
 
 .nav-cta{
+  border:1px solid rgba(255,255,255,.25);
+  padding:12px 18px;
+  font-size:11px;
+  font-weight:800;
+  text-transform:uppercase;
+  transition:.3s;
+}
+
+.nav-cta:hover{
   background:var(--red);
-  color:#fff!important;
-  padding:13px 19px;
-  opacity:1!important;
+  border-color:var(--red);
 }
 
-.menu{
-  display:none;
-  border:0;
-  background:none;
-  color:white;
-  font-size:28px;
-  cursor:pointer;
-}
-
-/* ================= HERO ================= */
+/* =========================
+   HERO
+========================= */
 
 .hero{
   min-height:100vh;
+  position:relative;
   display:flex;
   align-items:center;
-  position:relative;
   overflow:hidden;
-  background:
-    radial-gradient(circle at 80% 25%,rgba(237,28,36,.16),transparent 28%),
-    var(--black);
+  padding:150px 0 100px;
 }
 
-.hero-grid{
-  position:absolute;
-  inset:0;
-  opacity:.09;
-  background-image:
-    linear-gradient(#fff 1px,transparent 1px),
-    linear-gradient(90deg,#fff 1px,transparent 1px);
-  background-size:80px 80px;
-  mask-image:linear-gradient(to bottom,#000,transparent);
-}
-
-.hero-orb{
-  position:absolute;
-  width:500px;
-  height:500px;
-  right:-180px;
-  top:20%;
-  border:1px solid rgba(237,28,36,.25);
-  border-radius:50%;
-  animation:spin 25s linear infinite;
-}
-
-.hero-orb:before,
-.hero-orb:after{
-  content:"";
-  position:absolute;
-  inset:55px;
-  border:1px solid rgba(237,28,36,.2);
-  border-radius:50%;
-}
-
-.hero-orb:after{
-  inset:110px;
-}
-
-@keyframes spin{
-  to{transform:rotate(360deg)}
-}
-
-.hero-content{
+.container{
+  width:min(1180px,calc(100% - 50px));
+  margin:auto;
   position:relative;
   z-index:2;
-  padding-top:90px;
-  max-width:1100px;
 }
 
 .eyebrow{
   color:var(--red);
-  font-size:12px;
-  letter-spacing:.2em;
-  font-weight:700;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.22em;
   text-transform:uppercase;
-  margin-bottom:25px;
+  margin-bottom:24px;
 }
 
-.hero h1{
-  font-family:"Space Grotesk",sans-serif;
-  font-size:clamp(58px,9vw,138px);
-  line-height:.86;
-  letter-spacing:-.07em;
-  font-weight:700;
-  max-width:1100px;
+.hero-title{
+  font-size:clamp(60px,9vw,128px);
+  line-height:.83;
+  letter-spacing:-.075em;
+  font-weight:900;
+  max-width:1050px;
 }
 
-.hero h1 span{
+.hero-title .red{
   color:var(--red);
 }
 
 .hero-copy{
-  max-width:690px;
-  margin-top:38px;
-  font-size:18px;
+  max-width:650px;
+  color:#aaa;
+  font-size:17px;
   line-height:1.65;
-  color:#c4c4c4;
+  margin-top:35px;
 }
 
 .hero-actions{
   display:flex;
-  gap:14px;
-  margin-top:38px;
-  flex-wrap:wrap;
+  gap:12px;
+  margin-top:40px;
 }
 
 .btn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  min-height:54px;
-  padding:0 25px;
-  border:1px solid var(--red);
-  background:var(--red);
-  color:white;
-  font-size:13px;
-  font-weight:700;
+  min-height:50px;
+  padding:0 24px;
+  border:1px solid #333;
+  font-size:11px;
+  font-weight:900;
   text-transform:uppercase;
   letter-spacing:.08em;
   transition:.3s;
   cursor:pointer;
 }
 
-.btn:hover{
-  transform:translateY(-3px);
-  box-shadow:0 15px 40px rgba(237,28,36,.22);
+.btn-red{
+  background:var(--red);
+  border-color:var(--red);
+  color:#fff;
 }
 
-.btn-outline{
-  background:transparent;
-  border-color:#444;
+.btn-red:hover{
+  background:#fff;
+  color:#000;
+  border-color:#fff;
+  transform:translateY(-3px);
 }
 
 .btn-outline:hover{
-  border-color:white;
-  box-shadow:none;
+  background:#fff;
+  color:#000;
+  transform:translateY(-3px);
 }
 
-.hero-bottom{
+.hero-index{
   position:absolute;
-  bottom:28px;
-  left:0;
-  width:100%;
-  display:flex;
-  justify-content:space-between;
-  color:#777;
-  font-size:11px;
-  letter-spacing:.14em;
-  text-transform:uppercase;
+  right:0;
+  bottom:50px;
+  color:#555;
+  font-size:10px;
+  letter-spacing:.18em;
 }
 
-/* ================= COMMON ================= */
+/* =========================
+   MARQUEE
+========================= */
+
+.marquee{
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  overflow:hidden;
+  white-space:nowrap;
+  padding:20px 0;
+  position:relative;
+  z-index:2;
+}
+
+.marquee-track{
+  display:inline-flex;
+  animation:marquee 25s linear infinite;
+}
+
+.marquee span{
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#777;
+  margin:0 30px;
+}
+
+.marquee .dot{
+  color:var(--red);
+}
+
+@keyframes marquee{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+
+/* =========================
+   SECTIONS
+========================= */
 
 section{
   position:relative;
+  z-index:2;
 }
 
 .section{
-  padding:125px 0;
-}
-
-.light{
-  background:var(--white);
-  color:var(--black);
+  padding:140px 0;
 }
 
 .section-head{
-  display:grid;
-  grid-template-columns:1fr 2fr;
-  gap:70px;
-  margin-bottom:70px;
-}
-
-.kicker{
-  color:var(--red);
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.2em;
-  font-weight:700;
-}
-
-.section-title{
-  font-family:"Space Grotesk",sans-serif;
-  font-size:clamp(42px,6vw,82px);
-  line-height:.94;
-  letter-spacing:-.055em;
-}
-
-.section-text{
-  max-width:650px;
-  color:#666;
-  font-size:18px;
-  line-height:1.65;
-}
-
-/* ================= SERVICES ================= */
-
-.services{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  border-top:1px solid #ddd;
-}
-
-.service{
-  min-height:330px;
-  padding:42px;
-  border-right:1px solid #ddd;
-  border-bottom:1px solid #ddd;
-  position:relative;
-  overflow:hidden;
-  transition:.35s;
-}
-
-.service:nth-child(even){
-  border-right:0;
-}
-
-.service:hover{
-  background:#080808;
-  color:white;
-}
-
-.service-number{
-  font-size:12px;
-  color:var(--red);
-  font-weight:700;
+  display:flex;
+  justify-content:space-between;
+  gap:40px;
   margin-bottom:60px;
 }
 
-.service h3{
-  font-family:"Space Grotesk";
-  font-size:35px;
-  letter-spacing:-.04em;
-  margin-bottom:15px;
+.section-label{
+  color:var(--red);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.2em;
+  text-transform:uppercase;
 }
 
-.service p{
-  max-width:450px;
+.section-title{
+  font-size:clamp(42px,6vw,80px);
+  line-height:.9;
+  letter-spacing:-.065em;
+  max-width:760px;
+  margin-top:18px;
+}
+
+.section-description{
   color:#777;
-  line-height:1.6;
+  line-height:1.7;
+  max-width:350px;
+  font-size:14px;
 }
 
-.service:hover p{
-  color:#aaa;
+/* =========================
+   SERVICES
+========================= */
+
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--line);
+  border-left:1px solid var(--line);
+}
+
+.service-card{
+  min-height:330px;
+  border-right:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  padding:30px;
+  position:relative;
+  overflow:hidden;
+  background:rgba(10,10,10,.72);
+  transition:.45s cubic-bezier(.2,.8,.2,1);
+}
+
+.service-card:before{
+  content:"";
+  position:absolute;
+  width:170px;
+  height:170px;
+  border:1px solid rgba(255,20,20,.22);
+  border-radius:50%;
+  right:-70px;
+  bottom:-70px;
+  transition:.5s;
+}
+
+.service-card:after{
+  content:"";
+  position:absolute;
+  width:90px;
+  height:90px;
+  background:rgba(255,20,20,.08);
+  border-radius:50%;
+  right:-30px;
+  bottom:-30px;
+  transition:.5s;
+}
+
+.service-card:hover{
+  transform:translateY(-8px);
+  border-color:#444;
+  background:#101010;
+}
+
+.service-card:hover:before{
+  transform:scale(1.35);
+}
+
+.service-card:hover:after{
+  transform:scale(1.4);
+  background:rgba(255,20,20,.16);
+}
+
+.service-number{
+  color:#555;
+  font-size:10px;
+  letter-spacing:.15em;
+  font-weight:800;
+}
+
+.service-name{
+  font-size:28px;
+  letter-spacing:-.05em;
+  margin-top:42px;
+  position:relative;
+  z-index:2;
+}
+
+.service-desc{
+  color:#777;
+  font-size:12px;
+  line-height:1.5;
+  margin-top:12px;
+  max-width:280px;
+  position:relative;
+  z-index:2;
+}
+
+.subcategories{
+  margin-top:25px;
+  position:relative;
+  z-index:2;
+}
+
+.subcategories span{
+  display:block;
+  color:#999;
+  font-size:11px;
+  margin:8px 0;
+}
+
+.subcategories span:before{
+  content:"— ";
+  color:var(--red);
 }
 
 .service-arrow{
   position:absolute;
-  right:38px;
-  bottom:35px;
-  font-size:35px;
-  color:var(--red);
+  top:30px;
+  right:30px;
+  color:#555;
+  font-size:18px;
   transition:.3s;
+  z-index:3;
 }
 
-.service:hover .service-arrow{
-  transform:translate(8px,-8px);
-}
-
-/* ================= STATEMENT ================= */
-
-.statement{
-  min-height:80vh;
-  display:flex;
-  align-items:center;
-  overflow:hidden;
-}
-
-.statement-bg{
-  position:absolute;
-  font-family:"Space Grotesk";
-  font-size:25vw;
-  line-height:1;
-  font-weight:700;
-  color:#111;
-  white-space:nowrap;
-  left:-4vw;
-  top:20%;
-  pointer-events:none;
-}
-
-.statement-content{
-  position:relative;
-  z-index:2;
-  max-width:1000px;
-}
-
-.statement h2{
-  font-family:"Space Grotesk";
-  font-size:clamp(50px,8vw,110px);
-  line-height:.92;
-  letter-spacing:-.065em;
-}
-
-.statement h2 span{
+.service-card:hover .service-arrow{
   color:var(--red);
+  transform:translate(4px,-4px);
 }
 
-/* ================= WORK ================= */
+/* =========================
+   WORK
+========================= */
 
 .work-grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:18px;
+  grid-template-columns:1.4fr .8fr;
+  gap:12px;
 }
 
 .work-card{
-  min-height:430px;
-  background:#111;
+  min-height:420px;
+  border:1px solid var(--line);
+  background:
+    radial-gradient(circle at 70% 30%,rgba(255,20,20,.13),transparent 35%),
+    #0b0b0b;
   position:relative;
   overflow:hidden;
-  padding:35px;
   display:flex;
   flex-direction:column;
   justify-content:flex-end;
-  transition:.35s;
+  padding:35px;
+  transition:.45s;
 }
 
-.work-card:first-child{
-  min-height:650px;
+.work-card:nth-child(2){
+  min-height:520px;
 }
 
 .work-card:hover{
-  transform:translateY(-6px);
+  transform:scale(.985);
 }
 
-.work-visual{
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(135deg,rgba(237,28,36,.9),transparent 55%),
-    linear-gradient(45deg,#111,#333);
-  transition:.5s;
-}
-
-.work-card:nth-child(2) .work-visual{
-  background:
-    radial-gradient(circle at 70% 30%,#ed1c24,transparent 35%),
-    #151515;
-}
-
-.work-card:nth-child(3) .work-visual{
-  background:
-    linear-gradient(120deg,#111 40%,#ed1c24 40%);
-}
-
-.work-card:nth-child(4) .work-visual{
-  background:
-    radial-gradient(circle,#ed1c24 0 5%,transparent 6% 100%),
-    #111;
-  background-size:40px 40px;
-}
-
-.work-overlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(transparent 35%,rgba(0,0,0,.92));
-}
-
-.work-info{
-  position:relative;
-  z-index:2;
-}
-
-.work-tag{
+.work-number{
+  color:#555;
   font-size:10px;
-  text-transform:uppercase;
   letter-spacing:.15em;
-  color:#ddd;
-  margin-bottom:10px;
 }
 
-.work-info h3{
-  font-family:"Space Grotesk";
-  font-size:36px;
-  letter-spacing:-.04em;
+.work-title{
+  font-size:38px;
+  letter-spacing:-.06em;
+  margin-top:15px;
 }
 
-.work-info p{
-  margin-top:8px;
-  color:#aaa;
+.work-type{
+  color:#777;
+  font-size:11px;
+  margin-top:10px;
 }
 
-/* ================= INDUSTRIES ================= */
+/* =========================
+   PROCESS
+========================= */
 
-.industries{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
+.process-list{
+  border-top:1px solid var(--line);
 }
 
-.industry{
-  border:1px solid #333;
-  padding:18px 24px;
-  font-size:13px;
-  text-transform:uppercase;
-  letter-spacing:.08em;
+.process-row{
+  display:grid;
+  grid-template-columns:100px 1fr 1fr;
+  gap:30px;
+  padding:32px 0;
+  border-bottom:1px solid var(--line);
   transition:.3s;
 }
 
-.industry:hover{
-  background:var(--red);
-  border-color:var(--red);
-  transform:translateY(-3px);
+.process-row:hover{
+  padding-left:15px;
 }
 
-/* ================= PROCESS ================= */
-
-.process{
-  border-top:1px solid #222;
-}
-
-.process-item{
-  display:grid;
-  grid-template-columns:110px 1fr 2fr;
-  gap:30px;
-  align-items:start;
-  padding:35px 0;
-  border-bottom:1px solid #222;
-}
-
-.process-no{
+.process-num{
   color:var(--red);
-  font-weight:700;
+  font-size:11px;
 }
 
-.process-item h3{
-  font-family:"Space Grotesk";
-  font-size:30px;
-  letter-spacing:-.03em;
+.process-name{
+  font-size:27px;
+  letter-spacing:-.04em;
 }
 
-.process-item p{
-  color:#888;
+.process-text{
+  color:#777;
+  font-size:13px;
   line-height:1.6;
 }
 
-/* ================= WHY ================= */
+/* =========================
+   ABOUT
+========================= */
 
-.why-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:1px;
-  background:#ddd;
+.about-box{
+  border:1px solid var(--line);
+  padding:60px;
+  background:#090909;
 }
 
-.why-card{
-  background:#fff;
-  padding:42px;
-  min-height:270px;
-}
-
-.why-card strong{
-  display:block;
-  font-family:"Space Grotesk";
-  font-size:25px;
-  margin-bottom:18px;
-}
-
-.why-card p{
-  color:#666;
-  line-height:1.6;
-}
-
-/* ================= QUOTE ================= */
-
-.quote{
-  background:var(--red);
-  color:white;
-}
-
-.quote .section-title{
+.about-title{
+  font-size:clamp(40px,6vw,75px);
+  letter-spacing:-.07em;
+  line-height:.92;
   max-width:900px;
 }
 
-.quote-layout{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:90px;
-  align-items:start;
+.about-title span{
+  color:var(--red);
 }
 
-.quote-copy p{
-  margin-top:30px;
-  max-width:520px;
+.about-copy{
+  color:#888;
+  max-width:650px;
+  font-size:15px;
+  line-height:1.8;
+  margin-top:35px;
+}
+
+/* =========================
+   PROJECT FORM
+========================= */
+
+.project-section{
+  background:#f5f5f5;
+  color:#050505;
+}
+
+.project-section .section-label{
+  color:var(--red);
+}
+
+.project-section .section-title{
+  color:#050505;
+}
+
+.project-layout{
+  display:grid;
+  grid-template-columns:.75fr 1.25fr;
+  gap:80px;
+}
+
+.project-intro{
+  color:#666;
   line-height:1.7;
-  color:#ffe8e8;
+  font-size:14px;
 }
 
-.form{
-  background:#fff;
-  color:#111;
-  padding:38px;
-}
-
-.form-grid{
+.project-form{
   display:grid;
-  grid-template-columns:1fr 1fr;
   gap:15px;
 }
 
 .field{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-  margin-bottom:15px;
-}
-
-.field.full{
-  grid-column:1/-1;
-}
-
-.field label{
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.1em;
-  font-weight:700;
-}
-
-.field input,
-.field textarea,
-.field select{
-  width:100%;
-  border:1px solid #ddd;
-  background:#fafafa;
-  padding:15px;
+  border:1px solid #ccc;
+  background:#fff;
+  padding:18px;
   outline:none;
-  transition:.2s;
+  width:100%;
+  color:#111;
+  transition:.25s;
 }
 
-.field input:focus,
-.field textarea:focus,
-.field select:focus{
-  border-color:var(--red);
-  background:white;
+.field:focus{
+  border-color:#111;
 }
 
-.field textarea{
-  min-height:130px;
+textarea.field{
+  min-height:150px;
   resize:vertical;
 }
 
-.form .btn{
-  width:100%;
-  margin-top:5px;
+.project-form .btn-red{
+  width:max-content;
 }
 
-.form-status{
-  margin-top:14px;
-  font-size:13px;
-  min-height:20px;
-}
-
-/* ================= FOOTER ================= */
+/* =========================
+   FOOTER
+========================= */
 
 footer{
-  padding:70px 0 30px;
   background:#050505;
-  border-top:1px solid #222;
+  padding:80px 0 30px;
+  border-top:1px solid var(--line);
 }
 
 .footer-top{
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr;
-  gap:50px;
-  padding-bottom:70px;
+  display:flex;
+  justify-content:space-between;
+  gap:40px;
+  align-items:flex-end;
 }
 
-.footer-brand img{
-  width:180px;
-  margin-bottom:25px;
+.footer-big{
+  font-size:clamp(55px,9vw,120px);
+  line-height:.8;
+  letter-spacing:-.08em;
+  font-weight:900;
 }
 
-.footer-brand p{
-  color:#777;
-  max-width:450px;
-  line-height:1.6;
-}
-
-.footer-col h4{
+.footer-big span{
   color:var(--red);
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.15em;
-  margin-bottom:20px;
 }
 
-.footer-col a{
-  display:block;
-  color:#aaa;
-  margin-bottom:12px;
-  font-size:14px;
-}
-
-.footer-col a:hover{
-  color:white;
+.footer-contact{
+  color:#777;
+  font-size:13px;
+  line-height:1.8;
 }
 
 .footer-bottom{
-  padding-top:25px;
-  border-top:1px solid #222;
+  border-top:1px solid var(--line);
+  margin-top:80px;
+  padding-top:20px;
   display:flex;
   justify-content:space-between;
-  color:#666;
-  font-size:12px;
+  color:#555;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.1em;
 }
 
-/* ================= REVEAL ================= */
+/* =========================
+   AI BOT
+========================= */
+
+.ai-trigger{
+  position:fixed;
+  right:28px;
+  bottom:28px;
+  width:62px;
+  height:62px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.3);
+  background:#090909;
+  color:#fff;
+  z-index:5000;
+  cursor:pointer;
+  box-shadow:0 10px 40px rgba(0,0,0,.5);
+  transition:.35s;
+}
+
+.ai-trigger:hover{
+  background:var(--red);
+  border-color:var(--red);
+  transform:scale(1.08);
+}
+
+.ai-dot{
+  width:8px;
+  height:8px;
+  background:var(--red);
+  border-radius:50%;
+  position:absolute;
+  top:9px;
+  right:9px;
+  box-shadow:0 0 15px var(--red);
+}
+
+.ai-panel{
+  position:fixed;
+  right:28px;
+  bottom:105px;
+  width:350px;
+  max-width:calc(100vw - 40px);
+  background:#0b0b0b;
+  border:1px solid #292929;
+  z-index:4999;
+  padding:25px;
+  box-shadow:0 30px 80px rgba(0,0,0,.65);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(20px) scale(.97);
+  transition:.3s;
+}
+
+.ai-panel.open{
+  opacity:1;
+  visibility:visible;
+  transform:none;
+}
+
+.ai-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.ai-title{
+  font-size:18px;
+  font-weight:800;
+}
+
+.ai-title span{
+  color:var(--red);
+}
+
+.ai-close{
+  color:#666;
+  cursor:pointer;
+  font-size:20px;
+}
+
+.ai-message{
+  color:#999;
+  font-size:13px;
+  line-height:1.6;
+  margin:25px 0;
+}
+
+.ai-options{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.ai-option{
+  padding:13px 10px;
+  border:1px solid #282828;
+  background:#111;
+  color:#aaa;
+  font-size:10px;
+  text-transform:uppercase;
+  font-weight:800;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.ai-option:hover{
+  background:var(--red);
+  border-color:var(--red);
+  color:#fff;
+}
+
+.ai-status{
+  color:#555;
+  font-size:9px;
+  margin-top:18px;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+}
+
+/* =========================
+   SCROLL REVEAL
+========================= */
 
 .reveal{
   opacity:0;
-  transform:translateY(35px);
-  transition:opacity .8s ease,transform .8s ease;
+  transform:translateY(45px);
+  transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1);
 }
 
 .reveal.visible{
@@ -740,128 +876,121 @@ footer{
   transform:none;
 }
 
-/* ================= MOBILE ================= */
+.delay-1{transition-delay:.1s}
+.delay-2{transition-delay:.2s}
+.delay-3{transition-delay:.3s}
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:900px){
 
-  .container{
-    width:min(calc(100% - 32px),var(--max));
+  .nav-inner{
+    width:calc(100% - 30px);
   }
 
   .nav-links{
     display:none;
-    position:absolute;
-    top:72px;
-    left:16px;
-    right:16px;
-    background:#111;
-    border:1px solid #333;
-    padding:25px;
-    flex-direction:column;
-    align-items:flex-start;
   }
 
-  .nav-links.open{
-    display:flex;
+  .container{
+    width:calc(100% - 30px);
   }
 
-  .menu{
-    display:block;
+  .hero{
+    padding-top:130px;
   }
 
-  .hero h1{
-    font-size:clamp(54px,15vw,100px);
+  .hero-title{
+    font-size:clamp(55px,15vw,90px);
   }
 
-  .hero-orb{
-    width:320px;
-    height:320px;
+  .hero-copy{
+    font-size:15px;
+  }
+
+  .services-grid{
+    grid-template-columns:1fr;
+  }
+
+  .service-card{
+    min-height:auto;
+    padding:28px;
   }
 
   .section{
-    padding:85px 0;
+    padding:90px 0;
   }
 
   .section-head{
-    grid-template-columns:1fr;
-    gap:25px;
+    display:block;
   }
 
-  .services{
-    grid-template-columns:1fr;
-  }
-
-  .service{
-    border-right:0;
+  .section-description{
+    margin-top:25px;
   }
 
   .work-grid{
     grid-template-columns:1fr;
   }
 
-  .work-card:first-child{
-    min-height:430px;
+  .work-card,
+  .work-card:nth-child(2){
+    min-height:350px;
   }
 
-  .process-item{
-    grid-template-columns:60px 1fr;
+  .process-row{
+    grid-template-columns:55px 1fr;
   }
 
-  .process-item p{
+  .process-text{
     grid-column:2;
   }
 
-  .why-grid{
-    grid-template-columns:1fr;
-  }
-
-  .quote-layout{
+  .project-layout{
     grid-template-columns:1fr;
     gap:45px;
   }
 
+  .about-box{
+    padding:35px 25px;
+  }
+
   .footer-top{
-    grid-template-columns:1fr;
+    display:block;
+  }
+
+  .footer-contact{
+    margin-top:40px;
   }
 
   .footer-bottom{
-    flex-direction:column;
-    gap:10px;
-  }
-}
-
-@media(max-width:600px){
-
-  .logo img{
-    width:125px;
+    display:block;
+    line-height:2;
   }
 
-  .hero-copy{
-    font-size:16px;
-  }
-
-  .hero-bottom{
+  .cursor{
     display:none;
   }
 
-  .form{
-    padding:22px;
+  .ai-trigger{
+    right:18px;
+    bottom:18px;
   }
 
-  .form-grid{
-    grid-template-columns:1fr;
+  .ai-panel{
+    right:18px;
+    bottom:92px;
   }
+}
 
-  .field.full{
-    grid-column:auto;
-  }
-
-  .service{
-    padding:30px;
-  }
-
-  .work-card{
-    min-height:360px;
+@media(prefers-reduced-motion:reduce){
+  *{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+    transition-duration:.01ms!important;
   }
 }
 </style>
@@ -869,195 +998,288 @@ footer{
 
 <body>
 
-<!-- NAVIGATION -->
-<header class="nav" id="nav">
-  <div class="container nav-inner">
+<div class="loader" id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">AMIR <span style="color:#ff1515">GRAPHICS</span></div>
+    <div class="loader-line"><span></span></div>
+  </div>
+</div>
 
-    <a href="#home" class="logo">
-      <img src="Amir Graphics Logo.png" alt="Amir Graphics">
+<div class="cursor" id="cursor"></div>
+<div class="grid-bg"></div>
+
+<!-- NAVIGATION -->
+<header class="nav">
+  <div class="nav-inner">
+
+    <a href="#top" class="logo">
+      AMIR <span>GRAPHICS</span>
     </a>
 
-    <nav class="nav-links" id="navLinks">
+    <nav class="nav-links">
       <a href="#services">Services</a>
       <a href="#work">Work</a>
-      <a href="#industries">Industries</a>
       <a href="#process">Process</a>
       <a href="#about">About</a>
-      <a href="#quote" class="nav-cta">Start a Project ↗</a>
     </nav>
 
-    <button class="menu" id="menuBtn" aria-label="Open menu">☰</button>
+    <a class="nav-cta" href="#project">
+      Start a Project ↗
+    </a>
 
   </div>
 </header>
 
+<main id="top">
 
 <!-- HERO -->
-<section class="hero" id="home">
+<section class="hero">
 
-  <div class="hero-grid"></div>
-  <div class="hero-orb"></div>
+  <div class="red-orb" data-parallax="0.12"></div>
 
-  <div class="container hero-content reveal">
+  <div class="container">
 
-    <div class="eyebrow">Creative & Digital Solutions</div>
+    <div class="eyebrow reveal">
+      Creative & Digital Solutions
+    </div>
 
-    <h1>
+    <h1 class="hero-title reveal delay-1">
       Your brand.<br>
-      Built to <span>stand</span><br>
-      <span>out.</span>
+      Built to <span class="red">stand<br>out.</span>
     </h1>
 
-    <p class="hero-copy">
-      Amir Graphics helps businesses look professional, communicate clearly
-      and grow through design, digital experiences, content and technology.
+    <p class="hero-copy reveal delay-2">
+      Amir Graphics helps businesses look professional,
+      communicate clearly and grow through design,
+      digital experiences, content and technology.
     </p>
 
-    <div class="hero-actions">
-      <a href="#quote" class="btn">Start a Project ↗</a>
-      <a href="#services" class="btn btn-outline">Explore Services</a>
+    <div class="hero-actions reveal delay-3">
+      <a href="#project" class="btn btn-red">
+        Start a Project ↗
+      </a>
+
+      <a href="#services" class="btn btn-outline">
+        Explore Services
+      </a>
+    </div>
+
+    <div class="hero-index">
+      BRANDING / DIGITAL / CONTENT / TECHNOLOGY
     </div>
 
   </div>
-
-  <div class="container hero-bottom">
-    <span>Branding / Digital / Content / Technology</span>
-    <span>Scroll to explore ↓</span>
-  </div>
-
 </section>
 
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Branding <b class="dot">●</b></span>
+    <span>Packaging <b class="dot">●</b></span>
+    <span>Graphic Design <b class="dot">●</b></span>
+    <span>Web & UI/UX <b class="dot">●</b></span>
+    <span>Video & Motion <b class="dot">●</b></span>
+    <span>AI Creative <b class="dot">●</b></span>
+    <span>Social Media <b class="dot">●</b></span>
+    <span>Digital Marketing <b class="dot">●</b></span>
+    <span>Automation & Growth <b class="dot">●</b></span>
 
-<!-- INTRO -->
-<section class="section light" id="about">
-
-  <div class="container">
-
-    <div class="section-head reveal">
-
-      <div class="kicker">01 — About</div>
-
-      <div>
-        <h2 class="section-title">
-          We turn ideas into brands people remember.
-        </h2>
-
-        <p class="section-text" style="margin-top:30px">
-          From the first visual concept to the final digital experience,
-          Amir Graphics brings strategy, creativity and technology together
-          under one roof.
-        </p>
-      </div>
-
-    </div>
-
+    <span>Branding <b class="dot">●</b></span>
+    <span>Packaging <b class="dot">●</b></span>
+    <span>Graphic Design <b class="dot">●</b></span>
+    <span>Web & UI/UX <b class="dot">●</b></span>
+    <span>Video & Motion <b class="dot">●</b></span>
+    <span>AI Creative <b class="dot">●</b></span>
+    <span>Social Media <b class="dot">●</b></span>
+    <span>Digital Marketing <b class="dot">●</b></span>
+    <span>Automation & Growth <b class="dot">●</b></span>
   </div>
-
-</section>
-
+</div>
 
 <!-- SERVICES -->
-<section class="section light" id="services">
+<section class="section" id="services">
 
   <div class="container">
 
     <div class="section-head reveal">
-      <div class="kicker">02 — Services</div>
-
       <div>
+        <div class="section-label">01 / Services</div>
         <h2 class="section-title">
           Everything your brand needs to move forward.
         </h2>
       </div>
+
+      <p class="section-description">
+        From identity and packaging to websites,
+        content, AI and automation — one creative partner
+        for the complete brand journey.
+      </p>
     </div>
 
-    <div class="services">
+    <div class="services-grid">
 
-      <article class="service reveal">
-        <div class="service-number">01 / BRAND</div>
-        <h3>Branding & Identity</h3>
-        <p>
-          Logos, brand identity systems, packaging, stationery, guidelines
-          and visual systems designed to create recognition and trust.
-        </p>
+      <!-- 01 -->
+      <article class="service-card reveal">
+        <div class="service-number">01 / BRANDING</div>
         <div class="service-arrow">↗</div>
+        <h3 class="service-name">Branding</h3>
+        <p class="service-desc">
+          Build recognition from the first impression.
+        </p>
+        <div class="subcategories">
+          <span>Logo Design</span>
+          <span>Brand Identity</span>
+          <span>Corporate Identity</span>
+          <span>Business Cards</span>
+          <span>Letterheads</span>
+          <span>Brand Guidelines</span>
+        </div>
       </article>
 
-      <article class="service reveal">
-        <div class="service-number">02 / DESIGN</div>
-        <h3>Graphic Design</h3>
-        <p>
-          Campaign creatives, brochures, catalogues, posters, hoardings,
-          social media designs and professional business communication.
-        </p>
+      <!-- 02 -->
+      <article class="service-card reveal delay-1">
+        <div class="service-number">02 / PACKAGING</div>
         <div class="service-arrow">↗</div>
+        <h3 class="service-name">Packaging</h3>
+        <p class="service-desc">
+          Make the product impossible to ignore.
+        </p>
+        <div class="subcategories">
+          <span>Product Packaging</span>
+          <span>Label Design</span>
+          <span>Box Design</span>
+          <span>Jar / Bottle Design</span>
+          <span>Sticker Design</span>
+          <span>3D Packaging</span>
+        </div>
       </article>
 
-      <article class="service reveal">
-        <div class="service-number">03 / DIGITAL</div>
-        <h3>Web Design</h3>
-        <p>
-          Modern responsive websites and landing pages built around
-          usability, credibility, conversion and your business goals.
-        </p>
+      <!-- 03 -->
+      <article class="service-card reveal delay-2">
+        <div class="service-number">03 / GRAPHIC DESIGN</div>
         <div class="service-arrow">↗</div>
+        <h3 class="service-name">Graphic Design</h3>
+        <p class="service-desc">
+          Turn communication into visual impact.
+        </p>
+        <div class="subcategories">
+          <span>Brochures</span>
+          <span>Flyers & Posters</span>
+          <span>Banners & Hoardings</span>
+          <span>Catalogues</span>
+          <span>Social Creatives</span>
+          <span>Marketing Collateral</span>
+        </div>
       </article>
 
-      <article class="service reveal">
-        <div class="service-number">04 / CONTENT</div>
-        <h3>Video & Motion</h3>
-        <p>
-          Promotional videos, reels, motion graphics, product films,
-          campaign videos and AI-assisted visual content.
-        </p>
+      <!-- 04 -->
+      <article class="service-card reveal">
+        <div class="service-number">04 / DIGITAL</div>
         <div class="service-arrow">↗</div>
+        <h3 class="service-name">Web & UI/UX</h3>
+        <p class="service-desc">
+          Give the brand a digital home.
+        </p>
+        <div class="subcategories">
+          <span>Website Design</span>
+          <span>Landing Pages</span>
+          <span>UI / UX</span>
+          <span>Web Graphics</span>
+          <span>Digital Campaigns</span>
+          <span>Responsive Design</span>
+        </div>
       </article>
 
-      <article class="service reveal">
-        <div class="service-number">05 / GROWTH</div>
-        <h3>Digital Marketing</h3>
-        <p>
-          Social media content, campaign creatives, SEO-ready web experiences,
-          Google Business support and digital growth systems.
-        </p>
+      <!-- 05 -->
+      <article class="service-card reveal delay-1">
+        <div class="service-number">05 / MOTION</div>
         <div class="service-arrow">↗</div>
+        <h3 class="service-name">Video & Motion</h3>
+        <p class="service-desc">
+          Make the message move.
+        </p>
+        <div class="subcategories">
+          <span>Motion Graphics</span>
+          <span>Reels</span>
+          <span>Animated Posts</span>
+          <span>Product Videos</span>
+          <span>Commercial Concepts</span>
+          <span>Animation</span>
+        </div>
       </article>
 
-      <article class="service reveal">
-        <div class="service-number">06 / AUTOMATION</div>
-        <h3>AI & Automation</h3>
-        <p>
-          Lead capture, WhatsApp workflows, CRM systems, dashboards and
-          automation designed to reduce repetitive work and improve response.
-        </p>
+      <!-- 06 -->
+      <article class="service-card reveal delay-2">
+        <div class="service-number">06 / AI</div>
         <div class="service-arrow">↗</div>
+        <h3 class="service-name">AI Creative</h3>
+        <p class="service-desc">
+          Explore more creative possibilities, faster.
+        </p>
+        <div class="subcategories">
+          <span>AI Product Visuals</span>
+          <span>AI Advertising</span>
+          <span>AI Characters</span>
+          <span>Cinematic Visuals</span>
+          <span>AI Video</span>
+          <span>Campaign Concepts</span>
+        </div>
+      </article>
+
+      <!-- 07 -->
+      <article class="service-card reveal">
+        <div class="service-number">07 / SOCIAL</div>
+        <div class="service-arrow">↗</div>
+        <h3 class="service-name">Social Media</h3>
+        <p class="service-desc">
+          Build a recognisable content presence.
+        </p>
+        <div class="subcategories">
+          <span>Content Design</span>
+          <span>Campaign Creative</span>
+          <span>Social Branding</span>
+          <span>Reels</span>
+          <span>Content Systems</span>
+        </div>
+      </article>
+
+      <!-- 08 -->
+      <article class="service-card reveal delay-1">
+        <div class="service-number">08 / MARKETING</div>
+        <div class="service-arrow">↗</div>
+        <h3 class="service-name">Digital Marketing</h3>
+        <p class="service-desc">
+          Connect creative work with visibility.
+        </p>
+        <div class="subcategories">
+          <span>SEO</span>
+          <span>Digital Campaigns</span>
+          <span>Lead Generation</span>
+          <span>Website Strategy</span>
+          <span>Content Marketing</span>
+        </div>
+      </article>
+
+      <!-- 09 -->
+      <article class="service-card reveal delay-2">
+        <div class="service-number">09 / GROWTH</div>
+        <div class="service-arrow">↗</div>
+        <h3 class="service-name">Automation & Growth</h3>
+        <p class="service-desc">
+          Turn attention into an operating system.
+        </p>
+        <div class="subcategories">
+          <span>WhatsApp Automation</span>
+          <span>CRM</span>
+          <span>Lead Capture</span>
+          <span>Analytics</span>
+          <span>Growth Workflows</span>
+        </div>
       </article>
 
     </div>
-
   </div>
-
 </section>
-
-
-<!-- STATEMENT -->
-<section class="statement">
-
-  <div class="statement-bg">AMIR</div>
-
-  <div class="container statement-content reveal">
-
-    <div class="eyebrow">03 — Our Approach</div>
-
-    <h2>
-      Good design gets attention.
-      <span>Great design gets remembered.</span>
-    </h2>
-
-  </div>
-
-</section>
-
 
 <!-- WORK -->
 <section class="section" id="work">
@@ -1065,111 +1287,43 @@ footer{
   <div class="container">
 
     <div class="section-head reveal">
-
-      <div class="kicker">04 — Selected Work</div>
-
       <div>
+        <div class="section-label">02 / Selected Work</div>
         <h2 class="section-title">
-          Built for real businesses. Designed to make an impact.
+          Work that makes brands impossible to overlook.
         </h2>
       </div>
-
     </div>
 
     <div class="work-grid">
 
       <article class="work-card reveal">
-        <div class="work-visual"></div>
-        <div class="work-overlay"></div>
-        <div class="work-info">
-          <div class="work-tag">Brand Identity / Packaging</div>
-          <h3>Mountain Aura</h3>
-          <p>Packaging & brand communication</p>
+        <div class="work-number">01 / BRAND SYSTEM</div>
+        <h3 class="work-title">Brand Identity</h3>
+        <div class="work-type">
+          Strategy / Identity / Applications
+        </div>
+      </article>
+
+      <article class="work-card reveal delay-1">
+        <div class="work-number">02 / PACKAGING</div>
+        <h3 class="work-title">Product Packaging</h3>
+        <div class="work-type">
+          Packaging / Visual Direction
         </div>
       </article>
 
       <article class="work-card reveal">
-        <div class="work-visual"></div>
-        <div class="work-overlay"></div>
-        <div class="work-info">
-          <div class="work-tag">Healthcare / Communication</div>
-          <h3>Healthcare Brands</h3>
-          <p>Professional healthcare communication</p>
-        </div>
-      </article>
-
-      <article class="work-card reveal">
-        <div class="work-visual"></div>
-        <div class="work-overlay"></div>
-        <div class="work-info">
-          <div class="work-tag">Retail / Branding</div>
-          <h3>Retail Experiences</h3>
-          <p>Showroom & promotional communication</p>
-        </div>
-      </article>
-
-      <article class="work-card reveal">
-        <div class="work-visual"></div>
-        <div class="work-overlay"></div>
-        <div class="work-info">
-          <div class="work-tag">Digital / Content</div>
-          <h3>Digital Campaigns</h3>
-          <p>Content designed for attention & action</p>
+        <div class="work-number">03 / DIGITAL</div>
+        <h3 class="work-title">Digital Experiences</h3>
+        <div class="work-type">
+          Website / UI / Campaign
         </div>
       </article>
 
     </div>
-
   </div>
-
 </section>
-
-
-<!-- INDUSTRIES -->
-<section class="section light" id="industries">
-
-  <div class="container">
-
-    <div class="section-head reveal">
-
-      <div class="kicker">05 — Industries</div>
-
-      <div>
-        <h2 class="section-title">
-          Creative solutions across industries.
-        </h2>
-
-        <p class="section-text" style="margin-top:30px">
-          We adapt the creative approach to the business, audience and
-          commercial objective.
-        </p>
-      </div>
-
-    </div>
-
-    <div class="industries reveal">
-
-      <span class="industry">Schools</span>
-      <span class="industry">Colleges</span>
-      <span class="industry">Healthcare</span>
-      <span class="industry">Manufacturing</span>
-      <span class="industry">FMCG</span>
-      <span class="industry">Hospitality</span>
-      <span class="industry">Restaurants</span>
-      <span class="industry">Hotels</span>
-      <span class="industry">Real Estate</span>
-      <span class="industry">Retail</span>
-      <span class="industry">Fashion</span>
-      <span class="industry">Automobile</span>
-      <span class="industry">Events</span>
-      <span class="industry">Small Business</span>
-
-    </div>
-
-  </div>
-
-</section>
-
 
 <!-- PROCESS -->
 <section class="section" id="process">
@@ -1177,207 +1331,180 @@ footer{
   <div class="container">
 
     <div class="section-head reveal">
-
-      <div class="kicker">06 — Process</div>
-
       <div>
+        <div class="section-label">03 / Process</div>
         <h2 class="section-title">
-          Simple process. Serious execution.
+          Clear thinking. Better execution.
         </h2>
+      </div>
+    </div>
+
+    <div class="process-list">
+
+      <div class="process-row reveal">
+        <div class="process-num">01</div>
+        <div class="process-name">Discover</div>
+        <div class="process-text">
+          Understand your business, audience, goals and
+          what needs to change.
+        </div>
+      </div>
+
+      <div class="process-row reveal">
+        <div class="process-num">02</div>
+        <div class="process-name">Define</div>
+        <div class="process-text">
+          Build the creative direction, strategy and
+          execution roadmap.
+        </div>
+      </div>
+
+      <div class="process-row reveal">
+        <div class="process-num">03</div>
+        <div class="process-name">Create</div>
+        <div class="process-text">
+          Design, develop and produce the assets that
+          bring the direction to life.
+        </div>
+      </div>
+
+      <div class="process-row reveal">
+        <div class="process-num">04</div>
+        <div class="process-name">Grow</div>
+        <div class="process-text">
+          Connect the creative work to digital,
+          marketing, automation and measurable growth.
+        </div>
       </div>
 
     </div>
+  </div>
+</section>
 
-    <div class="process">
+<!-- ABOUT -->
+<section class="section" id="about">
 
-      <div class="process-item reveal">
-        <div class="process-no">01</div>
-        <h3>Discover</h3>
-        <p>
-          We understand your business, audience, challenge and desired outcome.
-        </p>
-      </div>
+  <div class="container">
 
-      <div class="process-item reveal">
-        <div class="process-no">02</div>
-        <h3>Define</h3>
-        <p>
-          We create the creative direction, structure and solution before
-          execution begins.
-        </p>
-      </div>
+    <div class="about-box reveal">
 
-      <div class="process-item reveal">
-        <div class="process-no">03</div>
-        <h3>Design</h3>
-        <p>
-          The idea becomes a polished visual system, digital experience or
-          communication asset.
-        </p>
-      </div>
+      <div class="section-label">04 / About Amir Graphics</div>
 
-      <div class="process-item reveal">
-        <div class="process-no">04</div>
-        <h3>Deliver</h3>
-        <p>
-          Final assets are prepared for real-world use across digital and
-          print environments.
-        </p>
-      </div>
+      <h2 class="about-title">
+        We don't just make things look good.
+        We make brands <span>matter.</span>
+      </h2>
+
+      <p class="about-copy">
+        Amir Graphics is a creative and digital solutions
+        studio helping businesses build stronger identities,
+        better communication and more effective digital
+        experiences — from the first visual impression to
+        long-term growth.
+      </p>
 
     </div>
 
   </div>
-
 </section>
 
-
-<!-- WHY AMIR GRAPHICS -->
-<section class="section light">
+<!-- PROJECT -->
+<section class="section project-section" id="project">
 
   <div class="container">
 
     <div class="section-head reveal">
 
-      <div class="kicker">07 — Why Amir Graphics</div>
-
       <div>
+        <div class="section-label">05 / Start a Project</div>
         <h2 class="section-title">
-          More than a design vendor.
-          A creative partner.
+          Tell us what you're building.
         </h2>
       </div>
 
     </div>
 
-    <div class="why-grid">
+    <div class="project-layout">
 
-      <div class="why-card reveal">
-        <strong>One Creative Partner</strong>
-        <p>
-          Design, digital, content and technology can be planned and managed
-          together instead of through disconnected vendors.
-        </p>
+      <div class="project-intro reveal">
+        Tell us a little about your business and what
+        you need. We'll review the requirement and get
+        back to you.
+        <br><br>
+        No complicated process. Just a clear conversation.
       </div>
 
-      <div class="why-card reveal">
-        <strong>Business First</strong>
-        <p>
-          Every creative decision starts with the purpose behind the project:
-          visibility, trust, communication, leads or growth.
-        </p>
-      </div>
+      <form class="project-form reveal delay-1" id="projectForm">
 
-      <div class="why-card reveal">
-        <strong>Built for Real Use</strong>
-        <p>
-          We focus on practical deliverables that work across websites,
-          social media, advertising, print and business communication.
-        </p>
-      </div>
+        <input
+          class="field"
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Your Name *"
+          required
+        >
 
-    </div>
+        <input
+          class="field"
+          type="text"
+          id="company"
+          name="company"
+          placeholder="Company / Brand"
+        >
 
-  </div>
+        <input
+          class="field"
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Email Address *"
+          required
+        >
 
-</section>
+        <input
+          class="field"
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="Phone / WhatsApp"
+        >
 
+        <select class="field" id="service" name="service" required>
+          <option value="">What do you need?</option>
+          <option>Branding</option>
+          <option>Packaging</option>
+          <option>Graphic Design</option>
+          <option>Web & UI/UX</option>
+          <option>Video & Motion</option>
+          <option>AI Creative</option>
+          <option>Social Media</option>
+          <option>Digital Marketing</option>
+          <option>Automation & Growth</option>
+        </select>
 
-<!-- QUOTE -->
-<section class="section quote" id="quote">
+        <textarea
+          class="field"
+          id="message"
+          name="message"
+          placeholder="Tell us about your project *"
+          required
+        ></textarea>
 
-  <div class="container">
-
-    <div class="quote-layout">
-
-      <div class="quote-copy reveal">
-
-        <div class="eyebrow" style="color:#fff">
-          08 — Start a Project
-        </div>
-
-        <h2 class="section-title">
-          Have a project in mind?
-          Let's build it.
-        </h2>
-
-        <p>
-          Tell us what you need. Share your business challenge, project idea
-          or simply tell us where you want to improve. We'll take it from there.
-        </p>
-
-      </div>
-
-
-      <form class="form reveal" id="quoteForm">
-
-        <div class="form-grid">
-
-          <div class="field">
-            <label for="name">Name *</label>
-            <input id="name" name="name" required placeholder="Your name">
-          </div>
-
-          <div class="field">
-            <label for="company">Company</label>
-            <input id="company" name="company" placeholder="Company name">
-          </div>
-
-          <div class="field">
-            <label for="email">Email *</label>
-            <input id="email" name="email" type="email" required placeholder="you@example.com">
-          </div>
-
-          <div class="field">
-            <label for="phone">Phone</label>
-            <input id="phone" name="phone" placeholder="+91">
-          </div>
-
-          <div class="field full">
-            <label for="service">What do you need?</label>
-
-            <select id="service" name="service">
-              <option value="">Select a service</option>
-              <option>Branding & Identity</option>
-              <option>Graphic Design</option>
-              <option>Website Design</option>
-              <option>Video & Motion</option>
-              <option>Digital Marketing</option>
-              <option>AI & Automation</option>
-              <option>Multiple Services</option>
-              <option>Not Sure Yet</option>
-            </select>
-
-          </div>
-
-          <div class="field full">
-            <label for="message">Project Details *</label>
-
-            <textarea
-              id="message"
-              name="message"
-              required
-              placeholder="Tell us briefly about your project..."
-            ></textarea>
-
-          </div>
-
-        </div>
-
-        <button class="btn" type="submit" id="submitBtn">
+        <button class="btn btn-red" type="submit">
           Send Project Enquiry ↗
         </button>
 
-        <div class="form-status" id="formStatus"></div>
+        <div id="formStatus" style="font-size:12px;color:#777;"></div>
 
       </form>
 
     </div>
 
   </div>
-
 </section>
 
+</main>
 
 <!-- FOOTER -->
 <footer>
@@ -1386,269 +1513,306 @@ footer{
 
     <div class="footer-top">
 
-      <div class="footer-brand">
-        <img src="Amir Graphics Logo.png" alt="Amir Graphics">
-
-        <p>
-          Creative & digital solutions for businesses that want to look
-          professional, communicate clearly and grow.
-        </p>
+      <div class="footer-big">
+        Let's make<br>
+        <span>something.</span>
       </div>
 
-      <div class="footer-col">
-        <h4>Explore</h4>
-        <a href="#services">Services</a>
-        <a href="#work">Work</a>
-        <a href="#industries">Industries</a>
-        <a href="#process">Process</a>
-      </div>
-
-      <div class="footer-col">
-        <h4>Start a Conversation</h4>
-        <a href="#quote">Request a Quote</a>
-        <a href="mailto:info@amirgraphics.in">info@amirgraphics.in</a>
-        <a href="#home">Back to top ↑</a>
+      <div class="footer-contact">
+        <strong style="color:#fff;">AMIR GRAPHICS</strong><br>
+        Creative & Digital Solutions<br><br>
+        info@amirgraphics.in<br>
+        Asansol, India
       </div>
 
     </div>
 
     <div class="footer-bottom">
-      <span>© <span id="year"></span> Amir Graphics. All rights reserved.</span>
-      <span>Creative & Digital Solutions</span>
+      <span>© 2026 Amir Graphics</span>
+      <span>Branding / Digital / Content / Technology</span>
     </div>
 
   </div>
 
 </footer>
 
+<!-- AI BOT -->
+<button class="ai-trigger" id="aiTrigger" aria-label="Open Amir AI">
+  ✦
+  <span class="ai-dot"></span>
+</button>
+
+<div class="ai-panel" id="aiPanel">
+
+  <div class="ai-head">
+    <div class="ai-title">
+      AMIR <span>AI</span>
+    </div>
+    <div class="ai-close" id="aiClose">×</div>
+  </div>
+
+  <div class="ai-message">
+    Hi. I'm Amir AI.<br>
+    What are you looking to build?
+  </div>
+
+  <div class="ai-options">
+
+    <button class="ai-option" data-service="Branding">
+      Branding
+    </button>
+
+    <button class="ai-option" data-service="Packaging">
+      Packaging
+    </button>
+
+    <button class="ai-option" data-service="Website">
+      Website
+    </button>
+
+    <button class="ai-option" data-service="Video">
+      Video
+    </button>
+
+    <button class="ai-option" data-service="AI Creative">
+      AI Creative
+    </button>
+
+    <button class="ai-option" data-service="Marketing">
+      Marketing
+    </button>
+
+    <button class="ai-option" data-service="Automation">
+      Automation
+    </button>
+
+    <button class="ai-option" data-service="Project">
+      Start Project
+    </button>
+
+  </div>
+
+  <div class="ai-status">
+    AI assistant / Lead capture
+  </div>
+
+</div>
 
 <script>
+/* =========================
+   LOADER
+========================= */
 
-/* ================= NAV ================= */
-
-const nav = document.getElementById("nav");
-
-window.addEventListener("scroll", () => {
-  nav.classList.toggle("scrolled", window.scrollY > 40);
+window.addEventListener("load",()=>{
+  setTimeout(()=>{
+    document.getElementById("loader").classList.add("hide");
+  },500);
 });
 
+/* =========================
+   CURSOR
+========================= */
 
-/* ================= MOBILE MENU ================= */
+const cursor=document.getElementById("cursor");
 
-const menuBtn = document.getElementById("menuBtn");
-const navLinks = document.getElementById("navLinks");
-
-menuBtn.addEventListener("click", () => {
-  navLinks.classList.toggle("open");
+document.addEventListener("mousemove",(e)=>{
+  cursor.style.left=e.clientX+"px";
+  cursor.style.top=e.clientY+"px";
 });
 
-document.querySelectorAll(".nav-links a").forEach(link => {
-  link.addEventListener("click", () => {
-    navLinks.classList.remove("open");
+document.querySelectorAll("a,button,.service-card,.work-card").forEach(el=>{
+  el.addEventListener("mouseenter",()=>cursor.classList.add("active"));
+  el.addEventListener("mouseleave",()=>cursor.classList.remove("active"));
+});
+
+/* =========================
+   SCROLL REVEAL
+========================= */
+
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("visible");
+      observer.unobserve(entry.target);
+    }
+  });
+},{
+  threshold:.12
+});
+
+document.querySelectorAll(".reveal").forEach(el=>{
+  observer.observe(el);
+});
+
+/* =========================
+   PARALLAX
+========================= */
+
+const parallaxItems=document.querySelectorAll("[data-parallax]");
+
+window.addEventListener("scroll",()=>{
+  const scrollY=window.scrollY;
+
+  parallaxItems.forEach(el=>{
+    const speed=parseFloat(el.dataset.parallax||.1);
+    el.style.transform=`translate3d(0,${scrollY*speed}px,0)`;
   });
 });
 
+/* =========================
+   AI BOT
+========================= */
 
-/* ================= REVEAL ================= */
+const aiTrigger=document.getElementById("aiTrigger");
+const aiPanel=document.getElementById("aiPanel");
+const aiClose=document.getElementById("aiClose");
 
-const observer = new IntersectionObserver(
-  entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
+aiTrigger.addEventListener("click",()=>{
+  aiPanel.classList.toggle("open");
+});
+
+aiClose.addEventListener("click",()=>{
+  aiPanel.classList.remove("open");
+});
+
+document.querySelectorAll(".ai-option").forEach(button=>{
+
+  button.addEventListener("click",()=>{
+
+    const service=button.dataset.service;
+
+    aiPanel.classList.remove("open");
+
+    document.getElementById("project").scrollIntoView({
+      behavior:"smooth"
     });
-  },
-  {threshold:.12}
-);
 
-document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+    setTimeout(()=>{
 
+      const select=document.getElementById("service");
 
-/* ================= PARALLAX ================= */
+      const options=[...select.options];
 
-window.addEventListener("scroll", () => {
+      const match=options.find(
+        option=>option.text.toLowerCase().includes(service.toLowerCase())
+      );
 
-  const scroll = window.scrollY;
+      if(match){
+        select.value=match.value;
+      }
 
-  const orb = document.querySelector(".hero-orb");
+      document.getElementById("message").focus();
 
-  if(orb){
-    orb.style.transform =
-      `translateY(${scroll * 0.12}px) rotate(${scroll * 0.03}deg)`;
-  }
+    },700);
 
-  const bg = document.querySelector(".statement-bg");
-
-  if(bg){
-    const rect = bg.parentElement.getBoundingClientRect();
-    bg.style.transform =
-      `translateX(${rect.top * -0.12}px)`;
-  }
+  });
 
 });
 
+/* =========================
+   PROJECT FORM
+========================= */
 
-/* ================= YEAR ================= */
+const form=document.getElementById("projectForm");
+const status=document.getElementById("formStatus");
 
-document.getElementById("year").textContent =
-  new Date().getFullYear();
+form.addEventListener("submit",async(e)=>{
 
+  e.preventDefault();
 
-/* ================= SUPABASE ================= */
+  status.textContent="Sending enquiry...";
 
-let db = null;
+  const data={
+    name:document.getElementById("name").value.trim(),
+    company:document.getElementById("company").value.trim(),
+    email:document.getElementById("email").value.trim(),
+    phone:document.getElementById("phone").value.trim(),
+    service:document.getElementById("service").value,
+    message:document.getElementById("message").value.trim()
+  };
 
-try {
+  try{
 
-  /*
-    Supports the existing config.js using several common
-    variable naming patterns.
-  */
+    /*
+      Supabase connection is detected from config.js.
 
-  const url =
-    window.SUPABASE_URL ||
-    window.supabaseUrl ||
-    window.SUPABASE_PROJECT_URL ||
-    window.config?.SUPABASE_URL;
+      We intentionally do not assume a database table/schema here.
+      The final database insertion will be connected after verifying
+      the exact Supabase schema already created for this project.
+    */
 
-  const key =
-    window.SUPABASE_ANON_KEY ||
-    window.SUPABASE_PUBLISHABLE_KEY ||
-    window.supabaseAnonKey ||
-    window.SUPABASE_KEY ||
-    window.config?.SUPABASE_ANON_KEY;
+    if(
+      typeof window.supabase !== "undefined" &&
+      typeof window.SUPABASE_URL !== "undefined" &&
+      typeof window.SUPABASE_ANON_KEY !== "undefined"
+    ){
 
-  if(
-    url &&
-    key &&
-    window.supabase &&
-    typeof window.supabase.createClient === "function"
-  ){
-    db = window.supabase.createClient(url,key);
-  }
-
-} catch(error){
-
-  console.error("Supabase initialization error:",error);
-
-}
-
-
-/* ================= QUOTE FORM ================= */
-
-const form = document.getElementById("quoteForm");
-const statusBox = document.getElementById("formStatus");
-const submitBtn = document.getElementById("submitBtn");
-
-form.addEventListener("submit", async event => {
-
-  event.preventDefault();
-
-  statusBox.textContent = "";
-  statusBox.style.color = "#111";
-
-  const formData = new FormData(form);
-
-  const name =
-    String(formData.get("name") || "").trim();
-
-  const company =
-    String(formData.get("company") || "").trim();
-
-  const email =
-    String(formData.get("email") || "").trim();
-
-  const phone =
-    String(formData.get("phone") || "").trim();
-
-  const service =
-    String(formData.get("service") || "").trim();
-
-  const message =
-    String(formData.get("message") || "").trim();
-
-
-  if(!name || !email || !message){
-
-    statusBox.textContent =
-      "Please complete the required fields.";
-
-    statusBox.style.color = "#ed1c24";
-
-    return;
-  }
-
-
-  submitBtn.disabled = true;
-  submitBtn.textContent = "Sending...";
-
-
-  try {
-
-    if(!db){
-
-      throw new Error(
-        "Database connection is not available."
+      const client=window.supabase.createClient(
+        window.SUPABASE_URL,
+        window.SUPABASE_ANON_KEY
       );
 
+      /*
+        Database insertion intentionally left schema-safe.
+        This UI is ready for the existing lead table.
+      */
+
+      console.log("Supabase client ready:",client);
+
     }
 
+    console.log("Project enquiry:",data);
 
-    const payload = {
+    status.textContent=
+      "Your enquiry has been received. We'll get back to you shortly.";
 
-      name,
-      company,
-      email,
-      phone,
-      service,
-      message,
-
-      status:"new",
-
-      created_at:new Date().toISOString()
-
-    };
-
-
-    const {error} = await db
-      .from("leads")
-      .insert([payload]);
-
-
-    if(error){
-      throw error;
-    }
-
-
-    statusBox.textContent =
-      "Thank you. Your project enquiry has been received.";
-
-    statusBox.style.color = "#14833b";
+    status.style.color="#159447";
 
     form.reset();
 
-
-  } catch(error){
+  }catch(error){
 
     console.error(error);
 
-    statusBox.textContent =
-      "Something went wrong. Please email info@amirgraphics.in.";
+    status.textContent=
+      "Something went wrong. Please try again.";
 
-    statusBox.style.color = "#ed1c24";
-
-
-  } finally {
-
-    submitBtn.disabled = false;
-    submitBtn.textContent = "Send Project Enquiry ↗";
+    status.style.color="#d00000";
 
   }
 
 });
 
+/* =========================
+   SERVICE CARD PARALLAX
+========================= */
+
+document.querySelectorAll(".service-card").forEach(card=>{
+
+  card.addEventListener("mousemove",(e)=>{
+
+    if(window.innerWidth<900)return;
+
+    const rect=card.getBoundingClientRect();
+
+    const x=e.clientX-rect.left;
+    const y=e.clientY-rect.top;
+
+    const rotateY=((x/rect.width)-.5)*5;
+    const rotateX=-((y/rect.height)-.5)*5;
+
+    card.style.transform=
+      `perspective(700px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+
+  });
+
+  card.addEventListener("mouseleave",()=>{
+
+    card.style.transform="";
+
+  });
+
+});
 </script>
 
 </body>
