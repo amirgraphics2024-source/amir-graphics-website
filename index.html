@@ -2413,6 +2413,100 @@ body::before{
   letter-spacing:.18em;
 }
 
+
+/* MOUNTAIN AURA — REAL PROJECT VISUAL */
+.client-project-visual.mountain-aura{
+  display:block;
+  min-height:0;
+  padding:0;
+  background:#080808;
+}
+
+.mountain-cover{
+  position:relative;
+  width:100%;
+  aspect-ratio:16/10;
+  overflow:hidden;
+  background:#111;
+}
+
+.mountain-cover img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform 1s var(--ease);
+}
+
+.client-project:hover .mountain-cover img{
+  transform:scale(1.035);
+}
+
+.mountain-cover::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(to top,rgba(0,0,0,.38),transparent 45%);
+}
+
+.mountain-cover-label{
+  position:absolute;
+  left:18px;
+  bottom:18px;
+  z-index:3;
+  padding:8px 11px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.48);
+  backdrop-filter:blur(10px);
+  color:#fff;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+
+.mountain-packaging{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:6px;
+  padding:7px;
+  background:#070707;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+.mountain-packaging-item{
+  position:relative;
+  aspect-ratio:1/1;
+  overflow:hidden;
+  background:#111;
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.mountain-packaging-item img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .55s var(--ease),opacity .35s ease;
+}
+
+.mountain-packaging-item:hover img{
+  transform:scale(1.08);
+  opacity:.9;
+}
+
+.mountain-packaging-item::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  border:1px solid transparent;
+  transition:border-color .3s ease;
+}
+
+.mountain-packaging-item:hover::after{
+  border-color:rgba(237,28,36,.65);
+}
+
 .client-project-info{padding:28px 30px 32px;}
 
 .client-meta{
@@ -2494,6 +2588,8 @@ body::before{
 @media(max-width:600px){
   .client-work-grid{grid-template-columns:1fr;}
   .client-project-visual{min-height:300px;}
+  .client-project-visual.mountain-aura{min-height:0;}
+  .mountain-packaging{gap:4px;padding:5px;}
   .partner-grid{grid-template-columns:repeat(2,1fr);}
   .partner-logo{min-height:130px;padding:18px;}
   .partner-logo span{font-size:13px;}
@@ -3092,8 +3188,8 @@ body::before{
 
             <p class="section-intro">
 
-                These are visual placeholders for now.
-                Your real client work can replace them later.
+                Selected work is presented as a focused mix of
+                creative direction, brand systems and digital experiences.
 
             </p>
 
@@ -3218,7 +3314,47 @@ body::before{
     <div class="client-work-grid">
 
       <article class="client-project reveal">
-        <div class="client-project-visual mountain-aura"><span class="visual-placeholder">PROJECT VISUAL</span></div>
+        <div class="client-project-visual mountain-aura">
+
+          <div class="mountain-cover">
+            <img
+              src="assets/clients/mountain-aura/cover/mountain-aura-cover.webp?v=1"
+              alt="Mountain Aura — brand and packaging project"
+              loading="eager"
+              decoding="async"
+            >
+            <span class="mountain-cover-label">Mountain Aura / Brand Project</span>
+          </div>
+
+          <div class="mountain-packaging" aria-label="Mountain Aura packaging project visuals">
+
+            <div class="mountain-packaging-item">
+              <img src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-01.webp?v=1" alt="Mountain Aura packaging visual 01" loading="lazy" decoding="async">
+            </div>
+
+            <div class="mountain-packaging-item">
+              <img src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-02.webp?v=1" alt="Mountain Aura packaging visual 02" loading="lazy" decoding="async">
+            </div>
+
+            <div class="mountain-packaging-item">
+              <img src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-03.webp?v=1" alt="Mountain Aura packaging visual 03" loading="lazy" decoding="async">
+            </div>
+
+            <div class="mountain-packaging-item">
+              <img src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-04.webp?v=1" alt="Mountain Aura packaging visual 04" loading="lazy" decoding="async">
+            </div>
+
+            <div class="mountain-packaging-item">
+              <img src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-05.webp?v=1" alt="Mountain Aura packaging visual 05" loading="lazy" decoding="async">
+            </div>
+
+            <div class="mountain-packaging-item">
+              <img src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-06.webp?v=1" alt="Mountain Aura packaging visual 06" loading="lazy" decoding="async">
+            </div>
+
+          </div>
+        </div>
+
         <div class="client-project-info">
           <div class="client-meta">FMCG · PACKAGING · BRAND</div>
           <h3>Mountain Aura</h3>
@@ -3325,7 +3461,7 @@ body::before{
         <div class="reveal">
 
             <div class="eyebrow">
-                03 / Process
+                05 / Process
             </div>
 
             <h2
@@ -3438,7 +3574,7 @@ body::before{
         <div class="reveal">
 
             <div class="eyebrow">
-                04 / Industries
+                06 / Industries
             </div>
 
             <h2
@@ -3548,7 +3684,7 @@ body::before{
         <div class="reveal">
 
             <div class="eyebrow">
-                05 / About Amir Graphics
+                07 / About Amir Graphics
             </div>
 
             <h2
