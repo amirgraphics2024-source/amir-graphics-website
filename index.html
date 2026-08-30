@@ -115,7 +115,7 @@ section{
 
 .eyebrow{
     color:var(--red);
-    font-size:11px;
+    font-size:12px;
     font-weight:800;
     letter-spacing:.25em;
     text-transform:uppercase;
@@ -217,35 +217,48 @@ body::before{
 }
 
 
-/* LOGO */
+/* LOGO — PREMIUM / BALANCED */
 
 .logo{
-    height:var(--header);
+    height:100%;
+    min-width:230px;
 
     display:flex;
     align-items:center;
+    justify-content:flex-start;
 
-    transition:height .6s var(--ease);
+    overflow:visible;
+
+    transition:
+        min-width .6s var(--ease),
+        transform .6s var(--ease);
 }
 
 .logo img{
     width:auto;
-    height:70px;
-    max-width:190px;
+    height:76px;
+    max-width:235px;
 
     object-fit:contain;
+    object-position:left center;
+
+    filter:drop-shadow(0 4px 16px rgba(237,28,36,.12));
+
+    transform-origin:left center;
 
     transition:
         height .6s var(--ease),
+        max-width .6s var(--ease),
         transform .6s var(--ease);
 }
 
 .header.scrolled .logo{
-    height:var(--header-small);
+    min-width:210px;
 }
 
 .header.scrolled .logo img{
-    height:54px;
+    height:62px;
+    max-width:215px;
 }
 
 
@@ -300,7 +313,7 @@ body::before{
 /* CTA */
 
 .header-cta{
-    min-height:46px;
+    min-height:48px;
 
     display:flex;
     align-items:center;
@@ -398,13 +411,16 @@ body::before{
     top:50%;
 
     transform:
-        translateY(-50%);
+        translate3d(0,-50%,0);
 
     border-radius:50%;
 
     border:1px solid rgba(237,28,36,.35);
 
     opacity:.9;
+
+    --mouse-x:0px;
+    --mouse-y:0px;
 
     will-change:transform;
 }
@@ -1466,7 +1482,9 @@ body::before{
 
 .footer-brand img{
     width:auto;
-    height:65px;
+    height:72px;
+    max-width:230px;
+    object-fit:contain;
 }
 
 .footer-brand p{
@@ -1626,6 +1644,20 @@ body::before{
 
     .header-cta{
         display:none;
+    }
+
+    .logo{
+        min-width:0;
+    }
+
+    .logo img{
+        height:58px;
+        max-width:190px;
+    }
+
+    .header.scrolled .logo img{
+        height:52px;
+        max-width:175px;
     }
 
     .menu-btn{
@@ -3322,70 +3354,62 @@ revealElements.forEach(
 const parallaxElements =
     document.querySelectorAll(".parallax");
 
-
 let ticking = false;
-
 
 function updateParallax(){
 
-    const scrollY =
-        window.scrollY;
+    parallaxElements.forEach(element => {
 
-    parallaxElements.forEach(
-        element => {
+        const speed =
+            parseFloat(element.dataset.speed || "0.1");
 
-            const speed =
-                parseFloat(
-                    element.dataset.speed || "0.1"
-                );
+        const rect =
+            element.getBoundingClientRect();
 
-            const rect =
-                element.getBoundingClientRect();
+        const center =
+            rect.top + rect.height / 2;
 
-            const center =
-                rect.top +
-                rect.height / 2;
+        const viewportCenter =
+            window.innerHeight / 2;
 
-            const viewportCenter =
-                window.innerHeight / 2;
+        const distance =
+            center - viewportCenter;
 
-            const distance =
-                center -
-                viewportCenter;
+        const movement =
+            distance * speed;
 
-            const movement =
-                distance * speed;
-
+        if(element.classList.contains("hero-orbit")){
+            element.style.transform =
+                `translate3d(var(--mouse-x), calc(-50% + ${movement}px + var(--mouse-y)), 0)`;
+        }else{
             element.style.transform =
                 `translate3d(0, ${movement}px, 0)`;
-
         }
-    );
+    });
 
-    ticking=false;
-
+    ticking = false;
 }
 
+function requestParallax(){
+    if(!ticking){
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+    }
+}
 
 window.addEventListener(
     "scroll",
-    () => {
-
-        if(!ticking){
-
-            requestAnimationFrame(
-                updateParallax
-            );
-
-            ticking=true;
-
-        }
-
-    },
+    requestParallax,
     {passive:true}
 );
 
-updateParallax();
+window.addEventListener(
+    "resize",
+    requestParallax,
+    {passive:true}
+);
+
+requestParallax();
 
 
 /* =========================================================
@@ -3573,11 +3597,15 @@ hero.addEventListener(
             .5) * 20;
 
 
-        orbit.style.marginLeft =
-            `${x}px`;
+        orbit.style.setProperty(
+            "--mouse-x",
+            `${x}px`
+        );
 
-        orbit.style.marginTop =
-            `${y}px`;
+        orbit.style.setProperty(
+            "--mouse-y",
+            `${y}px`
+        );
 
     }
 );
@@ -3587,8 +3615,8 @@ hero.addEventListener(
     "mouseleave",
     () => {
 
-        orbit.style.marginLeft="0";
-        orbit.style.marginTop="0";
+        orbit.style.setProperty("--mouse-x","0px");
+        orbit.style.setProperty("--mouse-y","0px");
 
     }
 );
