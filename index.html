@@ -2358,6 +2358,147 @@ body::before{
     }
 }
 
+
+/* =========================================================
+   SELECTED CLIENT WORK + PARTNERS
+========================================================= */
+
+.client-work{background:#060606;}
+
+.client-work-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.client-project{
+  border:1px solid rgba(255,255,255,.1);
+  background:#0a0a0a;
+  overflow:hidden;
+  transition:transform .65s var(--ease),border-color .4s ease;
+}
+
+.client-project:hover{
+  transform:translateY(-7px);
+  border-color:rgba(237,28,36,.45);
+}
+
+.client-project-visual{
+  position:relative;
+  min-height:360px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 70% 35%,rgba(237,28,36,.22),transparent 28%),
+    linear-gradient(135deg,#151515,#070707);
+}
+
+.client-project-visual::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.04));
+}
+
+.visual-placeholder{
+  position:relative;
+  z-index:2;
+  padding:12px 16px;
+  border:1px solid rgba(255,255,255,.15);
+  color:#555;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.18em;
+}
+
+.client-project-info{padding:28px 30px 32px;}
+
+.client-meta{
+  color:var(--red);
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.16em;
+}
+
+.client-project-info h3{
+  margin-top:12px;
+  font-size:32px;
+  line-height:1;
+  letter-spacing:-.05em;
+}
+
+.client-project-info strong{
+  display:block;
+  margin-top:18px;
+  font-size:14px;
+  color:#ddd;
+}
+
+.client-project-info p{
+  margin-top:7px;
+  color:#777;
+  font-size:12px;
+  line-height:1.6;
+}
+
+.partners{background:#090909;}
+
+.partners-head{
+  display:flex;
+  justify-content:space-between;
+  gap:60px;
+  margin-bottom:80px;
+}
+
+.partner-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--border);
+  border-left:1px solid var(--border);
+}
+
+.partner-logo{
+  min-height:180px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:30px;
+  text-align:center;
+  border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  color:#4f4f4f;
+  transition:color .45s ease,background .45s ease,transform .45s var(--ease);
+}
+
+.partner-logo span{
+  font-size:18px;
+  line-height:1.05;
+  font-weight:900;
+  letter-spacing:-.03em;
+}
+
+.partner-logo:hover{
+  color:#fff;
+  background:#0d0d0d;
+}
+
+@media(max-width:900px){
+  .client-work-grid{grid-template-columns:1fr 1fr;}
+  .partner-grid{grid-template-columns:repeat(2,1fr);}
+  .partners-head{display:block;}
+  .partners-head .section-intro{margin-top:25px;}
+}
+
+@media(max-width:600px){
+  .client-work-grid{grid-template-columns:1fr;}
+  .client-project-visual{min-height:300px;}
+  .partner-grid{grid-template-columns:repeat(2,1fr);}
+  .partner-logo{min-height:130px;padding:18px;}
+  .partner-logo span{font-size:13px;}
+}
+
 </style>
 </head>
 
@@ -2386,6 +2527,10 @@ body::before{
             <a href="#services">Services</a>
 
             <a href="#work">Work</a>
+
+            <a href="#client-work">Client Work</a>
+
+            <a href="#partners">Partners</a>
 
             <a href="#process">Process</a>
 
@@ -3055,6 +3200,117 @@ body::before{
 </section>
 
 
+
+<!-- ======================================================
+     SELECTED CLIENT WORK
+====================================================== -->
+
+<section class="client-work section" id="client-work">
+  <div class="container">
+    <div class="services-head reveal">
+      <div>
+        <div class="eyebrow">03 / Selected Client Work</div>
+        <h2 class="section-title" style="margin-top:25px;">Real work.<br>Real brands.</h2>
+      </div>
+      <p class="section-intro">A growing selection of work created for businesses across FMCG, healthcare, education, retail and digital. Real project visuals can replace these placeholders as the portfolio is updated.</p>
+    </div>
+
+    <div class="client-work-grid">
+
+      <article class="client-project reveal">
+        <div class="client-project-visual mountain-aura"><span class="visual-placeholder">PROJECT VISUAL</span></div>
+        <div class="client-project-info">
+          <div class="client-meta">FMCG · PACKAGING · BRAND</div>
+          <h3>Mountain Aura</h3>
+          <strong>Product Identity</strong>
+          <p>Packaging & Promotional Creative</p>
+        </div>
+      </article>
+
+      <article class="client-project reveal">
+        <div class="client-project-visual sudha"><span class="visual-placeholder">PROJECT VISUAL</span></div>
+        <div class="client-project-info">
+          <div class="client-meta">HEALTHCARE · HOSPITAL · BRAND</div>
+          <h3>Sudha Healthcare</h3>
+          <strong>Healthcare Communication</strong>
+          <p>Hospital Branding, Awareness & Promotional Creative</p>
+        </div>
+      </article>
+
+      <article class="client-project reveal">
+        <div class="client-project-visual exzellent"><span class="visual-placeholder">PROJECT VISUAL</span></div>
+        <div class="client-project-info">
+          <div class="client-meta">EDUCATION · LANGUAGE · DIGITAL</div>
+          <h3>EXZELLENT</h3>
+          <strong>Education Brand Experience</strong>
+          <p>Brand Direction, Digital & Content Creative</p>
+        </div>
+      </article>
+
+      <article class="client-project reveal">
+        <div class="client-project-visual balaji"><span class="visual-placeholder">PROJECT VISUAL</span></div>
+        <div class="client-project-info">
+          <div class="client-meta">RETAIL · TEXTILES · BRAND</div>
+          <h3>Balaji Textiles</h3>
+          <strong>Retail Brand Communication</strong>
+          <p>Showroom Branding, Signage & Promotional Creative</p>
+        </div>
+      </article>
+
+      <article class="client-project reveal">
+        <div class="client-project-visual sudha-oil"><span class="visual-placeholder">PROJECT VISUAL</span></div>
+        <div class="client-project-info">
+          <div class="client-meta">FMCG · MANUFACTURING · BRAND</div>
+          <h3>Sudha Oil Mill</h3>
+          <strong>Product & Brand Communication</strong>
+          <p>Brand Creative, Product Communication & Promotional Design</p>
+        </div>
+      </article>
+
+      <article class="client-project reveal">
+        <div class="client-project-visual security"><span class="visual-placeholder">PROJECT VISUAL</span></div>
+        <div class="client-project-info">
+          <div class="client-meta">SECURITY · SERVICES · BRAND</div>
+          <h3>A1 SF Security</h3>
+          <strong>Corporate Communication</strong>
+          <p>Brand & Business Communication Creative</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     OUR PARTNERS
+====================================================== -->
+
+<section class="partners section" id="partners">
+  <div class="container">
+
+    <div class="partners-head reveal">
+      <div>
+        <div class="eyebrow">04 / Our Partners</div>
+        <h2 class="section-title" style="margin-top:25px;">Brands we've<br>worked with.</h2>
+      </div>
+      <p class="section-intro">A selection of businesses and brands we've supported through design, branding, packaging, digital and creative communication.</p>
+    </div>
+
+    <div class="partner-grid">
+      <div class="partner-logo reveal"><span>MOUNTAIN<br>AURA</span></div>
+      <div class="partner-logo reveal"><span>SUDHA<br>HEALTHCARE</span></div>
+      <div class="partner-logo reveal"><span>EXZELLENT</span></div>
+      <div class="partner-logo reveal"><span>BALAJI<br>TEXTILES</span></div>
+      <div class="partner-logo reveal"><span>SUDHA<br>OIL MILL</span></div>
+      <div class="partner-logo reveal"><span>A1 SF<br>SECURITY</span></div>
+      <div class="partner-logo reveal"><span>BIOLEEN</span></div>
+      <div class="partner-logo reveal"><span>TAHA<br>COSMETIC</span></div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ======================================================
      PROCESS
 ====================================================== -->
@@ -3693,6 +3949,10 @@ body::before{
                     <a href="#process">
                         Process
                     </a>
+
+                    <a href="#client-work">Client Work</a>
+
+                    <a href="#partners">Partners</a>
 
                     <a href="#about">
                         About
