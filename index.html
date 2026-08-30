@@ -2450,6 +2450,7 @@ body::before{
 }
 
 .mountain-cover-label{
+  pointer-events:none;
   position:absolute;
   left:18px;
   bottom:18px;
@@ -2598,21 +2599,33 @@ body::before{
 
 /* =========================================================
    PROJECT IMAGE LIGHTBOX
-   Click any Mountain Aura project visual for large view.
+   HARD CLICK LOCK — Mountain Aura
 ========================================================= */
 
 .mountain-cover-button,
 .mountain-packaging-button{
+    position:relative;
+    z-index:20 !important;
     display:block;
     width:100%;
+    height:100%;
+    min-height:1px;
     padding:0;
     margin:0;
     border:0;
-    background:none;
+    outline:0;
+    background:transparent;
     color:inherit;
     font:inherit;
     text-align:left;
-    cursor:zoom-in;
+    cursor:zoom-in !important;
+    pointer-events:auto !important;
+    -webkit-tap-highlight-color:transparent;
+}
+
+.mountain-cover-button *,
+.mountain-packaging-button *{
+    pointer-events:none !important;
 }
 
 .mountain-cover-button:focus-visible,
@@ -2623,7 +2636,18 @@ body::before{
 
 .mountain-cover-button img,
 .mountain-packaging-button img{
-    cursor:zoom-in;
+    cursor:zoom-in !important;
+    pointer-events:none !important;
+}
+
+.mountain-cover,
+.mountain-packaging-item{
+    position:relative;
+}
+
+.mountain-cover::after,
+.mountain-packaging-item::after{
+    pointer-events:none !important;
 }
 
 .project-lightbox{
@@ -5445,7 +5469,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   PROJECT IMAGE LIGHTBOX
+   PROJECT IMAGE LIGHTBOX — ROBUST / DIRECT CLICK VERSION
 ========================================================= */
 
 const projectLightbox = document.getElementById("projectLightbox");
@@ -5465,72 +5489,87 @@ let lightboxLastFocused = null;
 
 function updateProjectLightbox(){
 
-    if(!lightboxTriggers.length) return;
+    if(!projectLightbox || !projectLightboxImage || !lightboxTriggers.length){
+        return;
+    }
 
     const trigger = lightboxTriggers[lightboxIndex];
 
-    projectLightboxImage.src =
-        trigger.dataset.lightboxSrc;
+    const src = trigger.getAttribute("data-lightbox-src");
+    const title = trigger.getAttribute("data-lightbox-title") || "Project Visual";
 
-    projectLightboxImage.alt =
-        trigger.dataset.lightboxTitle || "Project Visual";
-
-    projectLightboxCaption.textContent =
-        trigger.dataset.lightboxTitle || "Project Visual";
-
+    projectLightboxImage.src = src;
+    projectLightboxImage.alt = title;
+    projectLightboxCaption.textContent = title;
     projectLightboxCounter.textContent =
         `${lightboxIndex + 1} / ${lightboxTriggers.length}`;
 
-    const showNavigation =
-        lightboxTriggers.length > 1;
+    const showNavigation = lightboxTriggers.length > 1;
 
-    projectLightboxPrev.style.display =
-        showNavigation ? "flex" : "none";
+    if(projectLightboxPrev){
+        projectLightboxPrev.style.display =
+            showNavigation ? "flex" : "none";
+    }
 
-    projectLightboxNext.style.display =
-        showNavigation ? "flex" : "none";
+    if(projectLightboxNext){
+        projectLightboxNext.style.display =
+            showNavigation ? "flex" : "none";
+    }
 }
 
 function openProjectLightbox(index){
 
-    if(!lightboxTriggers.length) return;
+    if(!projectLightbox || !lightboxTriggers.length){
+        return;
+    }
 
     lightboxLastFocused = document.activeElement;
 
     lightboxIndex =
-        (index + lightboxTriggers.length) %
+        ((Number(index) || 0) + lightboxTriggers.length) %
         lightboxTriggers.length;
 
     updateProjectLightbox();
 
     projectLightbox.classList.add("open");
     projectLightbox.setAttribute("aria-hidden","false");
-
     document.body.classList.add("lightbox-open");
 
-    requestAnimationFrame(() => {
-        projectLightboxClose.focus();
-    });
+    /* Prevent the browser from jumping to the image URL. */
+    window.setTimeout(() => {
+        if(projectLightboxClose){
+            projectLightboxClose.focus();
+        }
+    }, 20);
 }
 
 function closeProjectLightbox(){
 
+    if(!projectLightbox){
+        return;
+    }
+
     projectLightbox.classList.remove("open");
     projectLightbox.setAttribute("aria-hidden","true");
-
     document.body.classList.remove("lightbox-open");
 
-    projectLightboxImage.src = "";
+    if(projectLightboxImage){
+        projectLightboxImage.removeAttribute("src");
+    }
 
     if(
         lightboxLastFocused &&
         typeof lightboxLastFocused.focus === "function"
     ){
-        lightboxLastFocused.focus();
+        try{
+            lightboxLastFocused.focus();
+        }catch(e){}
     }
 }
 
 function showProjectLightboxNext(){
+
+    if(!lightboxTriggers.length) return;
 
     lightboxIndex =
         (lightboxIndex + 1) %
@@ -5541,6 +5580,8 @@ function showProjectLightboxNext(){
 
 function showProjectLightboxPrev(){
 
+    if(!lightboxTriggers.length) return;
+
     lightboxIndex =
         (lightboxIndex - 1 + lightboxTriggers.length) %
         lightboxTriggers.length;
@@ -5548,70 +5589,160 @@ function showProjectLightboxPrev(){
     updateProjectLightbox();
 }
 
+
+/* ---------------------------------------------------------
+   DIRECT CLICK BINDING
+   This is intentionally attached directly to every image
+   trigger instead of relying only on event delegation.
+--------------------------------------------------------- */
+
 lightboxTriggers.forEach((trigger,index) => {
 
-    trigger.addEventListener(
-        "click",
-        () => openProjectLightbox(index)
-    );
+    trigger.addEventListener("click", function(event){
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        openProjectLightbox(index);
+
+    }, true);
+
+    trigger.addEventListener("touchend", function(event){
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        openProjectLightbox(index);
+
+    }, {passive:false});
 
 });
 
-projectLightboxClose.addEventListener(
-    "click",
-    closeProjectLightbox
-);
 
-projectLightboxNext.addEventListener(
-    "click",
-    showProjectLightboxNext
-);
+/* ---------------------------------------------------------
+   EXTRA FALLBACK:
+   catches clicks on the image/card even if markup is changed
+--------------------------------------------------------- */
 
-projectLightboxPrev.addEventListener(
-    "click",
-    showProjectLightboxPrev
-);
+document.addEventListener("click", function(event){
 
-projectLightbox.addEventListener(
-    "click",
-    event => {
+    const trigger = event.target.closest("[data-lightbox-src]");
+
+    if(!trigger){
+        return;
+    }
+
+    const index = lightboxTriggers.indexOf(trigger);
+
+    if(index === -1){
+        return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    openProjectLightbox(index);
+
+}, true);
+
+
+/* ---------------------------------------------------------
+   LIGHTBOX CONTROLS
+--------------------------------------------------------- */
+
+if(projectLightboxClose){
+    projectLightboxClose.addEventListener(
+        "click",
+        function(event){
+            event.preventDefault();
+            event.stopPropagation();
+            closeProjectLightbox();
+        }
+    );
+}
+
+if(projectLightboxNext){
+    projectLightboxNext.addEventListener(
+        "click",
+        function(event){
+            event.preventDefault();
+            event.stopPropagation();
+            showProjectLightboxNext();
+        }
+    );
+}
+
+if(projectLightboxPrev){
+    projectLightboxPrev.addEventListener(
+        "click",
+        function(event){
+            event.preventDefault();
+            event.stopPropagation();
+            showProjectLightboxPrev();
+        }
+    );
+}
+
+if(projectLightbox){
+    projectLightbox.addEventListener("click", function(event){
 
         if(
             event.target === projectLightbox ||
-            event.target.classList.contains(
-                "project-lightbox-image-wrap"
-            )
+            event.target.classList.contains("project-lightbox-image-wrap")
         ){
             closeProjectLightbox();
         }
 
+    });
+}
+
+
+/* ---------------------------------------------------------
+   KEYBOARD
+--------------------------------------------------------- */
+
+document.addEventListener("keydown", function(event){
+
+    if(
+        !projectLightbox ||
+        !projectLightbox.classList.contains("open")
+    ){
+        return;
     }
-);
 
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if(
-            !projectLightbox.classList.contains("open")
-        ){
-            return;
-        }
-
-        if(event.key === "Escape"){
-            closeProjectLightbox();
-        }
-
-        if(event.key === "ArrowRight"){
-            showProjectLightboxNext();
-        }
-
-        if(event.key === "ArrowLeft"){
-            showProjectLightboxPrev();
-        }
-
+    if(event.key === "Escape"){
+        event.preventDefault();
+        closeProjectLightbox();
     }
-);
+
+    if(event.key === "ArrowRight"){
+        event.preventDefault();
+        showProjectLightboxNext();
+    }
+
+    if(event.key === "ArrowLeft"){
+        event.preventDefault();
+        showProjectLightboxPrev();
+    }
+
+});
+
+
+/* ---------------------------------------------------------
+   PRELOAD ALL PROJECT IMAGES
+--------------------------------------------------------- */
+
+lightboxTriggers.forEach(trigger => {
+
+    const src = trigger.getAttribute("data-lightbox-src");
+
+    if(src){
+        const preload = new Image();
+        preload.src = src;
+    }
+
+});
+
 
 
 </script>
