@@ -1870,6 +1870,335 @@ body::before{
     }
 }
 
+
+/* =========================================================
+   AI CHATBOT
+========================================================= */
+
+.ai-float{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    width:62px;
+    height:62px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.3);
+    background:#090909;
+    color:#fff;
+    z-index:900;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 15px 50px rgba(0,0,0,.5);
+    transition:.35s var(--ease);
+}
+
+.ai-float:hover{
+    background:var(--red);
+    border-color:var(--red);
+    transform:scale(1.08);
+}
+
+.ai-spark{
+    position:relative;
+    z-index:2;
+    font-size:22px;
+}
+
+.ai-ring{
+    position:absolute;
+    inset:-7px;
+    border:1px solid rgba(237,28,36,.35);
+    border-radius:50%;
+    animation:aiPulse 2s ease-out infinite;
+}
+
+@keyframes aiPulse{
+    0%{transform:scale(.82);opacity:.8}
+    100%{transform:scale(1.25);opacity:0}
+}
+
+.ai-chat{
+    position:fixed;
+    right:25px;
+    bottom:100px;
+    width:370px;
+    max-width:calc(100vw - 32px);
+    background:#090909;
+    border:1px solid rgba(255,255,255,.14);
+    z-index:899;
+    box-shadow:0 30px 90px rgba(0,0,0,.65);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(20px) scale(.98);
+    transition:.35s var(--ease);
+}
+
+.ai-chat.open{
+    opacity:1;
+    visibility:visible;
+    transform:none;
+}
+
+.ai-chat-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px;
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.ai-chat-head strong{
+    display:block;
+    font-size:15px;
+    letter-spacing:.06em;
+}
+
+.ai-chat-head strong span{
+    color:var(--red);
+}
+
+.ai-chat-head small{
+    display:block;
+    margin-top:4px;
+    color:#666;
+    font-size:9px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+}
+
+.ai-chat-head button{
+    width:30px;
+    height:30px;
+    background:none;
+    color:#777;
+    cursor:pointer;
+    font-size:24px;
+}
+
+.ai-chat-body{
+    padding:18px;
+    max-height:370px;
+    overflow:auto;
+}
+
+.ai-message{
+    max-width:90%;
+    padding:13px;
+    font-size:12px;
+    line-height:1.6;
+}
+
+.ai-message.bot{
+    background:#111;
+    color:#aaa;
+    border-left:2px solid var(--red);
+}
+
+.ai-message.user{
+    margin:12px 0 0 auto;
+    background:var(--red);
+    color:#fff;
+}
+
+.ai-options{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:7px;
+    margin-top:15px;
+}
+
+.ai-options button{
+    padding:11px 8px;
+    border:1px solid rgba(255,255,255,.1);
+    background:#101010;
+    color:#aaa;
+    cursor:pointer;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    transition:.25s;
+}
+
+.ai-options button:hover{
+    color:#fff;
+    background:var(--red);
+    border-color:var(--red);
+}
+
+.ai-chat-input{
+    display:flex;
+    padding:12px;
+    gap:8px;
+    border-top:1px solid rgba(255,255,255,.1);
+}
+
+.ai-chat-input input{
+    flex:1;
+    min-width:0;
+    padding:13px;
+    color:#fff;
+    background:#111;
+    border:1px solid rgba(255,255,255,.1);
+}
+
+.ai-chat-input button{
+    width:46px;
+    background:var(--red);
+    color:#fff;
+    cursor:pointer;
+}
+
+
+/* =========================================================
+   LEGAL MODALS
+========================================================= */
+
+.legal-modal{
+    position:fixed;
+    inset:0;
+    z-index:2000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(0,0,0,.8);
+    backdrop-filter:blur(14px);
+    opacity:0;
+    visibility:hidden;
+    transition:.3s ease;
+}
+
+.legal-modal.open{
+    opacity:1;
+    visibility:visible;
+}
+
+.legal-modal-inner{
+    position:relative;
+    width:min(720px,100%);
+    max-height:85vh;
+    overflow:auto;
+    padding:45px;
+    background:#0a0a0a;
+    border:1px solid rgba(255,255,255,.15);
+    box-shadow:0 30px 100px rgba(0,0,0,.7);
+}
+
+.legal-modal-inner h2{
+    margin:18px 0 30px;
+    font-size:clamp(38px,6vw,65px);
+    line-height:.9;
+    letter-spacing:-.06em;
+}
+
+.legal-modal-inner p{
+    margin:18px 0;
+    color:#999;
+    font-size:13px;
+    line-height:1.8;
+}
+
+.legal-modal-inner a{
+    color:var(--red);
+}
+
+.legal-modal-inner small{
+    display:block;
+    margin-top:30px;
+    color:#555;
+    font-size:10px;
+}
+
+.legal-close{
+    position:absolute;
+    top:15px;
+    right:15px;
+    width:38px;
+    height:38px;
+    background:#111;
+    color:#aaa;
+    border:1px solid rgba(255,255,255,.1);
+    cursor:pointer;
+    font-size:22px;
+}
+
+.footer-legal-link{
+    display:block;
+    margin:9px 0;
+    padding:0;
+    background:none;
+    border:0;
+    color:#888;
+    font-size:11px;
+    cursor:pointer;
+    text-align:left;
+}
+
+.footer-legal-link:hover{
+    color:#fff;
+}
+
+
+/* =========================================================
+   WHATSAPP
+========================================================= */
+
+.whatsapp-float{
+    position:fixed;
+    right:25px;
+    bottom:98px;
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#25D366;
+    color:#fff;
+    z-index:890;
+    box-shadow:0 12px 40px rgba(0,0,0,.45);
+    font-size:20px;
+    transition:.3s var(--ease);
+}
+
+.whatsapp-float:hover{
+    transform:scale(1.08);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:600px){
+
+    .ai-float{
+        right:16px;
+        bottom:16px;
+        width:55px;
+        height:55px;
+    }
+
+    .ai-chat{
+        right:16px;
+        bottom:82px;
+    }
+
+    .whatsapp-float{
+        right:16px;
+        bottom:82px;
+        width:48px;
+        height:48px;
+    }
+
+    .legal-modal-inner{
+        padding:30px 22px;
+    }
+}
+
 </style>
 </head>
 
@@ -1887,7 +2216,7 @@ body::before{
 
         <a href="#top" class="logo" aria-label="Amir Graphics">
             <img
-                src="Amir Graphics Logo.png"
+                src="Amir_Graphics_Logo_Transparent.png"
                 alt="Amir Graphics"
             >
         </a>
@@ -3126,7 +3455,7 @@ body::before{
             <div class="footer-brand">
 
                 <img
-                    src="Amir Graphics Logo.png"
+                    src="Amir_Graphics_Logo_Transparent.png"
                     alt="Amir Graphics"
                 >
 
@@ -3190,6 +3519,14 @@ body::before{
                     <a href="#contact">
                         Start a Project
                     </a>
+                    <button class="footer-legal-link" data-open-legal="privacyModal">
+                        Privacy Policy
+                    </button>
+
+                    <button class="footer-legal-link" data-open-legal="termsModal">
+                        Terms & Conditions
+                    </button>
+
 
                 </div>
 
@@ -3215,6 +3552,189 @@ body::before{
     </div>
 
 </footer>
+
+
+
+<!-- ======================================================
+     AMIR AI CHATBOT
+====================================================== -->
+
+<button
+    class="ai-float"
+    id="aiFloat"
+    aria-label="Open Amir AI"
+    type="button"
+>
+    <span class="ai-ring"></span>
+    <span class="ai-spark">✦</span>
+</button>
+
+<div
+    class="ai-chat"
+    id="aiChat"
+    aria-hidden="true"
+>
+
+    <div class="ai-chat-head">
+
+        <div>
+            <strong>AMIR <span>AI</span></strong>
+            <small>Creative Assistant</small>
+        </div>
+
+        <button
+            id="aiClose"
+            type="button"
+            aria-label="Close AI chat"
+        >×</button>
+
+    </div>
+
+    <div class="ai-chat-body" id="aiMessages">
+
+        <div class="ai-message bot">
+            Hi. I'm Amir AI.
+            <br><br>
+            Tell me what you want to build and I'll help you choose the right service.
+        </div>
+
+        <div class="ai-options">
+
+            <button type="button" data-ai="Branding">Branding</button>
+            <button type="button" data-ai="Packaging">Packaging</button>
+            <button type="button" data-ai="Website">Website</button>
+            <button type="button" data-ai="Video">Video</button>
+            <button type="button" data-ai="AI Creative">AI Creative</button>
+            <button type="button" data-ai="Marketing">Marketing</button>
+            <button type="button" data-ai="Automation">Automation</button>
+            <button type="button" data-ai="Project">Start a Project</button>
+
+        </div>
+
+    </div>
+
+    <div class="ai-chat-input">
+
+        <input
+            id="aiInput"
+            type="text"
+            placeholder="Ask Amir AI..."
+            autocomplete="off"
+        >
+
+        <button
+            id="aiSend"
+            type="button"
+        >→</button>
+
+    </div>
+
+</div>
+
+
+<!-- ======================================================
+     LEGAL LINKS
+====================================================== -->
+
+<div class="legal-modal" id="privacyModal" aria-hidden="true">
+    <div class="legal-modal-inner">
+
+        <button class="legal-close" data-close-legal="privacyModal">×</button>
+
+        <div class="eyebrow">Legal / Privacy</div>
+
+        <h2>Privacy Policy</h2>
+
+        <p>
+            Amir Graphics respects your privacy. Information submitted
+            through this website, including your name, company, email,
+            phone number and project details, is used to respond to your
+            enquiry and communicate about requested services.
+        </p>
+
+        <p>
+            We do not intentionally sell or rent your personal information
+            to third parties. Information may be processed by service
+            providers used to operate the website, communications,
+            hosting, analytics or enquiry systems.
+        </p>
+
+        <p>
+            Please do not submit passwords, financial information,
+            government identification numbers or other highly sensitive
+            information through the project enquiry form.
+        </p>
+
+        <p>
+            If you have a privacy question or want to request information
+            about your submitted enquiry, contact:
+            <a href="mailto:info@amirgraphics.in">info@amirgraphics.in</a>
+        </p>
+
+        <small>Last updated: 30 August 2026</small>
+
+    </div>
+</div>
+
+
+<div class="legal-modal" id="termsModal" aria-hidden="true">
+    <div class="legal-modal-inner">
+
+        <button class="legal-close" data-close-legal="termsModal">×</button>
+
+        <div class="eyebrow">Legal / Terms</div>
+
+        <h2>Terms & Conditions</h2>
+
+        <p>
+            By using this website, you agree to use it lawfully and not to
+            misuse, copy, interfere with or attempt to compromise the
+            website or its systems.
+        </p>
+
+        <p>
+            Information, service descriptions, placeholder visuals and
+            examples on this website are provided for general information.
+            A project is not considered accepted until scope, pricing,
+            timeline and deliverables are mutually agreed.
+        </p>
+
+        <p>
+            Final project terms, revisions, intellectual property,
+            payment schedules, delivery requirements and third-party
+            assets may be governed by a separate project agreement or
+            written confirmation.
+        </p>
+
+        <p>
+            Amir Graphics may update website content, services and these
+            terms from time to time.
+        </p>
+
+        <p>
+            For questions regarding a project or these terms, contact:
+            <a href="mailto:info@amirgraphics.in">info@amirgraphics.in</a>
+        </p>
+
+        <small>Last updated: 30 August 2026</small>
+
+    </div>
+</div>
+
+
+<!-- ======================================================
+     WHATSAPP
+====================================================== -->
+
+<a
+    class="whatsapp-float"
+    href="https://wa.me/919204936126?text=Hello%20Amir%20Graphics%2C%20I%20would%20like%20to%20discuss%20a%20project."
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Chat with Amir Graphics on WhatsApp"
+>
+    <span>◉</span>
+</a>
 
 
 <!-- FLOATING BUTTON -->
@@ -3617,6 +4137,364 @@ hero.addEventListener(
 
         orbit.style.setProperty("--mouse-x","0px");
         orbit.style.setProperty("--mouse-y","0px");
+
+    }
+);
+
+
+/* =========================================================
+   AMIR AI CHATBOT
+========================================================= */
+
+const aiFloat = document.getElementById("aiFloat");
+const aiChat = document.getElementById("aiChat");
+const aiClose = document.getElementById("aiClose");
+const aiInput = document.getElementById("aiInput");
+const aiSend = document.getElementById("aiSend");
+const aiMessages = document.getElementById("aiMessages");
+
+function openAI(){
+    aiChat.classList.add("open");
+    aiChat.setAttribute("aria-hidden","false");
+}
+
+function closeAI(){
+    aiChat.classList.remove("open");
+    aiChat.setAttribute("aria-hidden","true");
+}
+
+if(aiFloat){
+    aiFloat.addEventListener("click", openAI);
+}
+
+if(aiClose){
+    aiClose.addEventListener("click", closeAI);
+}
+
+function addAIMessage(text, type){
+
+    const div = document.createElement("div");
+
+    div.className =
+        "ai-message " + type;
+
+    div.innerHTML =
+        text;
+
+    aiMessages.appendChild(div);
+
+    aiMessages.scrollTop =
+        aiMessages.scrollHeight;
+}
+
+function handleAI(text){
+
+    const clean =
+        text.trim();
+
+    if(!clean) return;
+
+    addAIMessage(
+        clean.replace(/</g,"&lt;"),
+        "user"
+    );
+
+    let reply =
+        "I can help you explore Amir Graphics services. Choose a service below or start a project enquiry.";
+
+    const lower =
+        clean.toLowerCase();
+
+    if(
+        lower.includes("logo") ||
+        lower.includes("brand")
+    ){
+        reply =
+            "For logos and complete visual identity, Branding is the right starting point.";
+    }
+    else if(
+        lower.includes("pack")
+    ){
+        reply =
+            "For product boxes, labels, jars, bottles and packaging systems, choose Packaging.";
+    }
+    else if(
+        lower.includes("website") ||
+        lower.includes("web")
+    ){
+        reply =
+            "For websites, landing pages and UI/UX, choose Web & UI/UX.";
+    }
+    else if(
+        lower.includes("video") ||
+        lower.includes("reel")
+    ){
+        reply =
+            "For reels, motion graphics, product videos and animation, choose Video & Motion.";
+    }
+    else if(
+        lower.includes("marketing") ||
+        lower.includes("seo")
+    ){
+        reply =
+            "For SEO, campaigns, lead generation and content marketing, choose Digital Marketing.";
+    }
+    else if(
+        lower.includes("automation") ||
+        lower.includes("whatsapp")
+    ){
+        reply =
+            "For WhatsApp automation, CRM, lead capture and growth workflows, choose Automation & Growth.";
+    }
+
+    setTimeout(
+        () => addAIMessage(reply,"bot"),
+        350
+    );
+}
+
+document.querySelectorAll("[data-ai]").forEach(
+    button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                const choice =
+                    button.dataset.ai;
+
+                if(choice === "Project"){
+
+                    closeAI();
+
+                    document
+                        .getElementById("contact")
+                        .scrollIntoView({
+                            behavior:"smooth"
+                        });
+
+                    setTimeout(
+                        () => {
+
+                            const service =
+                                document.querySelector(
+                                    'select[name="service"]'
+                                );
+
+                            if(service){
+                                service.focus();
+                            }
+
+                        },
+                        700
+                    );
+
+                    return;
+                }
+
+                addAIMessage(
+                    choice,
+                    "user"
+                );
+
+                let response =
+                    "Great choice. Tell us a little about what you need and we'll help you plan the next step.";
+
+                if(choice === "Branding")
+                    response = "Branding covers logo design, identity systems and corporate communication.";
+
+                if(choice === "Packaging")
+                    response = "Packaging covers product boxes, labels, jars, bottles and complete packaging systems.";
+
+                if(choice === "Website")
+                    response = "Web & UI/UX covers websites, landing pages, responsive experiences and digital interfaces.";
+
+                if(choice === "Video")
+                    response = "Video & Motion covers reels, motion graphics, animation and product videos.";
+
+                if(choice === "AI Creative")
+                    response = "AI Creative combines AI-assisted visuals, advertising concepts, characters and cinematic content.";
+
+                if(choice === "Marketing")
+                    response = "Digital Marketing covers SEO, campaigns, content marketing and lead generation.";
+
+                if(choice === "Automation")
+                    response = "Automation & Growth covers WhatsApp automation, CRM, lead capture and growth workflows.";
+
+                setTimeout(
+                    () => addAIMessage(response,"bot"),
+                    350
+                );
+
+            }
+        );
+
+    }
+);
+
+if(aiSend){
+    aiSend.addEventListener(
+        "click",
+        () => {
+
+            handleAI(
+                aiInput.value
+            );
+
+            aiInput.value = "";
+            aiInput.focus();
+
+        }
+    );
+}
+
+if(aiInput){
+    aiInput.addEventListener(
+        "keydown",
+        event => {
+
+            if(event.key === "Enter"){
+
+                event.preventDefault();
+
+                handleAI(
+                    aiInput.value
+                );
+
+                aiInput.value = "";
+
+            }
+
+        }
+    );
+}
+
+
+/* =========================================================
+   LEGAL MODALS
+========================================================= */
+
+document.querySelectorAll(
+    "[data-open-legal]"
+).forEach(
+    button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                const id =
+                    button.dataset.openLegal;
+
+                const modal =
+                    document.getElementById(id);
+
+                if(modal){
+
+                    modal.classList.add("open");
+
+                    modal.setAttribute(
+                        "aria-hidden",
+                        "false"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+document.querySelectorAll(
+    "[data-close-legal]"
+).forEach(
+    button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                const id =
+                    button.dataset.closeLegal;
+
+                const modal =
+                    document.getElementById(id);
+
+                if(modal){
+
+                    modal.classList.remove("open");
+
+                    modal.setAttribute(
+                        "aria-hidden",
+                        "true"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+document.querySelectorAll(
+    ".legal-modal"
+).forEach(
+    modal => {
+
+        modal.addEventListener(
+            "click",
+            event => {
+
+                if(event.target === modal){
+
+                    modal.classList.remove(
+                        "open"
+                    );
+
+                    modal.setAttribute(
+                        "aria-hidden",
+                        "true"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(event.key === "Escape"){
+
+            document.querySelectorAll(
+                ".legal-modal.open"
+            ).forEach(
+                modal => {
+
+                    modal.classList.remove(
+                        "open"
+                    );
+
+                    modal.setAttribute(
+                        "aria-hidden",
+                        "true"
+                    );
+
+                }
+            );
+
+            closeAI();
+
+        }
 
     }
 );
