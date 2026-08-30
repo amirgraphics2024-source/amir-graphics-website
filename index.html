@@ -3068,6 +3068,196 @@ body.lightbox-open{overflow:hidden;}
     .project-lightbox-counter{top:13px;font-size:9px;}
 }
 
+
+/* =========================================================
+   SELECTED WORK — FLEXIBLE CURATED SHOWCASE
+   DARK THEME — SECTION 02 ONLY
+========================================================= */
+
+.selected-work{background:var(--black);color:var(--white);}
+
+.selected-work .section-title,
+.selected-work .section-subtitle,
+.selected-work .eyebrow{
+    color:inherit;
+}
+
+.selected-work .section-subtitle{max-width:760px;color:#aaa;}
+
+.selected-work .work-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:18px;
+    margin-top:70px;
+}
+
+.selected-work .work-card{
+    position:relative;
+    background:#0a0a0a;
+    border:1px solid rgba(255,255,255,.10);
+    overflow:hidden;
+    transition:transform .55s var(--ease),box-shadow .55s var(--ease);
+}
+
+.selected-work .work-card-feature{grid-row:span 2;}
+
+.selected-work .work-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 24px 60px rgba(0,0,0,.35);
+}
+
+.selected-work .work-media{
+    position:relative;
+    min-height:300px;
+    overflow:hidden;
+    background:#111;
+}
+
+.selected-work .work-card-feature .work-media{min-height:640px;}
+
+.selected-work .work-media img{
+    display:block;
+    width:100%;
+    height:100%;
+    min-height:300px;
+    object-fit:cover;
+    transition:transform 1s var(--ease),filter .6s ease;
+}
+
+.selected-work .work-card-feature .work-media img{min-height:640px;}
+
+.selected-work .work-card:hover .work-media img{transform:scale(1.035);}
+
+.selected-work .work-media-overlay{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:linear-gradient(to top,rgba(0,0,0,.52),transparent 48%);
+}
+
+.selected-work .work-type-label{
+    position:absolute;
+    top:18px;
+    left:18px;
+    z-index:2;
+    padding:8px 11px;
+    background:rgba(0,0,0,.72);
+    border:1px solid rgba(255,255,255,.18);
+    color:#fff;
+    font-size:8px;
+    font-weight:800;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+}
+
+.selected-work .work-info{
+    padding:24px 25px 27px;
+    background:#0a0a0a;
+    color:var(--white);
+}
+
+.selected-work .work-client{
+    color:#aaa;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+}
+
+.selected-work .work-info h3{
+    margin-top:9px;
+    font-size:23px;
+    letter-spacing:-.035em;
+    color:var(--white);
+}
+
+.selected-work .work-info p{
+    margin-top:9px;
+    color:#aaa;
+    font-size:13px;
+    line-height:1.6;
+}
+
+.selected-work .work-media-placeholder{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:300px;
+    padding:45px;
+    background:#0a0a0a;
+    color:#fff;
+}
+
+.selected-work .work-flex-content{
+    display:flex;
+    flex-direction:column;
+    max-width:340px;
+    gap:14px;
+}
+
+.selected-work .work-flex-kicker{
+    color:#888;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:.18em;
+}
+
+.selected-work .work-flex-content strong{
+    font-size:28px;
+    line-height:1.05;
+    letter-spacing:-.04em;
+    color:#fff;
+}
+
+.selected-work .work-flex-note{
+    color:#888;
+    font-size:11px;
+    line-height:1.6;
+}
+
+.selected-work .work-media-placeholder .work-type-label{
+    background:var(--red);
+    border-color:var(--red);
+}
+
+@media(max-width:800px){
+    .selected-work .work-grid{
+        grid-template-columns:1fr;
+        gap:14px;
+        margin-top:50px;
+    }
+
+    .selected-work .work-card-feature{grid-row:auto;}
+
+    .selected-work .work-media,
+    .selected-work .work-card-feature .work-media,
+    .selected-work .work-media img,
+    .selected-work .work-card-feature .work-media img{
+        min-height:380px;
+    }
+}
+
+@media(max-width:600px){
+    .selected-work .work-media,
+    .selected-work .work-card-feature .work-media,
+    .selected-work .work-media img,
+    .selected-work .work-card-feature .work-media img{
+        min-height:300px;
+    }
+
+    .selected-work .work-info{padding:20px;}
+    .selected-work .work-info h3{font-size:20px;}
+
+    .selected-work .work-media-placeholder{
+        min-height:300px;
+        padding:30px;
+    }
+
+    .selected-work .work-flex-content strong{font-size:23px;}
+}
+
 </style>
 </head>
 
@@ -3632,140 +3822,162 @@ body.lightbox-open{overflow:hidden;}
 
 
 <!-- ======================================================
-     WORK
+     WORK — FLEXIBLE CURATED SHOWCASE
 ====================================================== -->
 
-<section
-    class="work section"
-    id="work"
->
-
+<section class="selected-work section" id="work">
     <div class="container">
 
-        <div class="work-head reveal">
+        <div class="reveal">
+            <div class="eyebrow">02 / Selected Work</div>
 
-            <div>
+            <h2 class="section-title">
+                What we create.
+            </h2>
 
-                <div class="eyebrow">
-                    02 / Selected Work
-                </div>
-
-                <h2
-                    class="section-title"
-                    style="margin-top:25px;"
-                >
-                    Work that means business.
-                </h2>
-
-            </div>
-
-            <p class="section-intro">
-
-                Selected work is presented as a focused mix of
-                creative direction, brand systems and digital experiences.
-
+            <p class="section-subtitle">
+                A curated showcase of the work we create across
+                branding, packaging, product, websites, UI, video,
+                reels, campaigns, social creative and digital marketing.
             </p>
-
         </div>
 
+        <!--
+            =========================================================
+            FLEXIBLE CURATED SHOWCASE
+
+            These are NOT permanently assigned to any client/category.
+
+            Each slot can be manually changed at any time to show:
+            Branding / Packaging / Product / Website / UI / Video /
+            Reel / Campaign / Social Creative / Digital Marketing.
+
+            Replace only the content inside the selected slot:
+            1. image source
+            2. work type
+            3. title
+            4. description
+
+            No automatic/random rotation is used.
+            =========================================================
+        -->
 
         <div class="work-grid">
 
+            <!-- ================= SLOT 01 ================= -->
+            <article class="work-card work-card-feature reveal"
+                     data-showcase-slot="01"
+                     data-work-type="Branding">
 
-            <article class="work-card large reveal">
+                <div class="work-media">
 
-                <div
-                    class="work-card-image"
-                    style="
-                    background-image:url(
-                    'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1800&q=85'
-                    );
-                    "
-                ></div>
+                    <!-- DUMMY IMAGE — replace src when curating real work -->
+                    <img
+                        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 1500'%3E%3Crect width='1200' height='1500' fill='%23141414'/%3E%3Cpath d='M0 1080L430 650L760 980L970 760L1200 990V1500H0Z' fill='%23242424'/%3E%3Ccircle cx='900' cy='360' r='170' fill='%23ed1c24' opacity='.9'/%3E%3Ctext x='600' y='720' fill='%23fff' font-family='Arial' font-size='72' font-weight='800' text-anchor='middle'%3EDUMMY%3C/text%3E%3Ctext x='600' y='805' fill='%23999999' font-family='Arial' font-size='34' text-anchor='middle'%3ESELECTED WORK 01%3C/text%3E%3C/svg%3E"
+                        alt="Dummy selected work showcase image"
+                        loading="lazy"
+                        decoding="async">
 
-                <div class="work-card-content">
+                    <div class="work-media-overlay"></div>
 
-                    <div class="work-card-category">
-                        Branding
-                    </div>
-
-                    <h3 class="work-card-title">
-                        Brand Identity
-                    </h3>
-
-                    <p class="work-card-description">
-                        Strategy, identity and visual systems.
-                    </p>
-
+                    <div class="work-type-label">Branding</div>
                 </div>
 
+                <div class="work-info">
+                    <div class="work-client">Selected Work / 01</div>
+                    <h3>Brand Identity</h3>
+                    <p>Replace this slot with any work you want to feature.</p>
+                </div>
             </article>
 
 
-            <article class="work-card reveal">
+            <!-- ================= SLOT 02 ================= -->
+            <article class="work-card reveal"
+                     data-showcase-slot="02"
+                     data-work-type="Packaging">
 
-                <div
-                    class="work-card-image"
-                    style="
-                    background-image:url(
-                    'https://images.unsplash.com/photo-1605648916361-9bc12ad6a569?auto=format&fit=crop&w=1600&q=85'
-                    );
-                    "
-                ></div>
+                <div class="work-media">
 
-                <div class="work-card-content">
+                    <!-- DUMMY IMAGE — replace src when curating real work -->
+                    <img
+                        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 900'%3E%3Crect width='1200' height='900' fill='%23111111'/%3E%3Crect x='170' y='145' width='860' height='610' rx='18' fill='%23202020' stroke='%23383838' stroke-width='3'/%3E%3Crect x='330' y='255' width='540' height='390' rx='12' fill='%23ed1c24' opacity='.9'/%3E%3Ctext x='600' y='445' fill='%23fff' font-family='Arial' font-size='62' font-weight='800' text-anchor='middle'%3EDUMMY%3C/text%3E%3Ctext x='600' y='510' fill='%23eee' font-family='Arial' font-size='28' text-anchor='middle'%3ESELECTED WORK 02%3C/text%3E%3C/svg%3E"
+                        alt="Dummy selected work showcase image"
+                        loading="lazy"
+                        decoding="async">
 
-                    <div class="work-card-category">
-                        Packaging
-                    </div>
+                    <div class="work-media-overlay"></div>
 
-                    <h3 class="work-card-title">
-                        Product Story
-                    </h3>
-
-                    <p class="work-card-description">
-                        Packaging built for shelf impact.
-                    </p>
-
+                    <div class="work-type-label">Packaging</div>
                 </div>
 
+                <div class="work-info">
+                    <div class="work-client">Selected Work / 02</div>
+                    <h3>Product &amp; Packaging</h3>
+                    <p>A flexible showcase slot for any future project.</p>
+                </div>
             </article>
 
 
-            <article class="work-card reveal">
+            <!-- ================= SLOT 03 ================= -->
+            <article class="work-card reveal"
+                     data-showcase-slot="03"
+                     data-work-type="Website">
 
-                <div
-                    class="work-card-image"
-                    style="
-                    background-image:url(
-                    'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=1600&q=85'
-                    );
-                    "
-                ></div>
+                <div class="work-media">
 
-                <div class="work-card-content">
+                    <!-- DUMMY IMAGE — replace src when curating real work -->
+                    <img
+                        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 900'%3E%3Crect width='1200' height='900' fill='%23151515'/%3E%3Crect x='120' y='130' width='960' height='640' rx='28' fill='%23252525'/%3E%3Crect x='185' y='205' width='830' height='470' rx='12' fill='%23090909'/%3E%3Ccircle cx='230' cy='165' r='10' fill='%23ed1c24'/%3E%3Ctext x='600' y='455' fill='%23fff' font-family='Arial' font-size='62' font-weight='800' text-anchor='middle'%3EDUMMY%3C/text%3E%3Ctext x='600' y='520' fill='%23999999' font-family='Arial' font-size='28' text-anchor='middle'%3ESELECTED WORK 03%3C/text%3E%3C/svg%3E"
+                        alt="Dummy selected work showcase image"
+                        loading="lazy"
+                        decoding="async">
 
-                    <div class="work-card-category">
-                        Digital
-                    </div>
+                    <div class="work-media-overlay"></div>
 
-                    <h3 class="work-card-title">
-                        Digital Experience
-                    </h3>
-
-                    <p class="work-card-description">
-                        Digital presence designed to perform.
-                    </p>
-
+                    <div class="work-type-label">Website</div>
                 </div>
 
+                <div class="work-info">
+                    <div class="work-client">Selected Work / 03</div>
+                    <h3>Digital Experience</h3>
+                    <p>Use this slot for website, UI, video or digital work.</p>
+                </div>
             </article>
 
+
+            <!-- ================= SLOT 04 ================= -->
+            <article class="work-card work-card-flex reveal"
+                     data-showcase-slot="04"
+                     data-work-type="Campaign">
+
+                <div class="work-media work-media-placeholder">
+
+                    <div class="work-flex-content">
+                        <span class="work-flex-kicker">CURATED SHOWCASE</span>
+
+                        <strong>
+                            Your next<br>
+                            featured work.
+                        </strong>
+
+                        <span class="work-flex-note">
+                            This slot can display any creative category.
+                            Change it manually whenever you want.
+                        </span>
+                    </div>
+
+                    <div class="work-type-label">Campaign</div>
+                </div>
+
+                <div class="work-info">
+                    <div class="work-client">Selected Work / 04</div>
+                    <h3>Your Work. Your Choice.</h3>
+                    <p>Manually replace this highlight with any selected content.</p>
+                </div>
+            </article>
 
         </div>
-
     </div>
-
 </section>
 
 
@@ -6653,6 +6865,8 @@ lightboxTriggers.forEach(trigger => {
 
 
 
+
+
 /* =========================================================
    INDUSTRIES — AUTO SEQUENCE HIGHLIGHT
    One industry activates at a time when the section is visible.
@@ -6794,7 +7008,6 @@ lightboxTriggers.forEach(trigger => {
     );
 
 })();
-
 
 </script>
 
