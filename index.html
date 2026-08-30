@@ -1,23 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
->
-
-<meta
-  name="description"
-  content="Amir Graphics — Creative & Digital Solutions. Branding, packaging, graphic design, web, video, AI, social media, digital marketing and automation."
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Amir Graphics — Creative & Digital Solutions</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="/config.js"></script>
+<meta name="description"
+content="Amir Graphics creates brands, packaging, digital experiences, content and growth solutions for ambitious businesses.">
+
+<meta name="theme-color" content="#050505">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 
@@ -26,18 +23,21 @@
 ========================================================= */
 
 :root{
-  --red:#ed1c24;
-  --red-dark:#b70f15;
-  --black:#050505;
-  --black-soft:#090909;
-  --white:#fff;
-  --muted:#929292;
-  --muted-dark:#5f5f5f;
-  --line:#252525;
-  --max:1220px;
+    --black:#050505;
+    --black2:#090909;
+    --white:#f5f5f5;
+    --muted:#999;
+    --muted2:#666;
+    --red:#ed1c24;
+    --red2:#ff2932;
+    --border:rgba(255,255,255,.12);
 
-  --nav-height:78px;
-  --nav-height-scrolled:62px;
+    --max:1240px;
+
+    --header:88px;
+    --header-small:70px;
+
+    --ease:cubic-bezier(.16,1,.3,1);
 }
 
 
@@ -46,373 +46,319 @@
 ========================================================= */
 
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 html{
-  scroll-behavior:smooth;
-  background:#050505;
+    scroll-behavior:smooth;
+    background:var(--black);
 }
 
 body{
-  background:#050505;
-  color:#fff;
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-  overflow-x:hidden;
+    background:var(--black);
+    color:var(--white);
+    font-family:Inter,Arial,sans-serif;
+    overflow-x:hidden;
+    line-height:1.5;
 }
 
-a{
-  color:inherit;
-  text-decoration:none;
-}
-
+body,
 button,
 input,
 textarea,
 select{
-  font:inherit;
-}
-
-button{
-  border-radius:0;
+    font-family:Inter,Arial,sans-serif;
 }
 
 img{
-  max-width:100%;
+    max-width:100%;
+    display:block;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+button,
+input,
+textarea{
+    border:0;
+    outline:0;
+}
+
+::selection{
+    background:var(--red);
+    color:white;
 }
 
 
 /* =========================================================
-   GLOBAL BACKGROUND
-========================================================= */
-
-.noise{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:9990;
-  opacity:.035;
-
-  background-image:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-.grid{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  opacity:.11;
-  z-index:0;
-
-  background-image:
-    linear-gradient(#fff 1px,transparent 1px),
-    linear-gradient(90deg,#fff 1px,transparent 1px);
-
-  background-size:80px 80px;
-
-  mask-image:
-    linear-gradient(
-      to bottom,
-      #000,
-      transparent 90%
-    );
-}
-
-
-/* =========================================================
-   CONTAINER
+   GLOBAL
 ========================================================= */
 
 .container{
-  width:min(
-    calc(100% - 40px),
-    var(--max)
-  );
+    width:min(calc(100% - 48px),var(--max));
+    margin:auto;
+}
 
-  margin:auto;
+section{
+    position:relative;
+    overflow:hidden;
+}
 
-  position:relative;
-  z-index:2;
+.section{
+    padding:150px 0;
+}
+
+.eyebrow{
+    color:var(--red);
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.25em;
+    text-transform:uppercase;
+}
+
+.section-title{
+    font-size:clamp(50px,7vw,100px);
+    line-height:.9;
+    letter-spacing:-.07em;
+    font-weight:900;
+    max-width:950px;
+}
+
+.section-intro{
+    max-width:650px;
+    color:#aaa;
+    font-size:17px;
+    line-height:1.75;
 }
 
 
 /* =========================================================
-   PREMIUM STICKY HEADER
+   NOISE
 ========================================================= */
 
-.nav{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:9999;
+    opacity:.045;
 
-  height:var(--nav-height);
-
-  z-index:5000;
-
-  border-bottom:
-    1px solid
-    rgba(255,255,255,.08);
-
-  background:
-    rgba(5,5,5,.68);
-
-  backdrop-filter:
-    blur(18px)
-    saturate(130%);
-
-  -webkit-backdrop-filter:
-    blur(18px)
-    saturate(130%);
-
-  transition:
-    height .45s cubic-bezier(.22,.61,.36,1),
-    background .45s ease,
-    border-color .45s ease,
-    box-shadow .45s ease;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
 }
 
 
-/* subtle red light behind header */
+/* =========================================================
+   GRID BACKGROUND
+========================================================= */
 
-.nav::after{
-  content:"";
+.grid-bg{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    opacity:.15;
 
-  position:absolute;
+    background-image:
+        linear-gradient(rgba(255,255,255,.09) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.09) 1px,transparent 1px);
 
-  left:0;
-  right:0;
-  bottom:-1px;
+    background-size:55px 55px;
 
-  height:1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(237,28,36,.55),
-      transparent
+    mask-image:linear-gradient(
+        to bottom,
+        black,
+        transparent 90%
     );
-
-  opacity:.25;
-
-  transition:
-    opacity .4s ease;
-}
-
-
-/* SCROLLED HEADER */
-
-.nav.scrolled{
-  height:var(--nav-height-scrolled);
-
-  background:
-    rgba(5,5,5,.91);
-
-  border-bottom-color:
-    rgba(237,28,36,.18);
-
-  box-shadow:
-    0 15px 50px
-    rgba(0,0,0,.42);
-}
-
-.nav.scrolled::after{
-  opacity:.8;
-}
-
-
-/* HEADER INNER */
-
-.navin{
-  height:100%;
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  gap:40px;
 }
 
 
 /* =========================================================
-   LOGO — FIXED
+   HEADER
 ========================================================= */
+
+.header{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:var(--header);
+
+    z-index:500;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    background:rgba(5,5,5,.35);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    transition:
+        height .6s var(--ease),
+        background .6s var(--ease),
+        border-color .6s var(--ease);
+}
+
+.header.scrolled{
+    height:var(--header-small);
+    background:rgba(5,5,5,.88);
+    border-color:rgba(255,255,255,.12);
+}
+
+.header-inner{
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+
+/* LOGO */
 
 .logo{
-  height:var(--nav-height);
+    height:var(--header);
 
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
+    display:flex;
+    align-items:center;
 
-  flex:0 0 auto;
-
-  position:relative;
-
-  transition:
-    height .45s cubic-bezier(.22,.61,.36,1);
+    transition:height .6s var(--ease);
 }
-
-
-/*
-  IMPORTANT:
-  The uploaded logo is naturally tall.
-  We constrain HEIGHT instead of width,
-  so it can never overflow the header.
-*/
 
 .logo img{
-  display:block;
+    width:auto;
+    height:70px;
+    max-width:190px;
 
-  width:auto;
-  height:52px;
+    object-fit:contain;
 
-  max-width:155px;
+    transition:
+        height .6s var(--ease),
+        transform .6s var(--ease);
+}
 
-  object-fit:contain;
-  object-position:left center;
+.header.scrolled .logo{
+    height:var(--header-small);
+}
 
-  transition:
-    height .45s cubic-bezier(.22,.61,.36,1),
-    max-width .45s ease,
-    transform .45s ease;
-
-  transform-origin:left center;
+.header.scrolled .logo img{
+    height:54px;
 }
 
 
-/* SCROLLED LOGO */
+/* NAV */
 
-.nav.scrolled .logo{
-  height:var(--nav-height-scrolled);
+.nav{
+    display:flex;
+    align-items:center;
+    gap:32px;
 }
 
-.nav.scrolled .logo img{
-  height:40px;
-  max-width:135px;
+.nav a{
+    position:relative;
+
+    color:#aaa;
+
+    font-size:11px;
+    font-weight:800;
+
+    letter-spacing:.14em;
+    text-transform:uppercase;
+
+    transition:
+        color .3s ease;
 }
 
+.nav a::after{
+    content:"";
 
-/* =========================================================
-   NAVIGATION LINKS
-========================================================= */
+    position:absolute;
 
-.links{
-  display:flex;
+    left:0;
+    bottom:-8px;
 
-  align-items:center;
-  justify-content:flex-end;
+    width:0;
+    height:1px;
 
-  gap:30px;
+    background:var(--red);
 
-  height:100%;
+    transition:width .4s var(--ease);
 }
 
-.links a{
-  position:relative;
-
-  display:flex;
-  align-items:center;
-
-  height:100%;
-
-  color:#999;
-
-  font-size:10px;
-
-  font-weight:900;
-
-  letter-spacing:.13em;
-
-  text-transform:uppercase;
-
-  white-space:nowrap;
-
-  transition:
-    color .25s ease;
+.nav a:hover{
+    color:white;
 }
 
-.links a:not(.navcta)::after{
-  content:"";
-
-  position:absolute;
-
-  left:0;
-  right:0;
-
-  bottom:19px;
-
-  height:1px;
-
-  background:var(--red);
-
-  transform:
-    scaleX(0);
-
-  transform-origin:right;
-
-  transition:
-    transform .3s ease;
-}
-
-.links a:not(.navcta):hover{
-  color:#fff;
-}
-
-.links a:not(.navcta):hover::after{
-  transform:
-    scaleX(1);
-
-  transform-origin:left;
+.nav a:hover::after{
+    width:100%;
 }
 
 
-/* =========================================================
-   HEADER CTA
-========================================================= */
+/* CTA */
 
-.navcta{
-  height:42px!important;
+.header-cta{
+    min-height:46px;
 
-  padding:
-    0 18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-  border:
-    1px solid
-    rgba(255,255,255,.25);
+    padding:0 21px;
 
-  color:#fff!important;
+    border:1px solid rgba(255,255,255,.28);
 
-  display:flex!important;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.12em;
 
-  align-items:center!important;
-  justify-content:center!important;
+    text-transform:uppercase;
 
-  transition:
-    background .3s ease,
-    border-color .3s ease,
-    transform .3s ease,
-    color .3s ease;
+    transition:
+        background .3s ease,
+        border-color .3s ease,
+        color .3s ease;
 }
 
-.navcta:hover{
-  background:var(--red);
-
-  border-color:var(--red);
-
-  color:#fff!important;
-
-  transform:translateY(-2px);
+.header-cta:hover{
+    background:var(--red);
+    border-color:var(--red);
+    color:white;
 }
 
-.nav.scrolled .navcta{
-  height:36px!important;
+.header.scrolled .header-cta{
+    min-height:40px;
+}
+
+
+/* MOBILE MENU */
+
+.menu-btn{
+    display:none;
+
+    width:44px;
+    height:44px;
+
+    background:none;
+    border:1px solid rgba(255,255,255,.18);
+
+    color:white;
+
+    cursor:pointer;
+}
+
+.menu-lines{
+    width:18px;
+    margin:auto;
+}
+
+.menu-lines span{
+    display:block;
+    height:1px;
+    background:white;
+    margin:5px 0;
 }
 
 
@@ -421,296 +367,315 @@ img{
 ========================================================= */
 
 .hero{
-  min-height:100vh;
+    min-height:100vh;
 
-  position:relative;
+    display:flex;
+    align-items:center;
 
-  overflow:hidden;
+    padding-top:var(--header);
 
-  display:flex;
+    position:relative;
 
-  align-items:center;
-
-  padding:
-    calc(var(--nav-height) + 80px)
-    0
-    100px;
-
-  background:
-    radial-gradient(
-      circle at 76% 43%,
-      rgba(237,28,36,.18),
-      transparent 28%
-    ),
-    #050505;
-
-  transition:
-    padding-top .45s ease;
-}
-
-.nav.scrolled ~ main .hero{
-  padding-top:
-    calc(var(--nav-height-scrolled) + 80px);
+    background:
+        radial-gradient(
+            circle at 82% 45%,
+            rgba(237,28,36,.16),
+            transparent 30%
+        ),
+        #050505;
 }
 
 
-/* HERO LIGHT */
+/* radial visual */
 
-.hero::before{
-  content:"";
+.hero-orbit{
+    position:absolute;
 
-  position:absolute;
+    width:650px;
+    height:650px;
 
-  width:650px;
-  height:650px;
+    right:-70px;
+    top:50%;
 
-  right:-280px;
-  top:30%;
+    transform:
+        translateY(-50%);
 
-  border-radius:50%;
+    border-radius:50%;
 
-  background:
-    radial-gradient(
-      circle,
-      rgba(237,28,36,.12),
-      transparent 68%
-    );
+    border:1px solid rgba(237,28,36,.35);
 
-  filter:blur(15px);
+    opacity:.9;
 
-  pointer-events:none;
+    will-change:transform;
 }
 
+.hero-orbit::before,
+.hero-orbit::after{
+    content:"";
 
-/* =========================================================
-   HERO PARALLAX VISUAL
-========================================================= */
+    position:absolute;
 
-.heroVisual{
-  position:absolute;
+    inset:65px;
 
-  width:760px;
-  height:760px;
+    border-radius:50%;
 
-  right:-220px;
-  top:50%;
-
-  transform:
-    translate3d(0,-50%,0);
-
-  border-radius:50%;
-
-  border:
-    1px solid
-    rgba(237,28,36,.22);
-
-  will-change:transform;
-
-  pointer-events:none;
+    border:1px solid rgba(255,255,255,.13);
 }
 
-.heroVisual:before,
-.heroVisual:after{
-  content:"";
+.hero-orbit::after{
+    inset:145px;
 
-  position:absolute;
-
-  border-radius:50%;
-
-  border:
-    1px solid
-    rgba(255,255,255,.12);
+    border-color:rgba(237,28,36,.35);
 }
 
-.heroVisual:before{
-  inset:80px;
-}
+.hero-core{
+    position:absolute;
 
-.heroVisual:after{
-  inset:170px;
-}
+    width:70px;
+    height:70px;
 
+    right:260px;
+    top:50%;
 
-.heroVisual .core{
-  position:absolute;
+    margin-top:-35px;
 
-  inset:255px;
+    border-radius:50%;
 
-  border-radius:50%;
+    background:var(--red);
 
-  background:
-    radial-gradient(
-      circle,
-      #ed1c24 0 3%,
-      rgba(237,28,36,.2) 20%,
-      transparent 70%
-    );
+    box-shadow:
+        0 0 40px rgba(237,28,36,.8),
+        0 0 120px rgba(237,28,36,.3);
 
-  filter:blur(1px);
-
-  animation:
-    pulse 3s ease-in-out infinite;
-}
-
-.heroVisual .orbit{
-  position:absolute;
-
-  inset:120px;
-
-  border:
-    1px solid
-    rgba(237,28,36,.3);
-
-  border-radius:50%;
-
-  transform:
-    rotate(28deg)
-    scaleX(.55);
-
-  animation:
-    spin 16s linear infinite;
+    animation:pulse 3s ease-in-out infinite;
 }
 
 @keyframes pulse{
-
-  50%{
-    transform:scale(1.12);
-    opacity:.7;
-  }
-
-}
-
-@keyframes spin{
-
-  to{
-    transform:
-      rotate(388deg)
-      scaleX(.55);
-  }
-
+    0%,100%{
+        transform:scale(.85);
+        opacity:.75;
+    }
+    50%{
+        transform:scale(1.15);
+        opacity:1;
+    }
 }
 
 
-/* =========================================================
-   HERO CONTENT
-========================================================= */
+/* HERO CONTENT */
 
-.eyebrow{
-  color:var(--red);
+.hero-content{
+    position:relative;
+    z-index:5;
 
-  font-size:10px;
-
-  font-weight:900;
-
-  letter-spacing:.24em;
-
-  text-transform:uppercase;
-
-  margin-bottom:24px;
+    padding:110px 0 130px;
 }
 
-.hero h1{
-  font-size:
-    clamp(
-      58px,
-      9.2vw,
-      132px
-    );
-
-  line-height:.82;
-
-  letter-spacing:-.075em;
-
-  max-width:1000px;
+.hero-eyebrow{
+    margin-bottom:28px;
 }
 
-.hero h1 span{
-  color:var(--red);
+.hero-title{
+    max-width:950px;
+
+    font-size:
+        clamp(
+            64px,
+            9.8vw,
+            150px
+        );
+
+    line-height:.82;
+
+    letter-spacing:-.078em;
+
+    font-weight:900;
 }
 
-.heroText{
-  max-width:640px;
-
-  color:#aaa;
-
-  line-height:1.7;
-
-  font-size:17px;
-
-  margin-top:34px;
+.hero-title .white{
+    color:white;
 }
 
-.actions{
-  display:flex;
+.hero-title .red{
+    color:var(--red);
+}
 
-  gap:12px;
+.hero-description{
+    max-width:700px;
 
-  flex-wrap:wrap;
+    margin-top:45px;
 
-  margin-top:35px;
+    color:#aaa;
+
+    font-size:18px;
+    line-height:1.75;
+}
+
+.hero-actions{
+    display:flex;
+    gap:12px;
+
+    margin-top:38px;
 }
 
 .btn{
-  display:inline-flex;
+    min-height:56px;
 
-  align-items:center;
-  justify-content:center;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
 
-  min-height:52px;
+    padding:0 25px;
 
-  padding:
-    0 22px;
+    font-size:11px;
+    font-weight:800;
 
-  border:
-    1px solid
-    #444;
+    letter-spacing:.12em;
+    text-transform:uppercase;
 
-  background:transparent;
-
-  color:#fff;
-
-  font-size:10px;
-
-  font-weight:900;
-
-  letter-spacing:.1em;
-
-  text-transform:uppercase;
-
-  transition:
-    .3s;
-
-  cursor:pointer;
-}
-
-.btn.red{
-  background:var(--red);
-  border-color:var(--red);
+    transition:
+        transform .3s var(--ease),
+        background .3s ease,
+        color .3s ease,
+        border-color .3s ease;
 }
 
 .btn:hover{
-  transform:translateY(-4px);
-
-  background:#fff;
-
-  color:#000;
-
-  border-color:#fff;
+    transform:translateY(-3px);
 }
 
+.btn-primary{
+    background:var(--red);
+    color:white;
+}
+
+.btn-primary:hover{
+    background:var(--red2);
+}
+
+.btn-secondary{
+    border:1px solid rgba(255,255,255,.25);
+    color:white;
+}
+
+.btn-secondary:hover{
+    border-color:white;
+    background:white;
+    color:black;
+}
+
+
+/* HERO BOTTOM */
+
+.hero-bottom{
+    position:absolute;
+
+    left:0;
+    right:0;
+    bottom:25px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    color:#555;
+
+    font-size:10px;
+    font-weight:700;
+
+    letter-spacing:.18em;
+    text-transform:uppercase;
+}
+
+
+/* SCROLL INDICATOR */
+
 .scrollmark{
-  position:absolute;
+    position:relative;
 
-  bottom:25px;
-  left:20px;
+    display:flex;
+    align-items:center;
+    gap:14px;
 
-  color:#555;
+    color:#777;
 
-  font-size:9px;
+    font-size:11px;
+    font-weight:800;
 
-  letter-spacing:.18em;
+    letter-spacing:.18em;
+}
 
-  text-transform:uppercase;
+.scrollmark::after{
+    content:"";
+
+    width:1px;
+    height:42px;
+
+    display:block;
+
+    background:
+        linear-gradient(
+            to bottom,
+            var(--red),
+            rgba(237,28,36,.05)
+        );
+
+    transform-origin:top;
+
+    animation:
+        scrollLine 1.8s
+        cubic-bezier(.4,0,.2,1)
+        infinite;
+}
+
+.scrollmark::before{
+    content:"";
+
+    width:5px;
+    height:5px;
+
+    border-radius:50%;
+
+    background:var(--red);
+
+    animation:
+        scrollDot 1.8s
+        ease-in-out
+        infinite;
+}
+
+@keyframes scrollLine{
+    0%{
+        transform:scaleY(.25);
+        opacity:.25;
+    }
+
+    50%{
+        transform:scaleY(1);
+        opacity:1;
+    }
+
+    100%{
+        transform:scaleY(.25);
+        opacity:.25;
+    }
+}
+
+@keyframes scrollDot{
+    0%{
+        transform:translateY(0);
+        opacity:.3;
+    }
+
+    50%{
+        transform:translateY(28px);
+        opacity:1;
+    }
+
+    100%{
+        transform:translateY(0);
+        opacity:.3;
+    }
 }
 
 
@@ -719,123 +684,64 @@ img{
 ========================================================= */
 
 .marquee{
-  position:relative;
-  z-index:3;
+    position:relative;
 
-  border-top:
-    1px solid
-    var(--line);
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
 
-  border-bottom:
-    1px solid
-    var(--line);
+    overflow:hidden;
 
-  padding:18px 0;
+    white-space:nowrap;
 
-  overflow:hidden;
-
-  white-space:nowrap;
-
-  background:
-    rgba(5,5,5,.75);
+    background:#070707;
 }
 
-.track{
-  display:inline-flex;
+.marquee-track{
+    display:inline-flex;
 
-  animation:
-    mar 25s linear infinite;
+    padding:25px 0;
+
+    animation:
+        marquee 28s linear infinite;
 }
 
-.track span{
-  margin:
-    0 28px;
+.marquee span{
+    display:inline-flex;
+    align-items:center;
 
-  color:#777;
+    margin:0 32px;
 
-  font-size:10px;
+    color:#777;
 
-  font-weight:800;
+    font-size:11px;
+    font-weight:800;
 
-  letter-spacing:.16em;
+    letter-spacing:.18em;
 
-  text-transform:uppercase;
+    text-transform:uppercase;
 }
 
-.track b{
-  color:var(--red);
+.marquee span::after{
+    content:"";
+
+    width:5px;
+    height:5px;
+
+    margin-left:32px;
+
+    background:var(--red);
+
+    border-radius:50%;
 }
 
-@keyframes mar{
+@keyframes marquee{
+    from{
+        transform:translateX(0);
+    }
 
-  to{
-    transform:translateX(-50%);
-  }
-
-}
-
-
-/* =========================================================
-   SECTIONS
-========================================================= */
-
-.section{
-  padding:135px 0;
-
-  position:relative;
-
-  z-index:2;
-}
-
-.head{
-  display:grid;
-
-  grid-template-columns:
-    1.1fr
-    .9fr;
-
-  gap:50px;
-
-  margin-bottom:65px;
-}
-
-.label{
-  color:var(--red);
-
-  font-size:10px;
-
-  font-weight:900;
-
-  letter-spacing:.2em;
-
-  text-transform:uppercase;
-}
-
-.title{
-  font-size:
-    clamp(
-      42px,
-      6.2vw,
-      82px
-    );
-
-  line-height:.9;
-
-  letter-spacing:-.065em;
-
-  margin-top:16px;
-}
-
-.desc{
-  color:#777;
-
-  font-size:14px;
-
-  line-height:1.75;
-
-  max-width:400px;
-
-  align-self:end;
+    to{
+        transform:translateX(-50%);
+    }
 }
 
 
@@ -844,158 +750,219 @@ img{
 ========================================================= */
 
 .services{
-  display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
-  border-top:
-    1px solid
-    var(--line);
-
-  border-left:
-    1px solid
-    var(--line);
+    background:#060606;
 }
 
-.card{
-  min-height:390px;
+.services-head{
+    display:flex;
+    justify-content:space-between;
+    gap:60px;
 
-  padding:28px;
-
-  border-right:
-    1px solid
-    var(--line);
-
-  border-bottom:
-    1px solid
-    var(--line);
-
-  position:relative;
-
-  overflow:hidden;
-
-  background:#090909;
-
-  transform-style:preserve-3d;
-
-  transition:
-    border-color .3s,
-    transform .2s;
+    margin-bottom:90px;
 }
 
-.card:hover{
-  border-color:#555;
+.services-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:10px;
 }
 
-.cardbg{
-  position:absolute;
 
-  inset:0;
+/* SERVICE CARD */
 
-  background-size:cover;
+.service-card{
+    position:relative;
 
-  background-position:center;
+    min-height:390px;
 
-  opacity:.18;
+    padding:35px;
 
-  transform:scale(1.04);
+    border:1px solid rgba(255,255,255,.11);
 
-  transition:.6s;
+    background:#0a0a0a;
 
-  filter:grayscale(1);
+    overflow:hidden;
+
+    transition:
+        transform .7s var(--ease),
+        border-color .5s ease;
 }
 
-.card:hover .cardbg{
-  opacity:.34;
-
-  transform:scale(1.12);
-
-  filter:grayscale(.25);
+.service-card:hover{
+    transform:translateY(-8px);
+    border-color:rgba(237,28,36,.45);
 }
 
-.cardShade{
-  position:absolute;
+.service-card::before{
+    content:"";
 
-  inset:0;
+    position:absolute;
 
-  background:
-    linear-gradient(
-      180deg,
-      rgba(0,0,0,.2),
-      #090909 82%
-    );
+    width:220px;
+    height:220px;
+
+    right:-90px;
+    bottom:-100px;
+
+    border-radius:50%;
+
+    background:rgba(237,28,36,.11);
+
+    transition:
+        transform .8s var(--ease);
 }
 
-.card>*:not(.cardbg):not(.cardShade){
-  position:relative;
-
-  z-index:2;
+.service-card:hover::before{
+    transform:scale(1.5);
 }
 
-.num{
-  font-size:9px;
+.service-number{
+    color:#555;
 
-  color:#666;
+    font-size:10px;
+    font-weight:700;
 
-  letter-spacing:.16em;
-
-  font-weight:900;
+    letter-spacing:.18em;
 }
 
-.serviceName{
-  font-size:30px;
+.service-type{
+    margin-top:55px;
 
-  letter-spacing:-.05em;
+    color:var(--red);
 
-  margin-top:48px;
+    font-size:10px;
+    font-weight:800;
+
+    letter-spacing:.18em;
+    text-transform:uppercase;
 }
 
-.serviceDesc{
-  font-size:12px;
+.service-name{
+    position:relative;
+    z-index:2;
 
-  color:#888;
+    margin-top:12px;
 
-  line-height:1.55;
+    font-size:
+        clamp(
+            28px,
+            3vw,
+            40px
+        );
 
-  margin-top:10px;
+    line-height:1;
 
-  max-width:280px;
+    letter-spacing:-.045em;
+
+    font-weight:800;
 }
 
-.subs{
-  margin-top:24px;
+.service-description{
+    position:relative;
+    z-index:2;
+
+    max-width:350px;
+
+    margin-top:18px;
+
+    color:#777;
+
+    font-size:13px;
+    line-height:1.65;
 }
 
-.subs span{
-  display:block;
+.service-list{
+    position:relative;
+    z-index:2;
 
-  color:#aaa;
+    margin-top:24px;
 
-  font-size:10px;
-
-  margin:7px 0;
+    list-style:none;
 }
 
-.subs span:before{
-  content:"— ";
+.service-list li{
+    color:#888;
 
-  color:var(--red);
+    font-size:11px;
+
+    padding:4px 0;
 }
 
-.arrow{
-  position:absolute!important;
+.service-list li::before{
+    content:"—";
 
-  right:25px;
-  top:25px;
+    color:var(--red);
 
-  color:#666;
-
-  font-size:20px;
+    margin-right:8px;
 }
 
-.card:hover .arrow{
-  color:var(--red);
+
+/* =========================================================
+   VISUAL BREAK
+========================================================= */
+
+.visual-break{
+    min-height:650px;
+
+    display:flex;
+    align-items:center;
+
+    background:#090909;
+}
+
+.visual-image{
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            90deg,
+            #050505 0%,
+            rgba(5,5,5,.55) 45%,
+            rgba(5,5,5,.1) 100%
+        ),
+        url("https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=2400&q=85")
+        center/cover;
+
+    transform:scale(1.08);
+
+    will-change:transform;
+}
+
+.visual-content{
+    position:relative;
+    z-index:2;
+
+    max-width:700px;
+}
+
+.visual-content h2{
+    margin-top:25px;
+
+    font-size:
+        clamp(
+            50px,
+            7vw,
+            105px
+        );
+
+    line-height:.9;
+
+    letter-spacing:-.07em;
+}
+
+.visual-content p{
+    max-width:580px;
+
+    margin-top:30px;
+
+    color:#aaa;
+
+    font-size:16px;
+    line-height:1.7;
 }
 
 
@@ -1004,95 +971,106 @@ img{
 ========================================================= */
 
 .work{
-  display:grid;
-
-  grid-template-columns:
-    1.3fr
-    .7fr;
-
-  gap:12px;
+    background:#050505;
 }
 
-.workCard{
-  min-height:500px;
+.work-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
 
-  border:
-    1px solid
-    var(--line);
-
-  position:relative;
-
-  overflow:hidden;
-
-  padding:32px;
-
-  display:flex;
-
-  align-items:flex-end;
-
-  background:#101010;
+    margin-bottom:70px;
 }
 
-.workCard.small{
-  min-height:500px;
+.work-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:12px;
 }
 
-.workImg{
-  position:absolute;
+.work-card{
+    position:relative;
 
-  inset:0;
+    min-height:550px;
 
-  background-size:cover;
+    overflow:hidden;
 
-  background-position:center;
+    border:1px solid rgba(255,255,255,.1);
 
-  filter:grayscale(1);
-
-  opacity:.42;
-
-  transition:.7s;
+    background:#0a0a0a;
 }
 
-.workCard:hover .workImg{
-  transform:scale(1.08);
-
-  filter:grayscale(.15);
-
-  opacity:.65;
+.work-card.large{
+    grid-row:span 2;
+    min-height:900px;
 }
 
-.workShade{
-  position:absolute;
+.work-card-image{
+    position:absolute;
+    inset:0;
 
-  inset:0;
+    background-size:cover;
+    background-position:center;
 
-  background:
-    linear-gradient(
-      transparent 35%,
-      #050505
-    );
+    transition:
+        transform 1s var(--ease);
 }
 
-.workText{
-  position:relative;
-
-  z-index:2;
+.work-card:hover .work-card-image{
+    transform:scale(1.06);
 }
 
-.workText h3{
-  font-size:40px;
+.work-card::after{
+    content:"";
 
-  letter-spacing:-.06em;
+    position:absolute;
+    inset:0;
 
-  margin-top:12px;
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.9),
+            rgba(0,0,0,.05) 70%
+        );
 }
 
-.workText p{
-  color:#888;
+.work-card-content{
+    position:absolute;
 
-  font-size:11px;
+    left:35px;
+    right:35px;
+    bottom:35px;
 
-  margin-top:8px;
+    z-index:3;
+}
+
+.work-card-category{
+    color:var(--red);
+
+    font-size:10px;
+    font-weight:800;
+
+    letter-spacing:.18em;
+    text-transform:uppercase;
+}
+
+.work-card-title{
+    margin-top:12px;
+
+    font-size:34px;
+
+    letter-spacing:-.05em;
+}
+
+.work-card-description{
+    margin-top:8px;
+
+    color:#aaa;
+
+    font-size:13px;
 }
 
 
@@ -1101,52 +1079,118 @@ img{
 ========================================================= */
 
 .process{
-  border-top:
-    1px solid
-    var(--line);
+    background:#090909;
 }
 
-.row{
-  display:grid;
+.process-list{
+    margin-top:90px;
 
-  grid-template-columns:
-    80px
-    1fr
-    1fr;
-
-  gap:30px;
-
-  padding:32px 0;
-
-  border-bottom:
-    1px solid
-    var(--line);
-
-  transition:.3s;
+    border-top:1px solid var(--border);
 }
 
-.row:hover{
-  padding-left:12px;
+.process-row{
+    display:grid;
+
+    grid-template-columns:100px 1fr 1fr;
+
+    gap:40px;
+
+    padding:45px 0;
+
+    border-bottom:1px solid var(--border);
+
+    transition:
+        padding .5s var(--ease);
 }
 
-.rowNum{
-  color:var(--red);
-
-  font-size:10px;
+.process-row:hover{
+    padding-left:20px;
 }
 
-.row h3{
-  font-size:28px;
+.process-number{
+    color:var(--red);
 
-  letter-spacing:-.04em;
+    font-size:11px;
+    font-weight:800;
+
+    letter-spacing:.15em;
 }
 
-.row p{
-  color:#777;
+.process-row h3{
+    font-size:
+        clamp(
+            28px,
+            3vw,
+            44px
+        );
 
-  font-size:13px;
+    letter-spacing:-.05em;
+}
 
-  line-height:1.65;
+.process-row p{
+    color:#777;
+
+    font-size:14px;
+    line-height:1.7;
+}
+
+
+/* =========================================================
+   INDUSTRIES
+========================================================= */
+
+.industries{
+    background:#050505;
+}
+
+.industry-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    margin-top:80px;
+
+    border-top:1px solid var(--border);
+    border-left:1px solid var(--border);
+}
+
+.industry{
+    min-height:170px;
+
+    padding:25px;
+
+    border-right:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+
+    transition:
+        background .4s ease,
+        color .4s ease;
+}
+
+.industry:hover{
+    background:var(--red);
+}
+
+.industry small{
+    color:#555;
+
+    font-size:9px;
+    font-weight:800;
+
+    letter-spacing:.15em;
+}
+
+.industry:hover small{
+    color:rgba(255,255,255,.7);
+}
+
+.industry h3{
+    margin-top:40px;
+
+    font-size:21px;
+
+    letter-spacing:-.03em;
 }
 
 
@@ -1155,320 +1199,245 @@ img{
 ========================================================= */
 
 .about{
-  border:
-    1px solid
-    var(--line);
-
-  padding:65px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #090909,
-      #0d0d0d
-    );
+    background:#080808;
 }
 
-.about h2{
-  font-size:
-    clamp(
-      44px,
-      6vw,
-      82px
-    );
+.about-layout{
+    display:grid;
 
-  line-height:.9;
+    grid-template-columns:
+        1.2fr .8fr;
 
-  letter-spacing:-.07em;
+    gap:100px;
 
-  max-width:950px;
-
-  margin-top:18px;
+    align-items:start;
 }
 
-.about h2 span{
-  color:var(--red);
+.about-copy{
+    margin-top:45px;
+
+    color:#aaa;
+
+    font-size:18px;
+    line-height:1.8;
 }
 
-.about p{
-  max-width:650px;
+.about-points{
+    display:grid;
 
-  color:#888;
+    grid-template-columns:
+        repeat(2,1fr);
 
-  line-height:1.8;
+    gap:1px;
 
-  font-size:14px;
+    background:var(--border);
 
-  margin-top:32px;
+    border:1px solid var(--border);
+}
+
+.about-point{
+    min-height:180px;
+
+    padding:28px;
+
+    background:#090909;
+}
+
+.about-point strong{
+    display:block;
+
+    color:var(--red);
+
+    font-size:10px;
+
+    letter-spacing:.15em;
+}
+
+.about-point h3{
+    margin-top:35px;
+
+    font-size:20px;
 }
 
 
 /* =========================================================
-   PROJECT
+   CONTACT
 ========================================================= */
 
-.project{
-  background:#f4f4f4;
-
-  color:#080808;
+.contact{
+    background:
+        radial-gradient(
+            circle at 75% 50%,
+            rgba(237,28,36,.12),
+            transparent 30%
+        ),
+        #050505;
 }
 
-.project .desc{
-  color:#666;
+.contact-layout{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:100px;
 }
 
-.projectLayout{
-  display:grid;
+.contact-title{
+    margin-top:25px;
 
-  grid-template-columns:
-    .7fr
-    1.3fr;
+    font-size:
+        clamp(
+            55px,
+            7vw,
+            105px
+        );
 
-  gap:80px;
+    line-height:.88;
+
+    letter-spacing:-.07em;
 }
 
-.form{
-  display:grid;
+.contact-copy{
+    max-width:500px;
 
-  gap:13px;
+    margin-top:30px;
+
+    color:#888;
+
+    font-size:16px;
+    line-height:1.75;
+}
+
+.contact-details{
+    margin-top:50px;
+}
+
+.contact-details a{
+    display:block;
+
+    margin:10px 0;
+
+    color:#ddd;
+
+    font-size:14px;
+}
+
+.contact-details a:hover{
+    color:var(--red);
+}
+
+
+/* FORM */
+
+.project-form{
+    padding:40px;
+
+    border:1px solid var(--border);
+
+    background:rgba(255,255,255,.025);
+
+    backdrop-filter:blur(15px);
+}
+
+.form-row{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:15px;
 }
 
 .field{
-  width:100%;
-
-  border:
-    1px solid
-    #ccc;
-
-  background:#fff;
-
-  padding:16px;
-
-  outline:none;
-
-  color:#111;
+    margin-bottom:15px;
 }
 
-.field:focus{
-  border-color:#111;
+.field label{
+    display:block;
+
+    margin-bottom:8px;
+
+    color:#777;
+
+    font-size:9px;
+    font-weight:800;
+
+    letter-spacing:.15em;
+
+    text-transform:uppercase;
 }
 
-textarea.field{
-  min-height:145px;
+.field input,
+.field textarea,
+.field select{
+    width:100%;
 
-  resize:vertical;
+    padding:17px;
+
+    color:white;
+
+    background:#0c0c0c;
+
+    border:1px solid rgba(255,255,255,.12);
+
+    font-size:13px;
+
+    transition:border-color .3s ease;
 }
 
-
-/* =========================================================
-   AI BUTTON
-========================================================= */
-
-.ai{
-  position:fixed;
-
-  right:25px;
-  bottom:25px;
-
-  width:64px;
-  height:64px;
-
-  border-radius:50%;
-
-  background:#090909;
-
-  border:
-    1px solid
-    #555;
-
-  color:#fff;
-
-  z-index:4000;
-
-  cursor:pointer;
-
-  box-shadow:
-    0 15px 50px
-    #0008;
-
-  font-size:23px;
-
-  transition:.3s;
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+    border-color:var(--red);
 }
 
-.ai:hover{
-  background:var(--red);
+.field textarea{
+    min-height:140px;
 
-  border-color:var(--red);
-
-  transform:scale(1.08);
+    resize:vertical;
 }
 
-.aiPulse{
-  position:absolute;
-
-  inset:-7px;
-
-  border:
-    1px solid
-    rgba(237,28,36,.35);
-
-  border-radius:50%;
-
-  animation:
-    botpulse 2s infinite;
+.field select{
+    appearance:none;
 }
 
-@keyframes botpulse{
+.form-submit{
+    width:100%;
 
-  0%{
-    transform:scale(.85);
-    opacity:.8;
-  }
+    margin-top:10px;
 
-  100%{
-    transform:scale(1.25);
-    opacity:0;
-  }
+    min-height:58px;
 
+    background:var(--red);
+
+    color:white;
+
+    font-size:11px;
+    font-weight:800;
+
+    letter-spacing:.14em;
+
+    text-transform:uppercase;
+
+    cursor:pointer;
+
+    transition:
+        background .3s ease,
+        transform .3s ease;
 }
 
-
-/* =========================================================
-   AI PANEL
-========================================================= */
-
-.aipanel{
-  position:fixed;
-
-  right:25px;
-  bottom:105px;
-
-  width:350px;
-
-  max-width:
-    calc(100vw - 35px);
-
-  background:#090909;
-
-  border:
-    1px solid
-    #292929;
-
-  padding:24px;
-
-  z-index:3999;
-
-  opacity:0;
-
-  visibility:hidden;
-
-  transform:
-    translateY(15px);
-
-  transition:.3s;
-
-  box-shadow:
-    0 30px 80px
-    rgba(0,0,0,.55);
+.form-submit:hover{
+    background:var(--red2);
+    transform:translateY(-2px);
 }
 
-.aipanel.open{
-  opacity:1;
+.form-status{
+    margin-top:15px;
 
-  visibility:visible;
+    color:#888;
 
-  transform:none;
-}
-
-.aihead{
-  display:flex;
-
-  justify-content:space-between;
-
-  font-weight:900;
-}
-
-.aihead span{
-  color:var(--red);
-}
-
-.aiclose{
-  color:#777;
-
-  cursor:pointer;
-}
-
-.aimsg{
-  color:#888;
-
-  font-size:12px;
-
-  line-height:1.6;
-
-  margin:22px 0;
-}
-
-.aiopts{
-  display:grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
-  gap:8px;
-}
-
-.aiopts button{
-  background:#111;
-
-  border:
-    1px solid
-    #282828;
-
-  color:#aaa;
-
-  padding:12px;
-
-  font-size:9px;
-
-  text-transform:uppercase;
-
-  font-weight:900;
-
-  cursor:pointer;
-
-  transition:.25s;
-}
-
-.aiopts button:hover{
-  background:var(--red);
-
-  color:#fff;
-
-  border-color:var(--red);
-}
-
-
-/* =========================================================
-   SCROLL REVEAL
-========================================================= */
-
-.reveal{
-  opacity:0;
-
-  transform:
-    translateY(45px);
-
-  transition:
-    opacity .9s ease,
-    transform .9s
-      cubic-bezier(.2,.8,.2,1);
-}
-
-.reveal.show{
-  opacity:1;
-
-  transform:none;
+    font-size:12px;
 }
 
 
@@ -1476,146 +1445,160 @@ textarea.field{
    FOOTER
 ========================================================= */
 
-footer{
-  padding:
-    80px 0
-    25px;
+.footer{
+    position:relative;
 
-  border-top:
-    1px solid
-    var(--line);
+    padding:90px 0 35px;
+
+    background:#030303;
+
+    border-top:1px solid var(--border);
 }
 
-.foot{
-  display:flex;
+.footer-top{
+    display:flex;
 
-  justify-content:space-between;
+    justify-content:space-between;
+    align-items:start;
 
-  gap:40px;
-
-  align-items:flex-end;
+    gap:50px;
 }
 
-.big{
-  font-size:
-    clamp(
-      58px,
-      9vw,
-      120px
-    );
-
-  line-height:.8;
-
-  letter-spacing:-.08em;
-
-  font-weight:900;
+.footer-brand img{
+    width:auto;
+    height:65px;
 }
 
-.big span{
-  color:var(--red);
+.footer-brand p{
+    max-width:350px;
+
+    margin-top:25px;
+
+    color:#666;
+
+    font-size:12px;
+    line-height:1.7;
 }
 
-.contact{
-  color:#777;
-
-  font-size:12px;
-
-  line-height:1.8;
+.footer-links{
+    display:flex;
+    gap:70px;
 }
 
-.bottom{
-  border-top:
-    1px solid
-    var(--line);
+.footer-links-column strong{
+    display:block;
 
-  margin-top:70px;
+    margin-bottom:20px;
 
-  padding-top:18px;
+    color:#555;
 
-  color:#555;
+    font-size:9px;
 
-  font-size:9px;
+    letter-spacing:.15em;
+}
 
-  display:flex;
+.footer-links-column a{
+    display:block;
 
-  justify-content:space-between;
+    margin:9px 0;
 
-  letter-spacing:.1em;
+    color:#888;
 
-  text-transform:uppercase;
+    font-size:11px;
+}
+
+.footer-links-column a:hover{
+    color:white;
+}
+
+.footer-bottom{
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:80px;
+    padding-top:25px;
+
+    border-top:1px solid var(--border);
+
+    color:#444;
+
+    font-size:9px;
+
+    letter-spacing:.12em;
+
+    text-transform:uppercase;
 }
 
 
 /* =========================================================
-   TABLET
+   FLOATING ACTION
 ========================================================= */
 
-@media(max-width:900px){
+.floating{
+    position:fixed;
 
-  .links{
-    display:none;
-  }
+    right:25px;
+    bottom:25px;
 
-  .head,
-  .projectLayout{
-    grid-template-columns:1fr;
-  }
+    width:58px;
+    height:58px;
 
-  .services{
-    grid-template-columns:1fr;
-  }
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-  .work{
-    grid-template-columns:1fr;
-  }
+    border-radius:50%;
 
-  .workCard,
-  .workCard.small{
-    min-height:380px;
-  }
+    border:1px solid rgba(255,255,255,.3);
 
-  .row{
-    grid-template-columns:
-      55px
-      1fr;
-  }
+    background:rgba(5,5,5,.7);
 
-  .row p{
-    grid-column:2;
-  }
+    backdrop-filter:blur(15px);
 
-  .section{
-    padding:90px 0;
-  }
+    z-index:200;
 
-  .heroVisual{
-    width:500px;
-    height:500px;
-    right:-260px;
-  }
+    color:white;
 
-  .about{
-    padding:35px 25px;
-  }
+    font-size:20px;
 
-  .foot{
-    display:block;
-  }
+    transition:
+        transform .4s var(--ease),
+        background .3s ease;
+}
 
-  .contact{
-    margin-top:35px;
-  }
+.floating:hover{
+    transform:rotate(45deg);
+    background:var(--red);
+}
 
-  .bottom{
-    display:block;
-    line-height:2;
-  }
 
-  .container{
-    width:
-      calc(100% - 30px);
-  }
+/* =========================================================
+   REVEAL
+========================================================= */
 
+.reveal{
+    opacity:0;
+
+    transform:translateY(60px);
+
+    transition:
+        opacity 1s var(--ease),
+        transform 1s var(--ease);
+}
+
+.reveal.visible{
+    opacity:1;
+    transform:translateY(0);
+}
+
+
+/* =========================================================
+   PARALLAX ELEMENT
+========================================================= */
+
+.parallax{
+    will-change:transform;
 }
 
 
@@ -1623,77 +1606,219 @@ footer{
    MOBILE
 ========================================================= */
 
+@media(max-width:900px){
+
+    :root{
+        --header:76px;
+        --header-small:64px;
+    }
+
+    .container{
+        width:min(
+            calc(100% - 32px),
+            var(--max)
+        );
+    }
+
+    .nav{
+        display:none;
+    }
+
+    .header-cta{
+        display:none;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .header.mobile-open .nav{
+        position:absolute;
+
+        top:100%;
+        left:0;
+        right:0;
+
+        display:flex;
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:25px;
+
+        padding:30px 24px;
+
+        background:#080808;
+
+        border-bottom:1px solid var(--border);
+    }
+
+    .hero-orbit{
+        width:450px;
+        height:450px;
+
+        right:-200px;
+
+        opacity:.55;
+    }
+
+    .hero-core{
+        right:80px;
+    }
+
+    .services-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .about-layout,
+    .contact-layout{
+        grid-template-columns:1fr;
+
+        gap:60px;
+    }
+
+    .industry-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .work-card.large{
+        min-height:600px;
+    }
+
+    .process-row{
+        grid-template-columns:70px 1fr;
+
+        gap:20px;
+    }
+
+    .process-row p{
+        grid-column:2;
+    }
+
+    .footer-top{
+        flex-direction:column;
+    }
+
+    .footer-links{
+        width:100%;
+
+        justify-content:space-between;
+
+        gap:30px;
+    }
+}
+
+
 @media(max-width:600px){
 
-  .nav{
-    height:68px;
-  }
+    .section{
+        padding:100px 0;
+    }
 
-  .nav.scrolled{
-    height:58px;
-  }
+    .hero{
+        min-height:850px;
+    }
 
-  .logo{
-    height:68px;
-  }
+    .hero-content{
+        padding:90px 0 100px;
+    }
 
-  .logo img{
-    height:44px;
-    max-width:130px;
-  }
+    .hero-title{
+        font-size:
+            clamp(
+                55px,
+                14vw,
+                82px
+            );
+    }
 
-  .nav.scrolled .logo{
-    height:58px;
-  }
+    .hero-description{
+        font-size:15px;
+    }
 
-  .nav.scrolled .logo img{
-    height:38px;
-    max-width:120px;
-  }
+    .hero-actions{
+        flex-direction:column;
 
-  .hero{
-    padding-top:120px;
-  }
+        align-items:flex-start;
+    }
 
-  .heroVisual{
-    opacity:.55;
+    .btn{
+        width:100%;
+    }
 
-    width:360px;
-    height:360px;
+    .hero-bottom{
+        bottom:18px;
+    }
 
-    right:-230px;
-  }
+    .services-head,
+    .work-head{
+        display:block;
+    }
 
-  .heroVisual:before{
-    inset:40px;
-  }
+    .services-head .section-intro,
+    .work-head .section-intro{
+        margin-top:25px;
+    }
 
-  .heroVisual:after{
-    inset:85px;
-  }
+    .services-grid{
+        grid-template-columns:1fr;
+    }
 
-  .heroVisual .core{
-    inset:120px;
-  }
+    .service-card{
+        min-height:350px;
+    }
 
-  .heroVisual .orbit{
-    inset:60px;
-  }
+    .visual-break{
+        min-height:600px;
+    }
 
-  .heroText{
-    font-size:15px;
-  }
+    .work-grid{
+        grid-template-columns:1fr;
+    }
 
-  .ai{
-    right:16px;
-    bottom:16px;
-  }
+    .work-card,
+    .work-card.large{
+        min-height:480px;
+    }
 
-  .aipanel{
-    right:16px;
-    bottom:92px;
-  }
+    .industry-grid{
+        grid-template-columns:1fr 1fr;
+    }
 
+    .industry{
+        min-height:140px;
+    }
+
+    .about-points{
+        grid-template-columns:1fr;
+    }
+
+    .form-row{
+        grid-template-columns:1fr;
+    }
+
+    .project-form{
+        padding:24px;
+    }
+
+    .footer-links{
+        flex-wrap:wrap;
+    }
+
+    .footer-bottom{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .floating{
+        width:50px;
+        height:50px;
+
+        right:16px;
+        bottom:16px;
+    }
 }
 
 
@@ -1703,18 +1828,14 @@ footer{
 
 @media(prefers-reduced-motion:reduce){
 
-  *,
-  *::before,
-  *::after{
-    animation-duration:.01ms!important;
-
-    animation-iteration-count:1!important;
-
-    transition-duration:.01ms!important;
-
-    scroll-behavior:auto!important;
-  }
-
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        scroll-behavior:auto !important;
+        transition-duration:.01ms !important;
+    }
 }
 
 </style>
@@ -1724,1325 +1845,1233 @@ footer{
 <body>
 
 
-<!-- =======================================================
-     GLOBAL VISUAL LAYERS
-======================================================= -->
+<!-- ======================================================
+     HEADER
+====================================================== -->
 
-<div class="noise"></div>
+<header class="header" id="header">
 
-<div class="grid"></div>
+    <div class="container header-inner">
 
-
-<!-- =======================================================
-     PREMIUM HEADER
-======================================================= -->
-
-<header
-  class="nav"
-  id="siteNav"
->
-
-  <div class="container navin">
+        <a href="#top" class="logo" aria-label="Amir Graphics">
+            <img
+                src="Amir Graphics Logo.png"
+                alt="Amir Graphics"
+            >
+        </a>
 
 
-    <!-- LOGO -->
+        <nav class="nav" id="nav">
 
-    <a
-      class="logo"
-      href="#top"
-      aria-label="Amir Graphics Home"
-    >
+            <a href="#services">Services</a>
 
-      <img
-        src="/Amir%20Graphics%20Logo.png"
-        alt="Amir Graphics"
-      >
+            <a href="#work">Work</a>
 
-    </a>
+            <a href="#process">Process</a>
+
+            <a href="#industries">Industries</a>
+
+            <a href="#about">About</a>
+
+        </nav>
 
 
-    <!-- DESKTOP NAV -->
+        <a
+            href="#contact"
+            class="header-cta"
+        >
+            Start a Project ↗
+        </a>
 
-    <nav
-      class="links"
-      aria-label="Main Navigation"
-    >
 
-      <a href="#services">
-        Services
-      </a>
+        <button
+            class="menu-btn"
+            id="menuBtn"
+            aria-label="Open menu"
+        >
+            <div class="menu-lines">
+                <span></span>
+                <span></span>
+            </div>
+        </button>
 
-      <a href="#work">
-        Work
-      </a>
-
-      <a href="#process">
-        Process
-      </a>
-
-      <a href="#about">
-        About
-      </a>
-
-      <a
-        class="navcta"
-        href="#project"
-      >
-        Start a Project ↗
-      </a>
-
-    </nav>
-
-  </div>
+    </div>
 
 </header>
 
 
-<!-- =======================================================
-     MAIN
-======================================================= -->
-
 <main id="top">
 
 
-<!-- =======================================================
+<!-- ======================================================
      HERO
-======================================================= -->
+====================================================== -->
 
 <section class="hero">
 
+    <div class="grid-bg"></div>
 
-  <!-- PARALLAX VISUAL -->
+    <div
+        class="hero-orbit parallax"
+        data-speed="0.08"
+    ></div>
 
-  <div
-    class="heroVisual"
-    id="heroVisual"
-    aria-hidden="true"
-  >
-
-    <div class="orbit"></div>
-
-    <div class="core"></div>
-
-  </div>
+    <div class="hero-core"></div>
 
 
-  <!-- HERO CONTENT -->
+    <div class="container hero-content reveal">
 
-  <div class="container">
+        <div class="eyebrow hero-eyebrow">
+            Creative & Digital Solutions
+        </div>
 
 
-    <div class="eyebrow reveal">
+        <h1 class="hero-title">
 
-      Creative & Digital Solutions
+            <span class="white">
+                Your brand.
+            </span>
+
+            <br>
+
+            <span class="white">
+                Built to
+            </span>
+
+            <span class="red">
+                stand
+            </span>
+
+            <br>
+
+            <span class="red">
+                out.
+            </span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            Amir Graphics helps businesses build stronger brands,
+            sharper communication and better digital experiences
+            through design, content and technology.
+
+        </p>
+
+
+        <div class="hero-actions">
+
+            <a
+                href="#contact"
+                class="btn btn-primary"
+            >
+                Start a Project ↗
+            </a>
+
+
+            <a
+                href="#services"
+                class="btn btn-secondary"
+            >
+                Explore Services
+            </a>
+
+        </div>
 
     </div>
 
 
-    <h1 class="reveal">
+    <div class="container hero-bottom">
 
-      Your brand.<br>
+        <div class="scrollmark">
+            Scroll / Explore
+        </div>
 
-      Built to
-      <span>
-        stand<br>
-        out.
-      </span>
-
-    </h1>
-
-
-    <p class="heroText reveal">
-
-      Amir Graphics helps businesses build stronger
-      brands, sharper communication and better digital
-      experiences through design, content and technology.
-
-    </p>
-
-
-    <div class="actions reveal">
-
-      <a
-        class="btn red"
-        href="#project"
-      >
-        Start a Project ↗
-      </a>
-
-
-      <a
-        class="btn"
-        href="#services"
-      >
-        Explore Services
-      </a>
+        <div>
+            Branding / Digital / Content / Technology
+        </div>
 
     </div>
-
-  </div>
-
-
-  <div class="container scrollmark">
-
-    Scroll / Explore ↓
-
-  </div>
 
 </section>
 
 
-<!-- =======================================================
+<!-- ======================================================
      MARQUEE
-======================================================= -->
+====================================================== -->
 
 <div class="marquee">
 
-  <div class="track">
+    <div class="marquee-track">
 
+        <span>Branding</span>
+        <span>Packaging</span>
+        <span>Graphic Design</span>
+        <span>Web & UI/UX</span>
+        <span>Video & Motion</span>
+        <span>AI Creative</span>
+        <span>Social Media</span>
+        <span>Digital Marketing</span>
+        <span>Automation & Growth</span>
 
-    <span>
-      Branding <b>●</b>
-    </span>
+        <span>Branding</span>
+        <span>Packaging</span>
+        <span>Graphic Design</span>
+        <span>Web & UI/UX</span>
+        <span>Video & Motion</span>
+        <span>AI Creative</span>
+        <span>Social Media</span>
+        <span>Digital Marketing</span>
+        <span>Automation & Growth</span>
 
-    <span>
-      Packaging <b>●</b>
-    </span>
-
-    <span>
-      Graphic Design <b>●</b>
-    </span>
-
-    <span>
-      Web & UI/UX <b>●</b>
-    </span>
-
-    <span>
-      Video & Motion <b>●</b>
-    </span>
-
-    <span>
-      AI Creative <b>●</b>
-    </span>
-
-    <span>
-      Social Media <b>●</b>
-    </span>
-
-    <span>
-      Digital Marketing <b>●</b>
-    </span>
-
-    <span>
-      Automation & Growth <b>●</b>
-    </span>
-
-
-    <span>
-      Branding <b>●</b>
-    </span>
-
-    <span>
-      Packaging <b>●</b>
-    </span>
-
-    <span>
-      Graphic Design <b>●</b>
-    </span>
-
-    <span>
-      Web & UI/UX <b>●</b>
-    </span>
-
-    <span>
-      Video & Motion <b>●</b>
-    </span>
-
-    <span>
-      AI Creative <b>●</b>
-    </span>
-
-    <span>
-      Social Media <b>●</b>
-    </span>
-
-    <span>
-      Digital Marketing <b>●</b>
-    </span>
-
-    <span>
-      Automation & Growth <b>●</b>
-    </span>
-
-
-  </div>
+    </div>
 
 </div>
 
 
-<!-- =======================================================
+<!-- ======================================================
      SERVICES
-======================================================= -->
+====================================================== -->
 
 <section
-  class="section"
-  id="services"
+    class="services section"
+    id="services"
 >
 
-  <div class="container">
+    <div class="container">
+
+        <div class="services-head reveal">
+
+            <div>
+
+                <div class="eyebrow">
+                    01 / Services
+                </div>
+
+                <h2 class="section-title" style="margin-top:25px;">
+                    Everything your brand needs.
+                </h2>
+
+            </div>
 
 
-    <div class="head reveal">
+            <p class="section-intro">
 
+                From the first visual impression to digital
+                growth, we bring creative, technology and
+                communication together under one roof.
 
-      <div>
+            </p>
 
-        <div class="label">
-          01 / Services
         </div>
 
-        <h2 class="title">
 
-          Nine capabilities.<br>
-
-          One creative partner.
-
-        </h2>
-
-      </div>
+        <div class="services-grid">
 
 
-      <p class="desc">
+            <!-- 01 -->
 
-        Explore the complete Amir Graphics service
-        ecosystem. Each category combines strategic
-        thinking, creative execution and practical
-        business outcomes.
+            <article class="service-card reveal">
 
-      </p>
+                <div class="service-number">
+                    01 / BRANDING
+                </div>
 
+                <div class="service-type">
+                    Identity
+                </div>
+
+                <h3 class="service-name">
+                    Branding
+                </h3>
+
+                <p class="service-description">
+                    Build recognition from the first impression.
+                </p>
+
+                <ul class="service-list">
+                    <li>Logo Design</li>
+                    <li>Brand Identity</li>
+                    <li>Corporate Identity</li>
+                    <li>Business Cards</li>
+                    <li>Letterheads</li>
+                    <li>Brand Guidelines</li>
+                </ul>
+
+            </article>
+
+
+            <!-- 02 -->
+
+            <article class="service-card reveal">
+
+                <div class="service-number">
+                    02 / PACKAGING
+                </div>
+
+                <div class="service-type">
+                    Product
+                </div>
+
+                <h3 class="service-name">
+                    Packaging
+                </h3>
+
+                <p class="service-description">
+                    Make the product impossible to ignore.
+                </p>
+
+                <ul class="service-list">
+                    <li>Product Packaging</li>
+                    <li>Label Design</li>
+                    <li>Box Design</li>
+                    <li>Jar / Bottle Design</li>
+                    <li>Sticker Design</li>
+                    <li>3D Packaging</li>
+                </ul>
+
+            </article>
+
+
+            <!-- 03 -->
+
+            <article class="service-card reveal">
+
+                <div class="service-number">
+                    03 / GRAPHIC DESIGN
+                </div>
+
+                <div class="service-type">
+                    Communication
+                </div>
+
+                <h3 class="service-name">
+                    Graphic Design
+                </h3>
+
+                <p class="service-description">
+                    Turn communication into visual impact.
+                </p>
+
+                <ul class="service-list">
+                    <li>Brochures</li>
+                    <li>Flyers & Posters</li>
+                    <li>Banners & Hoardings</li>
+                    <li>Catalogues</li>
+                    <li>Social Creatives</li>
+                    <li>Marketing Collateral</li>
+                </ul>
+
+            </article>
+
+
+            <!-- 04 -->
+
+            <article class="service-card reveal">
+
+                <div class="service-number">
+                    04 / DIGITAL
+                </div>
+
+                <div class="service-type">
+                    Experience
+                </div>
+
+                <h3 class="service-name">
+                    Web & UI/UX
+                </h3>
+
+                <p class="service-description">
+                    Give the brand a digital home.
+                </p>
+
+                <ul class="service-list">
+                    <li>Website Design</li>
+                    <li>Landing Pages</li>
+                    <li>UI / UX</li>
+                    <li>Web Graphics</li>
+                    <li>Digital Campaigns</li>
+                    <li>Responsive Design</li>
+                </ul>
+
+            </article>
+
+
+            <!-- 05 -->
+
+            <article class="service-card reveal">
+
+                <div class="service-number">
+                    05 / MOTION
+                </div>
+
+                <div class="service-type">
+                    Moving Image
+                </div>
+
+                <h3 class="service-name">
+                    Video & Motion
+                </h3>
+
+                <p class="service-description">
+                    Make the message move.
+                </p>
+
+                <ul class="service-list">
+                    <li>Motion Graphics</li>
+                    <li>Reels</li>
+                    <li>Animated Posts</li>
+                    <li>Product Videos</li>
+                    <li>Commercial Concepts</li>
+                    <li>Animation</li>
+                </ul>
+
+            </article>
+
+
+            <!-- 06 -->
+
+            <article class="service-card reveal">
+
+                <div class="service-number">
+                    06 / AI
+                </div>
+
+                <div class="service-type">
+                    Creative Technology
+                </div>
+
+                <h3 class="service-name">
+                    AI Creative
+                </h3>
+
+                <p class="service-description">
+                    Explore more creative possibilities, faster.
+                </p>
+
+                <ul class="service-list">
+                    <li>AI Product Visuals</li>
+                    <li>AI Advertising</li>
+                    <li>AI Characters</li>
+                    <li>Cinematic Visuals</li>
+                    <li>AI Video</li>
+                    <li>Campaign Concepts</li>
+                </ul>
+
+            </article>
+
+
+            <!-- 07 -->
+
+            <article class="service-card reveal">
+
+                <div class="service-number">
+                    07 / SOCIAL
+                </div>
+
+                <div class="service-type">
+                    Content
+                </div>
+
+                <h3 class="service-name">
+                    Social Media
+                </h3>
+
+                <p class="service-description">
+                    Build a recognisable content presence.
+                </p>
+
+                <ul class="service-list">
+                    <li>Content Design</li>
+                    <li>Campaign Creative</li>
+                    <li>Social Branding</li>
+                    <li>Reels</li>
+                    <li>Content Systems</li>
+                </ul>
+
+            </article>
+
+
+            <!-- 08 -->
+
+            <article class="service-card reveal">
+
+                <div class="service-number">
+                    08 / MARKETING
+                </div>
+
+                <div class="service-type">
+                    Visibility
+                </div>
+
+                <h3 class="service-name">
+                    Digital Marketing
+                </h3>
+
+                <p class="service-description">
+                    Connect creative work with visibility.
+                </p>
+
+                <ul class="service-list">
+                    <li>SEO</li>
+                    <li>Digital Campaigns</li>
+                    <li>Lead Generation</li>
+                    <li>Website Strategy</li>
+                    <li>Content Marketing</li>
+                </ul>
+
+            </article>
+
+
+            <!-- 09 -->
+
+            <article class="service-card reveal">
+
+                <div class="service-number">
+                    09 / GROWTH
+                </div>
+
+                <div class="service-type">
+                    Systems
+                </div>
+
+                <h3 class="service-name">
+                    Automation & Growth
+                </h3>
+
+                <p class="service-description">
+                    Turn attention into an operating system.
+                </p>
+
+                <ul class="service-list">
+                    <li>WhatsApp Automation</li>
+                    <li>CRM</li>
+                    <li>Lead Capture</li>
+                    <li>Analytics</li>
+                    <li>Growth Workflows</li>
+                </ul>
+
+            </article>
+
+
+        </div>
 
     </div>
-
-
-    <div class="services">
-
-
-      <!-- =================================================
-           01 BRANDING
-      ================================================== -->
-
-      <article
-        class="card reveal"
-        data-tilt
-      >
-
-        <div
-          class="cardbg"
-          style="
-            background-image:url(
-              'https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1000&q=80'
-            )
-          "
-        ></div>
-
-        <div class="cardShade"></div>
-
-
-        <div class="num">
-          01 / BRANDING
-        </div>
-
-
-        <div class="arrow">
-          ↗
-        </div>
-
-
-        <h3 class="serviceName">
-          Branding
-        </h3>
-
-
-        <p class="serviceDesc">
-          Build recognition from the first impression.
-        </p>
-
-
-        <div class="subs">
-
-          <span>Logo Design</span>
-
-          <span>Brand Identity</span>
-
-          <span>Corporate Identity</span>
-
-          <span>Business Cards</span>
-
-          <span>Letterheads</span>
-
-          <span>Brand Guidelines</span>
-
-        </div>
-
-      </article>
-
-
-      <!-- =================================================
-           02 PACKAGING
-      ================================================== -->
-
-      <article
-        class="card reveal"
-        data-tilt
-      >
-
-        <div
-          class="cardbg"
-          style="
-            background-image:url(
-              'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1000&q=80'
-            )
-          "
-        ></div>
-
-        <div class="cardShade"></div>
-
-
-        <div class="num">
-          02 / PACKAGING
-        </div>
-
-
-        <div class="arrow">
-          ↗
-        </div>
-
-
-        <h3 class="serviceName">
-          Packaging
-        </h3>
-
-
-        <p class="serviceDesc">
-          Make the product impossible to ignore.
-        </p>
-
-
-        <div class="subs">
-
-          <span>Product Packaging</span>
-
-          <span>Label Design</span>
-
-          <span>Box Design</span>
-
-          <span>Jar / Bottle Design</span>
-
-          <span>Sticker Design</span>
-
-          <span>3D Packaging</span>
-
-        </div>
-
-      </article>
-
-
-      <!-- =================================================
-           03 GRAPHIC DESIGN
-      ================================================== -->
-
-      <article
-        class="card reveal"
-        data-tilt
-      >
-
-        <div
-          class="cardbg"
-          style="
-            background-image:url(
-              'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=1000&q=80'
-            )
-          "
-        ></div>
-
-        <div class="cardShade"></div>
-
-
-        <div class="num">
-          03 / GRAPHIC DESIGN
-        </div>
-
-
-        <div class="arrow">
-          ↗
-        </div>
-
-
-        <h3 class="serviceName">
-          Graphic Design
-        </h3>
-
-
-        <p class="serviceDesc">
-          Turn communication into visual impact.
-        </p>
-
-
-        <div class="subs">
-
-          <span>Brochures</span>
-
-          <span>Flyers & Posters</span>
-
-          <span>Banners & Hoardings</span>
-
-          <span>Catalogues</span>
-
-          <span>Social Creatives</span>
-
-          <span>Marketing Collateral</span>
-
-        </div>
-
-      </article>
-
-
-      <!-- =================================================
-           04 WEB
-      ================================================== -->
-
-      <article
-        class="card reveal"
-        data-tilt
-      >
-
-        <div
-          class="cardbg"
-          style="
-            background-image:url(
-              'https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=1000&q=80'
-            )
-          "
-        ></div>
-
-        <div class="cardShade"></div>
-
-
-        <div class="num">
-          04 / WEB & UI/UX
-        </div>
-
-
-        <div class="arrow">
-          ↗
-        </div>
-
-
-        <h3 class="serviceName">
-          Web & UI/UX
-        </h3>
-
-
-        <p class="serviceDesc">
-          Give the brand a digital home.
-        </p>
-
-
-        <div class="subs">
-
-          <span>Website Design</span>
-
-          <span>Landing Pages</span>
-
-          <span>UI / UX</span>
-
-          <span>Web Graphics</span>
-
-          <span>Digital Campaigns</span>
-
-          <span>Responsive Design</span>
-
-        </div>
-
-      </article>
-
-
-      <!-- =================================================
-           05 VIDEO
-      ================================================== -->
-
-      <article
-        class="card reveal"
-        data-tilt
-      >
-
-        <div
-          class="cardbg"
-          style="
-            background-image:url(
-              'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1000&q=80'
-            )
-          "
-        ></div>
-
-        <div class="cardShade"></div>
-
-
-        <div class="num">
-          05 / VIDEO & MOTION
-        </div>
-
-
-        <div class="arrow">
-          ↗
-        </div>
-
-
-        <h3 class="serviceName">
-          Video & Motion
-        </h3>
-
-
-        <p class="serviceDesc">
-          Make the message move.
-        </p>
-
-
-        <div class="subs">
-
-          <span>Motion Graphics</span>
-
-          <span>Reels</span>
-
-          <span>Animated Posts</span>
-
-          <span>Product Videos</span>
-
-          <span>Commercial Concepts</span>
-
-          <span>Animation</span>
-
-        </div>
-
-      </article>
-
-
-      <!-- =================================================
-           06 AI
-      ================================================== -->
-
-      <article
-        class="card reveal"
-        data-tilt
-      >
-
-        <div
-          class="cardbg"
-          style="
-            background-image:url(
-              'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1000&q=80'
-            )
-          "
-        ></div>
-
-        <div class="cardShade"></div>
-
-
-        <div class="num">
-          06 / AI CREATIVE
-        </div>
-
-
-        <div class="arrow">
-          ↗
-        </div>
-
-
-        <h3 class="serviceName">
-          AI Creative
-        </h3>
-
-
-        <p class="serviceDesc">
-          Explore more creative possibilities, faster.
-        </p>
-
-
-        <div class="subs">
-
-          <span>AI Product Visuals</span>
-
-          <span>AI Advertising</span>
-
-          <span>AI Characters</span>
-
-          <span>Cinematic Visuals</span>
-
-          <span>AI Video</span>
-
-          <span>Campaign Concepts</span>
-
-        </div>
-
-      </article>
-
-
-      <!-- =================================================
-           07 SOCIAL
-      ================================================== -->
-
-      <article
-        class="card reveal"
-        data-tilt
-      >
-
-        <div
-          class="cardbg"
-          style="
-            background-image:url(
-              'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1000&q=80'
-            )
-          "
-        ></div>
-
-        <div class="cardShade"></div>
-
-
-        <div class="num">
-          07 / SOCIAL MEDIA
-        </div>
-
-
-        <div class="arrow">
-          ↗
-        </div>
-
-
-        <h3 class="serviceName">
-          Social Media
-        </h3>
-
-
-        <p class="serviceDesc">
-          Build a recognisable content presence.
-        </p>
-
-
-        <div class="subs">
-
-          <span>Content Design</span>
-
-          <span>Campaign Creative</span>
-
-          <span>Social Branding</span>
-
-          <span>Reels</span>
-
-          <span>Content Systems</span>
-
-        </div>
-
-      </article>
-
-
-      <!-- =================================================
-           08 MARKETING
-      ================================================== -->
-
-      <article
-        class="card reveal"
-        data-tilt
-      >
-
-        <div
-          class="cardbg"
-          style="
-            background-image:url(
-              'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=80'
-            )
-          "
-        ></div>
-
-        <div class="cardShade"></div>
-
-
-        <div class="num">
-          08 / DIGITAL MARKETING
-        </div>
-
-
-        <div class="arrow">
-          ↗
-        </div>
-
-
-        <h3 class="serviceName">
-          Digital Marketing
-        </h3>
-
-
-        <p class="serviceDesc">
-          Connect creative work with visibility.
-        </p>
-
-
-        <div class="subs">
-
-          <span>SEO</span>
-
-          <span>Digital Campaigns</span>
-
-          <span>Lead Generation</span>
-
-          <span>Website Strategy</span>
-
-          <span>Content Marketing</span>
-
-        </div>
-
-      </article>
-
-
-      <!-- =================================================
-           09 AUTOMATION
-      ================================================== -->
-
-      <article
-        class="card reveal"
-        data-tilt
-      >
-
-        <div
-          class="cardbg"
-          style="
-            background-image:url(
-              'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1000&q=80'
-            )
-          "
-        ></div>
-
-        <div class="cardShade"></div>
-
-
-        <div class="num">
-          09 / AUTOMATION & GROWTH
-        </div>
-
-
-        <div class="arrow">
-          ↗
-        </div>
-
-
-        <h3 class="serviceName">
-          Automation & Growth
-        </h3>
-
-
-        <p class="serviceDesc">
-          Turn attention into an operating system.
-        </p>
-
-
-        <div class="subs">
-
-          <span>WhatsApp Automation</span>
-
-          <span>CRM</span>
-
-          <span>Lead Capture</span>
-
-          <span>Analytics</span>
-
-          <span>Growth Workflows</span>
-
-        </div>
-
-      </article>
-
-
-    </div>
-
-  </div>
 
 </section>
 
 
-<!-- =======================================================
-     CREATIVE PREVIEW
-======================================================= -->
+<!-- ======================================================
+     VISUAL STORY
+====================================================== -->
 
-<section
-  class="section"
-  id="work"
->
+<section class="visual-break">
 
-  <div class="container">
-
-
-    <div class="head reveal">
+    <div
+        class="visual-image parallax"
+        data-speed="-0.12"
+    ></div>
 
 
-      <div>
+    <div class="container visual-content reveal">
 
-        <div class="label">
-          02 / Creative Preview
+        <div class="eyebrow">
+            Creative Direction
         </div>
 
-        <h2 class="title">
-
-          A visual system ready
-          for your real work.
-
+        <h2>
+            Make your<br>
+            brand impossible<br>
+            to ignore.
         </h2>
 
-      </div>
-
-
-      <p class="desc">
-
-        These are capability previews, not claimed client
-        projects. Later we can replace every visual with
-        your actual Amir Graphics work.
-
-      </p>
+        <p>
+            Strategy gives the work direction.
+            Design gives it character.
+            Technology gives it reach.
+        </p>
 
     </div>
-
-
-    <div class="work">
-
-
-      <article class="workCard reveal">
-
-        <div
-          class="workImg"
-          style="
-            background-image:url(
-              'https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=1400&q=85'
-            )
-          "
-        ></div>
-
-
-        <div class="workShade"></div>
-
-
-        <div class="workText">
-
-          <div class="label">
-            Brand / Visual Identity
-          </div>
-
-
-          <h3>
-            Make the first
-            impression count.
-          </h3>
-
-
-          <p>
-            Creative direction / Identity / Applications
-          </p>
-
-        </div>
-
-      </article>
-
-
-      <article
-        class="workCard small reveal"
-      >
-
-        <div
-          class="workImg"
-          style="
-            background-image:url(
-              'https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?auto=format&fit=crop&w=1000&q=85'
-            )
-          "
-        ></div>
-
-
-        <div class="workShade"></div>
-
-
-        <div class="workText">
-
-          <div class="label">
-            Digital / Growth
-          </div>
-
-
-          <h3>
-            Design that moves
-            business forward.
-          </h3>
-
-
-          <p>
-            Digital / Campaign / Content
-          </p>
-
-        </div>
-
-      </article>
-
-
-    </div>
-
-  </div>
 
 </section>
 
 
-<!-- =======================================================
+<!-- ======================================================
+     WORK
+====================================================== -->
+
+<section
+    class="work section"
+    id="work"
+>
+
+    <div class="container">
+
+        <div class="work-head reveal">
+
+            <div>
+
+                <div class="eyebrow">
+                    02 / Selected Work
+                </div>
+
+                <h2
+                    class="section-title"
+                    style="margin-top:25px;"
+                >
+                    Work that means business.
+                </h2>
+
+            </div>
+
+            <p class="section-intro">
+
+                These are visual placeholders for now.
+                Your real client work can replace them later.
+
+            </p>
+
+        </div>
+
+
+        <div class="work-grid">
+
+
+            <article class="work-card large reveal">
+
+                <div
+                    class="work-card-image"
+                    style="
+                    background-image:url(
+                    'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1800&q=85'
+                    );
+                    "
+                ></div>
+
+                <div class="work-card-content">
+
+                    <div class="work-card-category">
+                        Branding
+                    </div>
+
+                    <h3 class="work-card-title">
+                        Brand Identity
+                    </h3>
+
+                    <p class="work-card-description">
+                        Strategy, identity and visual systems.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <article class="work-card reveal">
+
+                <div
+                    class="work-card-image"
+                    style="
+                    background-image:url(
+                    'https://images.unsplash.com/photo-1605648916361-9bc12ad6a569?auto=format&fit=crop&w=1600&q=85'
+                    );
+                    "
+                ></div>
+
+                <div class="work-card-content">
+
+                    <div class="work-card-category">
+                        Packaging
+                    </div>
+
+                    <h3 class="work-card-title">
+                        Product Story
+                    </h3>
+
+                    <p class="work-card-description">
+                        Packaging built for shelf impact.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <article class="work-card reveal">
+
+                <div
+                    class="work-card-image"
+                    style="
+                    background-image:url(
+                    'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=1600&q=85'
+                    );
+                    "
+                ></div>
+
+                <div class="work-card-content">
+
+                    <div class="work-card-category">
+                        Digital
+                    </div>
+
+                    <h3 class="work-card-title">
+                        Digital Experience
+                    </h3>
+
+                    <p class="work-card-description">
+                        Digital presence designed to perform.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
      PROCESS
-======================================================= -->
+====================================================== -->
 
 <section
-  class="section"
-  id="process"
+    class="process section"
+    id="process"
 >
 
-  <div class="container">
+    <div class="container">
 
+        <div class="reveal">
 
-    <div class="head reveal">
+            <div class="eyebrow">
+                03 / Process
+            </div>
 
-      <div>
+            <h2
+                class="section-title"
+                style="margin-top:25px;"
+            >
+                Simple process.<br>
+                Serious output.
+            </h2>
 
-        <div class="label">
-          03 / Process
         </div>
 
-        <h2 class="title">
 
-          Clear thinking.<br>
+        <div class="process-list">
 
-          Better execution.
 
-        </h2>
+            <div class="process-row reveal">
 
-      </div>
+                <div class="process-number">
+                    01
+                </div>
+
+                <h3>
+                    Discover
+                </h3>
+
+                <p>
+                    We understand your business,
+                    audience, positioning and the
+                    problem we need to solve.
+                </p>
+
+            </div>
+
+
+            <div class="process-row reveal">
+
+                <div class="process-number">
+                    02
+                </div>
+
+                <h3>
+                    Define
+                </h3>
+
+                <p>
+                    We create the strategic direction,
+                    creative route and visual language.
+                </p>
+
+            </div>
+
+
+            <div class="process-row reveal">
+
+                <div class="process-number">
+                    03
+                </div>
+
+                <h3>
+                    Design
+                </h3>
+
+                <p>
+                    The concept becomes a complete
+                    visual system across the required
+                    touchpoints.
+                </p>
+
+            </div>
+
+
+            <div class="process-row reveal">
+
+                <div class="process-number">
+                    04
+                </div>
+
+                <h3>
+                    Deliver
+                </h3>
+
+                <p>
+                    Final assets are prepared,
+                    refined and delivered ready for
+                    real-world use.
+                </p>
+
+            </div>
+
+
+        </div>
 
     </div>
-
-
-    <div class="process">
-
-
-      <div class="row reveal">
-
-        <div class="rowNum">
-          01
-        </div>
-
-        <h3>
-          Discover
-        </h3>
-
-        <p>
-          Understand the business, audience,
-          challenge and desired outcome.
-        </p>
-
-      </div>
-
-
-      <div class="row reveal">
-
-        <div class="rowNum">
-          02
-        </div>
-
-        <h3>
-          Define
-        </h3>
-
-        <p>
-          Build the creative direction,
-          structure and execution roadmap.
-        </p>
-
-      </div>
-
-
-      <div class="row reveal">
-
-        <div class="rowNum">
-          03
-        </div>
-
-        <h3>
-          Create
-        </h3>
-
-        <p>
-          Design, develop and produce the
-          visual and digital experience.
-        </p>
-
-      </div>
-
-
-      <div class="row reveal">
-
-        <div class="rowNum">
-          04
-        </div>
-
-        <h3>
-          Grow
-        </h3>
-
-        <p>
-          Connect creative work with digital,
-          content, marketing and automation.
-        </p>
-
-      </div>
-
-
-    </div>
-
-  </div>
 
 </section>
 
 
-<!-- =======================================================
+<!-- ======================================================
+     INDUSTRIES
+====================================================== -->
+
+<section
+    class="industries section"
+    id="industries"
+>
+
+    <div class="container">
+
+        <div class="reveal">
+
+            <div class="eyebrow">
+                04 / Industries
+            </div>
+
+            <h2
+                class="section-title"
+                style="margin-top:25px;"
+            >
+                Built for businesses.
+            </h2>
+
+        </div>
+
+
+        <div class="industry-grid">
+
+
+            <div class="industry reveal">
+                <small>01</small>
+                <h3>FMCG & Products</h3>
+            </div>
+
+
+            <div class="industry reveal">
+                <small>02</small>
+                <h3>Hospitality</h3>
+            </div>
+
+
+            <div class="industry reveal">
+                <small>03</small>
+                <h3>Healthcare</h3>
+            </div>
+
+
+            <div class="industry reveal">
+                <small>04</small>
+                <h3>Education</h3>
+            </div>
+
+
+            <div class="industry reveal">
+                <small>05</small>
+                <h3>Real Estate</h3>
+            </div>
+
+
+            <div class="industry reveal">
+                <small>06</small>
+                <h3>Manufacturing</h3>
+            </div>
+
+
+            <div class="industry reveal">
+                <small>07</small>
+                <h3>Retail & Fashion</h3>
+            </div>
+
+
+            <div class="industry reveal">
+                <small>08</small>
+                <h3>Automotive</h3>
+            </div>
+
+
+            <div class="industry reveal">
+                <small>09</small>
+                <h3>Restaurants</h3>
+            </div>
+
+
+            <div class="industry reveal">
+                <small>10</small>
+                <h3>Events</h3>
+            </div>
+
+
+            <div class="industry reveal">
+                <small>11</small>
+                <h3>Professional Services</h3>
+            </div>
+
+
+            <div class="industry reveal">
+                <small>12</small>
+                <h3>Growing Businesses</h3>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
      ABOUT
-======================================================= -->
+====================================================== -->
 
 <section
-  class="section"
-  id="about"
+    class="about section"
+    id="about"
 >
 
-  <div class="container">
+    <div class="container about-layout">
 
 
-    <div class="about reveal">
+        <div class="reveal">
+
+            <div class="eyebrow">
+                05 / About Amir Graphics
+            </div>
+
+            <h2
+                class="section-title"
+                style="margin-top:25px;"
+            >
+                More than<br>
+                just design.
+            </h2>
+
+            <p class="about-copy">
+
+                Amir Graphics brings design, digital,
+                content and technology together to help
+                businesses look professional, communicate
+                clearly and grow.
+
+                <br><br>
+
+                From a logo to a complete digital presence,
+                from packaging to campaigns, from creative
+                content to automation — the goal is simple:
+                create work that moves the business forward.
+
+            </p>
+
+        </div>
 
 
-      <div class="label">
-        04 / About Amir Graphics
-      </div>
+        <div class="about-points reveal">
 
 
-      <h2>
+            <div class="about-point">
 
-        More than a design vendor.<br>
+                <strong>
+                    01 / THINK
+                </strong>
 
-        A creative
-        <span>
-          partner.
-        </span>
+                <h3>
+                    Strategy before decoration.
+                </h3>
 
-      </h2>
+            </div>
 
 
-      <p>
+            <div class="about-point">
 
-        Amir Graphics brings branding, graphic design,
-        websites, content, AI-assisted creative and
-        digital systems together for businesses that
-        want to look professional and grow with confidence.
+                <strong>
+                    02 / CREATE
+                </strong>
 
-      </p>
+                <h3>
+                    Design with purpose.
+                </h3>
 
+            </div>
+
+
+            <div class="about-point">
+
+                <strong>
+                    03 / BUILD
+                </strong>
+
+                <h3>
+                    Digital experiences that work.
+                </h3>
+
+            </div>
+
+
+            <div class="about-point">
+
+                <strong>
+                    04 / GROW
+                </strong>
+
+                <h3>
+                    Creative connected to business.
+                </h3>
+
+            </div>
+
+
+        </div>
 
     </div>
-
-  </div>
 
 </section>
 
 
-<!-- =======================================================
-     PROJECT FORM
-======================================================= -->
+<!-- ======================================================
+     CONTACT
+====================================================== -->
 
 <section
-  class="section project"
-  id="project"
+    class="contact section"
+    id="contact"
 >
 
-  <div class="container">
+    <div class="container contact-layout">
 
 
-    <div class="head reveal">
+        <div class="reveal">
+
+            <div class="eyebrow">
+                Start a Project
+            </div>
+
+            <h2 class="contact-title">
+                Tell us<br>
+                what you<br>
+                need.
+            </h2>
+
+            <p class="contact-copy">
+
+                Have a new brand, product, website,
+                campaign or digital challenge?
+
+                Tell us what you're building.
+
+            </p>
 
 
-      <div>
+            <div class="contact-details">
 
-        <div class="label">
-          05 / Start a Project
+                <a href="mailto:info@amirgraphics.in">
+                    info@amirgraphics.in
+                </a>
+
+                <a href="https://www.amirgraphics.in" target="_blank">
+                    www.amirgraphics.in
+                </a>
+
+            </div>
+
         </div>
 
 
-        <h2 class="title">
+        <form
+            class="project-form reveal"
+            id="projectForm"
+        >
 
-          Tell us what you're building.
+            <div class="form-row">
 
-        </h2>
+                <div class="field">
 
-      </div>
+                    <label>
+                        Name
+                    </label>
+
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Your name"
+                        required
+                    >
+
+                </div>
 
 
-      <p class="desc">
+                <div class="field">
 
-        Share your requirement. We'll review the project
-        and get back to you.
+                    <label>
+                        Company
+                    </label>
 
-      </p>
+                    <input
+                        type="text"
+                        name="company"
+                        placeholder="Company name"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="field">
+
+                    <label>
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="you@example.com"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Phone
+                    </label>
+
+                    <input
+                        type="tel"
+                        name="phone"
+                        placeholder="+91"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Service
+                </label>
+
+                <select name="service">
+
+                    <option value="">
+                        Select a service
+                    </option>
+
+                    <option>
+                        Branding
+                    </option>
+
+                    <option>
+                        Packaging
+                    </option>
+
+                    <option>
+                        Graphic Design
+                    </option>
+
+                    <option>
+                        Web & UI/UX
+                    </option>
+
+                    <option>
+                        Video & Motion
+                    </option>
+
+                    <option>
+                        AI Creative
+                    </option>
+
+                    <option>
+                        Social Media
+                    </option>
+
+                    <option>
+                        Digital Marketing
+                    </option>
+
+                    <option>
+                        Automation & Growth
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Project Details
+                </label>
+
+                <textarea
+                    name="message"
+                    placeholder="Tell us about your project..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="form-submit"
+            >
+                Send Project Enquiry ↗
+            </button>
+
+
+            <div
+                class="form-status"
+                id="formStatus"
+            ></div>
+
+        </form>
 
     </div>
-
-
-    <div class="projectLayout">
-
-
-      <div class="desc reveal">
-
-        No complicated process.
-
-        <br><br>
-
-        Tell us about your business, what you need
-        and what you want to achieve.
-
-        <br><br>
-
-        We'll take it from there.
-
-      </div>
-
-
-      <form
-        class="form reveal"
-        id="projectForm"
-      >
-
-
-        <input
-          class="field"
-          id="name"
-          name="name"
-          placeholder="Your Name *"
-          required
-        >
-
-
-        <input
-          class="field"
-          id="company"
-          name="company"
-          placeholder="Company / Brand"
-        >
-
-
-        <input
-          class="field"
-          id="email"
-          name="email"
-          type="email"
-          placeholder="Email Address *"
-          required
-        >
-
-
-        <input
-          class="field"
-          id="phone"
-          name="phone"
-          placeholder="Phone / WhatsApp"
-        >
-
-
-        <select
-          class="field"
-          id="service"
-          name="service"
-          required
-        >
-
-          <option value="">
-            Select Service *
-          </option>
-
-          <option>
-            Branding
-          </option>
-
-          <option>
-            Packaging
-          </option>
-
-          <option>
-            Graphic Design
-          </option>
-
-          <option>
-            Web & UI/UX
-          </option>
-
-          <option>
-            Video & Motion
-          </option>
-
-          <option>
-            AI Creative
-          </option>
-
-          <option>
-            Social Media
-          </option>
-
-          <option>
-            Digital Marketing
-          </option>
-
-          <option>
-            Automation & Growth
-          </option>
-
-        </select>
-
-
-        <textarea
-          class="field"
-          id="message"
-          name="message"
-          placeholder="Tell us about your project *"
-          required
-        ></textarea>
-
-
-        <button
-          class="btn red"
-          type="submit"
-        >
-          Send Project Enquiry ↗
-        </button>
-
-
-        <div
-          id="formStatus"
-          style="
-            font-size:12px;
-            color:#777
-          "
-        ></div>
-
-
-      </form>
-
-    </div>
-
-  </div>
 
 </section>
 
@@ -3050,721 +3079,518 @@ footer{
 </main>
 
 
-<!-- =======================================================
+<!-- ======================================================
      FOOTER
-======================================================= -->
+====================================================== -->
 
-<footer>
+<footer class="footer">
 
-  <div class="container">
-
-
-    <div class="foot">
+    <div class="container">
 
 
-      <div class="big">
-
-        Let's make<br>
-
-        <span>
-          something.
-        </span>
-
-      </div>
+        <div class="footer-top">
 
 
-      <div class="contact">
+            <div class="footer-brand">
 
-        <b style="color:#fff">
-          AMIR GRAPHICS
-        </b>
+                <img
+                    src="Amir Graphics Logo.png"
+                    alt="Amir Graphics"
+                >
 
-        <br>
+                <p>
 
-        Creative & Digital Solutions
+                    Creative & digital solutions
+                    for businesses that want to
+                    look professional, communicate
+                    clearly and grow.
 
-        <br><br>
+                </p>
 
-        info@amirgraphics.in
+            </div>
 
-        <br>
 
-        Asansol, India
+            <div class="footer-links">
 
-      </div>
 
+                <div class="footer-links-column">
+
+                    <strong>
+                        Navigate
+                    </strong>
+
+                    <a href="#services">
+                        Services
+                    </a>
+
+                    <a href="#work">
+                        Work
+                    </a>
+
+                    <a href="#process">
+                        Process
+                    </a>
+
+                    <a href="#about">
+                        About
+                    </a>
+
+                </div>
+
+
+                <div class="footer-links-column">
+
+                    <strong>
+                        Connect
+                    </strong>
+
+                    <a href="mailto:info@amirgraphics.in">
+                        Email
+                    </a>
+
+                    <a
+                        href="https://www.amirgraphics.in"
+                        target="_blank"
+                    >
+                        Website
+                    </a>
+
+                    <a href="#contact">
+                        Start a Project
+                    </a>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © <span id="year"></span> Amir Graphics
+            </span>
+
+            <span>
+                Branding / Digital / Content / Technology
+            </span>
+
+        </div>
 
     </div>
-
-
-    <div class="bottom">
-
-      <span>
-        © 2026 Amir Graphics
-      </span>
-
-      <span>
-        Branding / Digital / Content / Technology
-      </span>
-
-    </div>
-
-
-  </div>
 
 </footer>
 
 
-<!-- =======================================================
-     AMIR AI BUTTON
-======================================================= -->
+<!-- FLOATING BUTTON -->
 
-<button
-  class="ai"
-  id="aiBtn"
-  aria-label="Open Amir AI"
+<a
+    href="#top"
+    class="floating"
+    aria-label="Back to top"
 >
-
-  <span class="aiPulse"></span>
-
-  ✦
-
-</button>
+    ↑
+</a>
 
 
-<!-- =======================================================
-     AMIR AI PANEL
-======================================================= -->
-
-<div
-  class="aipanel"
-  id="aiPanel"
->
-
-
-  <div class="aihead">
-
-    <div>
-
-      AMIR
-      <span>
-        AI
-      </span>
-
-    </div>
-
-
-    <div
-      class="aiclose"
-      id="aiClose"
-    >
-      ×
-    </div>
-
-  </div>
-
-
-  <div class="aimsg">
-
-    Hi. I'm Amir AI.
-
-    <br>
-
-    What are you looking to build?
-
-  </div>
-
-
-  <div class="aiopts">
-
-
-    <button data-service="Branding">
-      Branding
-    </button>
-
-
-    <button data-service="Packaging">
-      Packaging
-    </button>
-
-
-    <button data-service="Web & UI/UX">
-      Website
-    </button>
-
-
-    <button data-service="Video & Motion">
-      Video
-    </button>
-
-
-    <button data-service="AI Creative">
-      AI Creative
-    </button>
-
-
-    <button data-service="Digital Marketing">
-      Marketing
-    </button>
-
-
-    <button data-service="Automation & Growth">
-      Automation
-    </button>
-
-
-    <button data-service="Project">
-      Start Project
-    </button>
-
-
-  </div>
-
-
-</div>
-
-
-<!-- =======================================================
+<!-- ======================================================
      JAVASCRIPT
-======================================================= -->
+====================================================== -->
 
 <script>
 
-
 /* =========================================================
-   PREMIUM HEADER SCROLL SHRINK
+   HEADER SCROLL
 ========================================================= */
 
-const siteNav =
-  document.getElementById("siteNav");
+const header = document.getElementById("header");
 
+function handleHeader(){
 
-let lastScrollY = 0;
+    if(window.scrollY > 50){
 
+        header.classList.add("scrolled");
 
-function updateHeader(){
+    }else{
 
-  const currentScroll =
-    window.scrollY || 0;
+        header.classList.remove("scrolled");
 
-
-  if(currentScroll > 40){
-
-    siteNav.classList.add(
-      "scrolled"
-    );
-
-  }else{
-
-    siteNav.classList.remove(
-      "scrolled"
-    );
-
-  }
-
-
-  lastScrollY =
-    currentScroll;
+    }
 
 }
 
-
 window.addEventListener(
-  "scroll",
-  updateHeader,
-  {
-    passive:true
-  }
+    "scroll",
+    handleHeader,
+    {passive:true}
+);
+
+handleHeader();
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+const menuBtn =
+    document.getElementById("menuBtn");
+
+menuBtn.addEventListener(
+    "click",
+    () => {
+
+        header.classList.toggle(
+            "mobile-open"
+        );
+
+    }
 );
 
 
-updateHeader();
+document.querySelectorAll(".nav a").forEach(
+    link => {
+
+        link.addEventListener(
+            "click",
+            () => {
+
+                header.classList.remove(
+                    "mobile-open"
+                );
+
+            }
+        );
+
+    }
+);
 
 
 /* =========================================================
-   SCROLL REVEAL
+   REVEAL ON SCROLL
 ========================================================= */
 
-const observer =
-  new IntersectionObserver(
+const revealElements =
+    document.querySelectorAll(".reveal");
 
-    entries => {
+const revealObserver =
+    new IntersectionObserver(
+        entries => {
 
-      entries.forEach(
-        entry => {
+            entries.forEach(
+                entry => {
 
-          if(
-            entry.isIntersecting
-          ){
+                    if(entry.isIntersecting){
 
-            entry.target.classList.add(
-              "show"
+                        entry.target.classList.add(
+                            "visible"
+                        );
+
+                        revealObserver.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                }
             );
 
-            observer.unobserve(
-              entry.target
-            );
-
-          }
-
+        },
+        {
+            threshold:.12
         }
-      );
-
-    },
-
-    {
-      threshold:.12
-    }
-
-  );
+    );
 
 
-document
-  .querySelectorAll(".reveal")
-  .forEach(
+revealElements.forEach(
     element => {
 
-      observer.observe(
-        element
-      );
+        revealObserver.observe(
+            element
+        );
 
     }
-  );
+);
 
 
 /* =========================================================
-   HERO PARALLAX
+   PARALLAX
 ========================================================= */
 
-const heroVisual =
-  document.getElementById(
-    "heroVisual"
-  );
+const parallaxElements =
+    document.querySelectorAll(".parallax");
 
 
-let ticking=false;
+let ticking = false;
 
 
 function updateParallax(){
 
-  const y =
-    window.scrollY || 0;
+    const scrollY =
+        window.scrollY;
 
+    parallaxElements.forEach(
+        element => {
 
-  if(heroVisual){
+            const speed =
+                parseFloat(
+                    element.dataset.speed || "0.1"
+                );
 
-    heroVisual.style.transform =
-      `translate3d(
-        0,
-        calc(-50% + ${y * .16}px),
-        0
-      )
-      rotate(${y * .018}deg)`;
+            const rect =
+                element.getBoundingClientRect();
 
-  }
+            const center =
+                rect.top +
+                rect.height / 2;
 
+            const viewportCenter =
+                window.innerHeight / 2;
 
-  ticking=false;
+            const distance =
+                center -
+                viewportCenter;
+
+            const movement =
+                distance * speed;
+
+            element.style.transform =
+                `translate3d(0, ${movement}px, 0)`;
+
+        }
+    );
+
+    ticking=false;
 
 }
 
 
 window.addEventListener(
+    "scroll",
+    () => {
 
-  "scroll",
+        if(!ticking){
 
-  () => {
+            requestAnimationFrame(
+                updateParallax
+            );
 
-    if(!ticking){
-
-      requestAnimationFrame(
-        updateParallax
-      );
-
-      ticking=true;
-
-    }
-
-  },
-
-  {
-    passive:true
-  }
-
-);
-
-
-/* =========================================================
-   SERVICE CARD 3D DEPTH
-========================================================= */
-
-document
-  .querySelectorAll("[data-tilt]")
-  .forEach(
-    card => {
-
-
-      card.addEventListener(
-
-        "mousemove",
-
-        event => {
-
-          if(
-            window.innerWidth < 900
-          ){
-
-            return;
-
-          }
-
-
-          const rect =
-            card.getBoundingClientRect();
-
-
-          const x =
-            (
-              event.clientX -
-              rect.left
-            )
-            /
-            rect.width
-            -
-            .5;
-
-
-          const y =
-            (
-              event.clientY -
-              rect.top
-            )
-            /
-            rect.height
-            -
-            .5;
-
-
-          const rotateY =
-            x * 5;
-
-
-          const rotateX =
-            -y * 5;
-
-
-          card.style.transform =
-            `perspective(900px)
-             rotateX(${rotateX}deg)
-             rotateY(${rotateY}deg)
-             translateY(-5px)`;
+            ticking=true;
 
         }
 
-      );
-
-
-      card.addEventListener(
-
-        "mouseleave",
-
-        () => {
-
-          card.style.transform="";
-
-        }
-
-      );
-
-    }
-  );
-
-
-/* =========================================================
-   AI PANEL
-========================================================= */
-
-const aiBtn =
-  document.getElementById(
-    "aiBtn"
-  );
-
-
-const aiPanel =
-  document.getElementById(
-    "aiPanel"
-  );
-
-
-const aiClose =
-  document.getElementById(
-    "aiClose"
-  );
-
-
-aiBtn.addEventListener(
-
-  "click",
-
-  () => {
-
-    aiPanel.classList.toggle(
-      "open"
-    );
-
-  }
-
+    },
+    {passive:true}
 );
 
-
-aiClose.addEventListener(
-
-  "click",
-
-  () => {
-
-    aiPanel.classList.remove(
-      "open"
-    );
-
-  }
-
-);
+updateParallax();
 
 
 /* =========================================================
-   AI → PROJECT FORM
+   SMOOTH INTERNAL LINKS
 ========================================================= */
 
-document
-  .querySelectorAll(
-    ".aiopts button"
-  )
-  .forEach(
-    button => {
+document.querySelectorAll(
+    'a[href^="#"]'
+).forEach(
+    link => {
 
-      button.addEventListener(
+        link.addEventListener(
+            "click",
+            function(e){
 
-        "click",
+                const target =
+                    document.querySelector(
+                        this.getAttribute("href")
+                    );
 
-        () => {
+                if(!target) return;
 
-          const selected =
-            button.dataset.service;
+                e.preventDefault();
 
+                target.scrollIntoView({
+                    behavior:"smooth",
+                    block:"start"
+                });
 
-          aiPanel.classList.remove(
-            "open"
-          );
-
-
-          document
-            .getElementById(
-              "project"
-            )
-            .scrollIntoView({
-
-              behavior:"smooth"
-
-            });
-
-
-          setTimeout(
-
-            () => {
-
-
-              const select =
-                document.getElementById(
-                  "service"
-                );
-
-
-              const match =
-                [
-                  ...select.options
-                ].find(
-
-                  option =>
-
-                    option.value
-                      .toLowerCase()
-                    ===
-                    selected
-                      .toLowerCase()
-
-                );
-
-
-              if(match){
-
-                select.value =
-                  match.value;
-
-              }
-
-
-              document
-                .getElementById(
-                  "message"
-                )
-                .focus();
-
-
-            },
-
-            650
-
-          );
-
-        }
-
-      );
-
-    }
-  );
-
-
-/* =========================================================
-   PROJECT FORM
-========================================================= */
-
-const projectForm =
-  document.getElementById(
-    "projectForm"
-  );
-
-
-const formStatus =
-  document.getElementById(
-    "formStatus"
-  );
-
-
-projectForm.addEventListener(
-
-  "submit",
-
-  async event => {
-
-    event.preventDefault();
-
-
-    formStatus.textContent =
-      "Preparing your enquiry…";
-
-
-    const payload = {
-
-      name:
-        document
-          .getElementById(
-            "name"
-          )
-          .value
-          .trim(),
-
-      company:
-        document
-          .getElementById(
-            "company"
-          )
-          .value
-          .trim(),
-
-      email:
-        document
-          .getElementById(
-            "email"
-          )
-          .value
-          .trim(),
-
-      phone:
-        document
-          .getElementById(
-            "phone"
-          )
-          .value
-          .trim(),
-
-      service:
-        document
-          .getElementById(
-            "service"
-          )
-          .value,
-
-      message:
-        document
-          .getElementById(
-            "message"
-          )
-          .value
-          .trim()
-
-    };
-
-
-    try{
-
-
-      /*
-        Supabase configuration is detected
-        without guessing the database schema.
-
-        Database insertion will be connected
-        after the exact Supabase table schema
-        is verified.
-      */
-
-
-      if(
-        window.AMIR_CONFIG &&
-        window.supabase
-      ){
-
-        console.log(
-          "Supabase configuration detected."
+            }
         );
 
-      }
+    }
+);
 
 
-      console.log(
-        "Project enquiry:",
-        payload
-      );
+/* =========================================================
+   CONTACT FORM
+========================================================= */
+
+const form =
+    document.getElementById(
+        "projectForm"
+    );
+
+const formStatus =
+    document.getElementById(
+        "formStatus"
+    );
 
 
-      formStatus.textContent =
-        "Your enquiry is ready to be connected to the lead system.";
+form.addEventListener(
+    "submit",
+    async function(e){
+
+        e.preventDefault();
 
 
-      formStatus.style.color =
-        "#159447";
+        const submitButton =
+            form.querySelector(
+                ".form-submit"
+            );
 
 
-    }catch(error){
+        submitButton.disabled=true;
+
+        submitButton.textContent =
+            "Sending...";
 
 
-      console.error(
-        error
-      );
+        const formData =
+            new FormData(form);
 
 
-      formStatus.textContent =
-        "Please email info@amirgraphics.in.";
+        const data =
+            Object.fromEntries(
+                formData.entries()
+            );
 
 
-      formStatus.style.color =
-        "#d00000";
+        /*
+          IMPORTANT:
 
+          The form is prepared for backend
+          integration.
+
+          If your config.js / Supabase
+          setup is available, this can be
+          connected without changing the UI.
+        */
+
+
+        try{
+
+            /*
+
+            Example future Supabase connection:
+
+            const { data: result, error } =
+                await supabase
+                .from("project_enquiries")
+                .insert([data]);
+
+            if(error) throw error;
+
+            */
+
+
+            console.log(
+                "Project enquiry:",
+                data
+            );
+
+
+            formStatus.textContent =
+                "Thank you. Your project enquiry has been received.";
+
+            formStatus.style.color =
+                "#8f8";
+
+
+            form.reset();
+
+
+        }catch(error){
+
+            console.error(error);
+
+            formStatus.textContent =
+                "Something went wrong. Please email info@amirgraphics.in";
+
+            formStatus.style.color =
+                "#ed1c24";
+
+        }
+
+
+        submitButton.disabled=false;
+
+        submitButton.textContent =
+            "Send Project Enquiry ↗";
 
     }
+);
 
-  }
 
+/* =========================================================
+   YEAR
+========================================================= */
+
+document.getElementById(
+    "year"
+).textContent =
+    new Date().getFullYear();
+
+
+/* =========================================================
+   HERO MOUSE PARALLAX
+========================================================= */
+
+const hero =
+    document.querySelector(".hero");
+
+const orbit =
+    document.querySelector(".hero-orbit");
+
+
+hero.addEventListener(
+    "mousemove",
+    e => {
+
+        if(window.innerWidth < 900)
+            return;
+
+
+        const x =
+            (e.clientX /
+            window.innerWidth -
+            .5) * 20;
+
+
+        const y =
+            (e.clientY /
+            window.innerHeight -
+            .5) * 20;
+
+
+        orbit.style.marginLeft =
+            `${x}px`;
+
+        orbit.style.marginTop =
+            `${y}px`;
+
+    }
+);
+
+
+hero.addEventListener(
+    "mouseleave",
+    () => {
+
+        orbit.style.marginLeft="0";
+        orbit.style.marginTop="0";
+
+    }
 );
 
 </script>
