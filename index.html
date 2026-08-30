@@ -1,23 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Amir Graphics — Creative & Digital Solutions. Branding, packaging, graphic design, web, video, AI, social media, digital marketing and automation.">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+>
+
+<meta
+  name="description"
+  content="Amir Graphics — Creative & Digital Solutions. Branding, packaging, graphic design, web, video, AI, social media, digital marketing and automation."
+>
+
 <title>Amir Graphics — Creative & Digital Solutions</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="/config.js"></script>
 
 <style>
+
+/* =========================================================
+   ROOT
+========================================================= */
+
 :root{
   --red:#ed1c24;
+  --red-dark:#b70f15;
   --black:#050505;
+  --black-soft:#090909;
   --white:#fff;
   --muted:#929292;
+  --muted-dark:#5f5f5f;
   --line:#252525;
   --max:1220px;
+
+  --nav-height:78px;
+  --nav-height-scrolled:62px;
 }
+
+
+/* =========================================================
+   RESET
+========================================================= */
 
 *{
   box-sizing:border-box;
@@ -33,13 +59,16 @@ html{
 body{
   background:#050505;
   color:#fff;
-  font-family:Arial,Helvetica,sans-serif;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
   overflow-x:hidden;
 }
 
 a{
-  text-decoration:none;
   color:inherit;
+  text-decoration:none;
 }
 
 button,
@@ -49,16 +78,18 @@ select{
   font:inherit;
 }
 
-.container{
-  width:min(calc(100% - 40px),var(--max));
-  margin:auto;
-  position:relative;
-  z-index:2;
+button{
+  border-radius:0;
 }
 
-/* =========================================
-   BACKGROUND
-========================================= */
+img{
+  max-width:100%;
+}
+
+
+/* =========================================================
+   GLOBAL BACKGROUND
+========================================================= */
 
 .noise{
   position:fixed;
@@ -66,117 +97,429 @@ select{
   pointer-events:none;
   z-index:9990;
   opacity:.035;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 .grid{
   position:fixed;
   inset:0;
   pointer-events:none;
-  opacity:.12;
+  opacity:.11;
+  z-index:0;
+
   background-image:
     linear-gradient(#fff 1px,transparent 1px),
     linear-gradient(90deg,#fff 1px,transparent 1px);
+
   background-size:80px 80px;
-  mask-image:linear-gradient(#000,transparent 90%);
+
+  mask-image:
+    linear-gradient(
+      to bottom,
+      #000,
+      transparent 90%
+    );
 }
 
-/* =========================================
-   NAVIGATION
-========================================= */
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.container{
+  width:min(
+    calc(100% - 40px),
+    var(--max)
+  );
+
+  margin:auto;
+
+  position:relative;
+  z-index:2;
+}
+
+
+/* =========================================================
+   PREMIUM STICKY HEADER
+========================================================= */
 
 .nav{
   position:fixed;
   top:0;
   left:0;
   right:0;
-  z-index:1000;
-  border-bottom:1px solid rgba(255,255,255,.08);
-  background:rgba(5,5,5,.75);
-  backdrop-filter:blur(18px);
+
+  height:var(--nav-height);
+
+  z-index:5000;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.08);
+
+  background:
+    rgba(5,5,5,.68);
+
+  backdrop-filter:
+    blur(18px)
+    saturate(130%);
+
+  -webkit-backdrop-filter:
+    blur(18px)
+    saturate(130%);
+
+  transition:
+    height .45s cubic-bezier(.22,.61,.36,1),
+    background .45s ease,
+    border-color .45s ease,
+    box-shadow .45s ease;
 }
 
+
+/* subtle red light behind header */
+
+.nav::after{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:-1px;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(237,28,36,.55),
+      transparent
+    );
+
+  opacity:.25;
+
+  transition:
+    opacity .4s ease;
+}
+
+
+/* SCROLLED HEADER */
+
+.nav.scrolled{
+  height:var(--nav-height-scrolled);
+
+  background:
+    rgba(5,5,5,.91);
+
+  border-bottom-color:
+    rgba(237,28,36,.18);
+
+  box-shadow:
+    0 15px 50px
+    rgba(0,0,0,.42);
+}
+
+.nav.scrolled::after{
+  opacity:.8;
+}
+
+
+/* HEADER INNER */
+
 .navin{
-  height:78px;
+  height:100%;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
+
+  gap:40px;
 }
 
-.logo img{
-  width:150px;
-  height:auto;
-  display:block;
+
+/* =========================================================
+   LOGO — FIXED
+========================================================= */
+
+.logo{
+  height:var(--nav-height);
+
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+
+  flex:0 0 auto;
+
+  position:relative;
+
+  transition:
+    height .45s cubic-bezier(.22,.61,.36,1);
 }
+
+
+/*
+  IMPORTANT:
+  The uploaded logo is naturally tall.
+  We constrain HEIGHT instead of width,
+  so it can never overflow the header.
+*/
+
+.logo img{
+  display:block;
+
+  width:auto;
+  height:52px;
+
+  max-width:155px;
+
+  object-fit:contain;
+  object-position:left center;
+
+  transition:
+    height .45s cubic-bezier(.22,.61,.36,1),
+    max-width .45s ease,
+    transform .45s ease;
+
+  transform-origin:left center;
+}
+
+
+/* SCROLLED LOGO */
+
+.nav.scrolled .logo{
+  height:var(--nav-height-scrolled);
+}
+
+.nav.scrolled .logo img{
+  height:40px;
+  max-width:135px;
+}
+
+
+/* =========================================================
+   NAVIGATION LINKS
+========================================================= */
 
 .links{
   display:flex;
-  gap:28px;
+
   align-items:center;
+  justify-content:flex-end;
+
+  gap:30px;
+
+  height:100%;
 }
 
 .links a{
+  position:relative;
+
+  display:flex;
+  align-items:center;
+
+  height:100%;
+
+  color:#999;
+
   font-size:10px;
+
+  font-weight:900;
+
+  letter-spacing:.13em;
+
   text-transform:uppercase;
-  letter-spacing:.12em;
-  color:#aaa;
-  font-weight:800;
-  transition:.25s;
+
+  white-space:nowrap;
+
+  transition:
+    color .25s ease;
 }
 
-.links a:hover{
+.links a:not(.navcta)::after{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  right:0;
+
+  bottom:19px;
+
+  height:1px;
+
+  background:var(--red);
+
+  transform:
+    scaleX(0);
+
+  transform-origin:right;
+
+  transition:
+    transform .3s ease;
+}
+
+.links a:not(.navcta):hover{
   color:#fff;
 }
 
+.links a:not(.navcta):hover::after{
+  transform:
+    scaleX(1);
+
+  transform-origin:left;
+}
+
+
+/* =========================================================
+   HEADER CTA
+========================================================= */
+
 .navcta{
-  padding:12px 17px;
-  border:1px solid #444;
+  height:42px!important;
+
+  padding:
+    0 18px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.25);
+
   color:#fff!important;
+
+  display:flex!important;
+
+  align-items:center!important;
+  justify-content:center!important;
+
+  transition:
+    background .3s ease,
+    border-color .3s ease,
+    transform .3s ease,
+    color .3s ease;
 }
 
 .navcta:hover{
   background:var(--red);
+
   border-color:var(--red);
+
+  color:#fff!important;
+
+  transform:translateY(-2px);
 }
 
-/* =========================================
+.nav.scrolled .navcta{
+  height:36px!important;
+}
+
+
+/* =========================================================
    HERO
-========================================= */
+========================================================= */
 
 .hero{
   min-height:100vh;
+
   position:relative;
+
   overflow:hidden;
+
   display:flex;
+
   align-items:center;
-  padding:140px 0 100px;
+
+  padding:
+    calc(var(--nav-height) + 80px)
+    0
+    100px;
+
   background:
     radial-gradient(
-      circle at 75% 40%,
+      circle at 76% 43%,
       rgba(237,28,36,.18),
       transparent 28%
     ),
     #050505;
+
+  transition:
+    padding-top .45s ease;
 }
+
+.nav.scrolled ~ main .hero{
+  padding-top:
+    calc(var(--nav-height-scrolled) + 80px);
+}
+
+
+/* HERO LIGHT */
+
+.hero::before{
+  content:"";
+
+  position:absolute;
+
+  width:650px;
+  height:650px;
+
+  right:-280px;
+  top:30%;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(237,28,36,.12),
+      transparent 68%
+    );
+
+  filter:blur(15px);
+
+  pointer-events:none;
+}
+
+
+/* =========================================================
+   HERO PARALLAX VISUAL
+========================================================= */
 
 .heroVisual{
   position:absolute;
+
   width:760px;
   height:760px;
+
   right:-220px;
   top:50%;
-  transform:translateY(-50%);
+
+  transform:
+    translate3d(0,-50%,0);
+
   border-radius:50%;
-  border:1px solid rgba(237,28,36,.22);
+
+  border:
+    1px solid
+    rgba(237,28,36,.22);
+
   will-change:transform;
+
+  pointer-events:none;
 }
 
 .heroVisual:before,
 .heroVisual:after{
   content:"";
+
   position:absolute;
+
   border-radius:50%;
-  border:1px solid rgba(255,255,255,.12);
+
+  border:
+    1px solid
+    rgba(255,255,255,.12);
 }
 
 .heroVisual:before{
@@ -187,10 +530,14 @@ select{
   inset:170px;
 }
 
+
 .heroVisual .core{
   position:absolute;
+
   inset:255px;
+
   border-radius:50%;
+
   background:
     radial-gradient(
       circle,
@@ -198,45 +545,82 @@ select{
       rgba(237,28,36,.2) 20%,
       transparent 70%
     );
+
   filter:blur(1px);
-  animation:pulse 3s ease-in-out infinite;
+
+  animation:
+    pulse 3s ease-in-out infinite;
 }
 
 .heroVisual .orbit{
   position:absolute;
+
   inset:120px;
-  border:1px solid rgba(237,28,36,.3);
+
+  border:
+    1px solid
+    rgba(237,28,36,.3);
+
   border-radius:50%;
-  transform:rotate(28deg) scaleX(.55);
-  animation:spin 16s linear infinite;
+
+  transform:
+    rotate(28deg)
+    scaleX(.55);
+
+  animation:
+    spin 16s linear infinite;
 }
 
 @keyframes pulse{
+
   50%{
     transform:scale(1.12);
     opacity:.7;
   }
+
 }
 
 @keyframes spin{
+
   to{
-    transform:rotate(388deg) scaleX(.55);
+    transform:
+      rotate(388deg)
+      scaleX(.55);
   }
+
 }
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
 
 .eyebrow{
   color:var(--red);
+
   font-size:10px;
+
   font-weight:900;
+
   letter-spacing:.24em;
+
   text-transform:uppercase;
+
   margin-bottom:24px;
 }
 
 .hero h1{
-  font-size:clamp(58px,9.2vw,132px);
+  font-size:
+    clamp(
+      58px,
+      9.2vw,
+      132px
+    );
+
   line-height:.82;
+
   letter-spacing:-.075em;
+
   max-width:1000px;
 }
 
@@ -246,31 +630,56 @@ select{
 
 .heroText{
   max-width:640px;
+
   color:#aaa;
+
   line-height:1.7;
+
   font-size:17px;
+
   margin-top:34px;
 }
 
 .actions{
   display:flex;
+
   gap:12px;
+
   flex-wrap:wrap;
+
   margin-top:35px;
 }
 
 .btn{
   display:inline-flex;
+
   align-items:center;
   justify-content:center;
+
   min-height:52px;
-  padding:0 22px;
-  border:1px solid #444;
+
+  padding:
+    0 22px;
+
+  border:
+    1px solid
+    #444;
+
+  background:transparent;
+
+  color:#fff;
+
   font-size:10px;
+
   font-weight:900;
+
   letter-spacing:.1em;
+
   text-transform:uppercase;
-  transition:.3s;
+
+  transition:
+    .3s;
+
   cursor:pointer;
 }
 
@@ -281,44 +690,75 @@ select{
 
 .btn:hover{
   transform:translateY(-4px);
+
   background:#fff;
+
   color:#000;
+
   border-color:#fff;
 }
 
 .scrollmark{
   position:absolute;
+
   bottom:25px;
   left:20px;
+
   color:#555;
+
   font-size:9px;
+
   letter-spacing:.18em;
+
   text-transform:uppercase;
 }
 
-/* =========================================
+
+/* =========================================================
    MARQUEE
-========================================= */
+========================================================= */
 
 .marquee{
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
+  position:relative;
+  z-index:3;
+
+  border-top:
+    1px solid
+    var(--line);
+
+  border-bottom:
+    1px solid
+    var(--line);
+
   padding:18px 0;
+
   overflow:hidden;
+
   white-space:nowrap;
+
+  background:
+    rgba(5,5,5,.75);
 }
 
 .track{
   display:inline-flex;
-  animation:mar 25s linear infinite;
+
+  animation:
+    mar 25s linear infinite;
 }
 
 .track span{
-  margin:0 28px;
+  margin:
+    0 28px;
+
   color:#777;
+
   font-size:10px;
+
   font-weight:800;
+
   letter-spacing:.16em;
+
   text-transform:uppercase;
 }
 
@@ -327,70 +767,118 @@ select{
 }
 
 @keyframes mar{
+
   to{
     transform:translateX(-50%);
   }
+
 }
 
-/* =========================================
+
+/* =========================================================
    SECTIONS
-========================================= */
+========================================================= */
 
 .section{
   padding:135px 0;
+
   position:relative;
+
+  z-index:2;
 }
 
 .head{
   display:grid;
-  grid-template-columns:1.1fr .9fr;
+
+  grid-template-columns:
+    1.1fr
+    .9fr;
+
   gap:50px;
+
   margin-bottom:65px;
 }
 
 .label{
   color:var(--red);
+
   font-size:10px;
+
   font-weight:900;
+
   letter-spacing:.2em;
+
   text-transform:uppercase;
 }
 
 .title{
-  font-size:clamp(42px,6.2vw,82px);
+  font-size:
+    clamp(
+      42px,
+      6.2vw,
+      82px
+    );
+
   line-height:.9;
+
   letter-spacing:-.065em;
+
   margin-top:16px;
 }
 
 .desc{
   color:#777;
+
   font-size:14px;
+
   line-height:1.75;
+
   max-width:400px;
+
   align-self:end;
 }
 
-/* =========================================
+
+/* =========================================================
    SERVICES
-========================================= */
+========================================================= */
 
 .services{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  border-top:1px solid var(--line);
-  border-left:1px solid var(--line);
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  border-top:
+    1px solid
+    var(--line);
+
+  border-left:
+    1px solid
+    var(--line);
 }
 
 .card{
   min-height:390px;
+
   padding:28px;
-  border-right:1px solid var(--line);
-  border-bottom:1px solid var(--line);
+
+  border-right:
+    1px solid
+    var(--line);
+
+  border-bottom:
+    1px solid
+    var(--line);
+
   position:relative;
+
   overflow:hidden;
+
   background:#090909;
+
   transform-style:preserve-3d;
+
   transition:
     border-color .3s,
     transform .2s;
@@ -402,24 +890,35 @@ select{
 
 .cardbg{
   position:absolute;
+
   inset:0;
+
   background-size:cover;
+
   background-position:center;
+
   opacity:.18;
+
   transform:scale(1.04);
+
   transition:.6s;
+
   filter:grayscale(1);
 }
 
 .card:hover .cardbg{
   opacity:.34;
+
   transform:scale(1.12);
+
   filter:grayscale(.25);
 }
 
 .cardShade{
   position:absolute;
+
   inset:0;
+
   background:
     linear-gradient(
       180deg,
@@ -430,27 +929,37 @@ select{
 
 .card>*:not(.cardbg):not(.cardShade){
   position:relative;
+
   z-index:2;
 }
 
 .num{
   font-size:9px;
+
   color:#666;
+
   letter-spacing:.16em;
+
   font-weight:900;
 }
 
 .serviceName{
   font-size:30px;
+
   letter-spacing:-.05em;
+
   margin-top:48px;
 }
 
 .serviceDesc{
   font-size:12px;
+
   color:#888;
+
   line-height:1.55;
+
   margin-top:10px;
+
   max-width:280px;
 }
 
@@ -460,21 +969,28 @@ select{
 
 .subs span{
   display:block;
+
   color:#aaa;
+
   font-size:10px;
+
   margin:7px 0;
 }
 
 .subs span:before{
   content:"— ";
+
   color:var(--red);
 }
 
 .arrow{
   position:absolute!important;
+
   right:25px;
   top:25px;
+
   color:#666;
+
   font-size:20px;
 }
 
@@ -482,24 +998,38 @@ select{
   color:var(--red);
 }
 
-/* =========================================
+
+/* =========================================================
    WORK
-========================================= */
+========================================================= */
 
 .work{
   display:grid;
-  grid-template-columns:1.3fr .7fr;
+
+  grid-template-columns:
+    1.3fr
+    .7fr;
+
   gap:12px;
 }
 
 .workCard{
   min-height:500px;
-  border:1px solid var(--line);
+
+  border:
+    1px solid
+    var(--line);
+
   position:relative;
+
   overflow:hidden;
+
   padding:32px;
+
   display:flex;
+
   align-items:flex-end;
+
   background:#101010;
 }
 
@@ -509,23 +1039,33 @@ select{
 
 .workImg{
   position:absolute;
+
   inset:0;
+
   background-size:cover;
+
   background-position:center;
+
   filter:grayscale(1);
+
   opacity:.42;
+
   transition:.7s;
 }
 
 .workCard:hover .workImg{
   transform:scale(1.08);
+
   filter:grayscale(.15);
+
   opacity:.65;
 }
 
 .workShade{
   position:absolute;
+
   inset:0;
+
   background:
     linear-gradient(
       transparent 35%,
@@ -535,35 +1075,53 @@ select{
 
 .workText{
   position:relative;
+
   z-index:2;
 }
 
 .workText h3{
   font-size:40px;
+
   letter-spacing:-.06em;
+
   margin-top:12px;
 }
 
 .workText p{
   color:#888;
+
   font-size:11px;
+
   margin-top:8px;
 }
 
-/* =========================================
+
+/* =========================================================
    PROCESS
-========================================= */
+========================================================= */
 
 .process{
-  border-top:1px solid var(--line);
+  border-top:
+    1px solid
+    var(--line);
 }
 
 .row{
   display:grid;
-  grid-template-columns:80px 1fr 1fr;
+
+  grid-template-columns:
+    80px
+    1fr
+    1fr;
+
   gap:30px;
+
   padding:32px 0;
-  border-bottom:1px solid var(--line);
+
+  border-bottom:
+    1px solid
+    var(--line);
+
   transition:.3s;
 }
 
@@ -573,27 +1131,36 @@ select{
 
 .rowNum{
   color:var(--red);
+
   font-size:10px;
 }
 
 .row h3{
   font-size:28px;
+
   letter-spacing:-.04em;
 }
 
 .row p{
   color:#777;
+
   font-size:13px;
+
   line-height:1.65;
 }
 
-/* =========================================
+
+/* =========================================================
    ABOUT
-========================================= */
+========================================================= */
 
 .about{
-  border:1px solid var(--line);
+  border:
+    1px solid
+    var(--line);
+
   padding:65px;
+
   background:
     linear-gradient(
       135deg,
@@ -603,10 +1170,19 @@ select{
 }
 
 .about h2{
-  font-size:clamp(44px,6vw,82px);
+  font-size:
+    clamp(
+      44px,
+      6vw,
+      82px
+    );
+
   line-height:.9;
+
   letter-spacing:-.07em;
+
   max-width:950px;
+
   margin-top:18px;
 }
 
@@ -616,18 +1192,24 @@ select{
 
 .about p{
   max-width:650px;
+
   color:#888;
+
   line-height:1.8;
+
   font-size:14px;
+
   margin-top:32px;
 }
 
-/* =========================================
+
+/* =========================================================
    PROJECT
-========================================= */
+========================================================= */
 
 .project{
   background:#f4f4f4;
+
   color:#080808;
 }
 
@@ -637,21 +1219,33 @@ select{
 
 .projectLayout{
   display:grid;
-  grid-template-columns:.7fr 1.3fr;
+
+  grid-template-columns:
+    .7fr
+    1.3fr;
+
   gap:80px;
 }
 
 .form{
   display:grid;
+
   gap:13px;
 }
 
 .field{
   width:100%;
-  border:1px solid #ccc;
+
+  border:
+    1px solid
+    #ccc;
+
   background:#fff;
+
   padding:16px;
+
   outline:none;
+
   color:#111;
 }
 
@@ -661,81 +1255,137 @@ select{
 
 textarea.field{
   min-height:145px;
+
   resize:vertical;
 }
 
-/* =========================================
-   AI BOT
-========================================= */
+
+/* =========================================================
+   AI BUTTON
+========================================================= */
 
 .ai{
   position:fixed;
+
   right:25px;
   bottom:25px;
+
   width:64px;
   height:64px;
+
   border-radius:50%;
+
   background:#090909;
-  border:1px solid #555;
+
+  border:
+    1px solid
+    #555;
+
   color:#fff;
+
   z-index:4000;
+
   cursor:pointer;
-  box-shadow:0 15px 50px #0008;
+
+  box-shadow:
+    0 15px 50px
+    #0008;
+
   font-size:23px;
+
   transition:.3s;
 }
 
 .ai:hover{
   background:var(--red);
+
   border-color:var(--red);
+
   transform:scale(1.08);
 }
 
 .aiPulse{
   position:absolute;
+
   inset:-7px;
-  border:1px solid rgba(237,28,36,.35);
+
+  border:
+    1px solid
+    rgba(237,28,36,.35);
+
   border-radius:50%;
-  animation:botpulse 2s infinite;
+
+  animation:
+    botpulse 2s infinite;
 }
 
 @keyframes botpulse{
+
   0%{
     transform:scale(.85);
     opacity:.8;
   }
+
   100%{
     transform:scale(1.25);
     opacity:0;
   }
+
 }
+
+
+/* =========================================================
+   AI PANEL
+========================================================= */
 
 .aipanel{
   position:fixed;
+
   right:25px;
   bottom:105px;
+
   width:350px;
-  max-width:calc(100vw - 35px);
+
+  max-width:
+    calc(100vw - 35px);
+
   background:#090909;
-  border:1px solid #292929;
+
+  border:
+    1px solid
+    #292929;
+
   padding:24px;
+
   z-index:3999;
+
   opacity:0;
+
   visibility:hidden;
-  transform:translateY(15px);
+
+  transform:
+    translateY(15px);
+
   transition:.3s;
-  box-shadow:0 30px 80px rgba(0,0,0,.55);
+
+  box-shadow:
+    0 30px 80px
+    rgba(0,0,0,.55);
 }
 
 .aipanel.open{
   opacity:1;
+
   visibility:visible;
+
   transform:none;
 }
 
 .aihead{
   display:flex;
+
   justify-content:space-between;
+
   font-weight:900;
 }
 
@@ -745,77 +1395,119 @@ textarea.field{
 
 .aiclose{
   color:#777;
+
   cursor:pointer;
 }
 
 .aimsg{
   color:#888;
+
   font-size:12px;
+
   line-height:1.6;
+
   margin:22px 0;
 }
 
 .aiopts{
   display:grid;
-  grid-template-columns:1fr 1fr;
+
+  grid-template-columns:
+    1fr 1fr;
+
   gap:8px;
 }
 
 .aiopts button{
   background:#111;
-  border:1px solid #282828;
+
+  border:
+    1px solid
+    #282828;
+
   color:#aaa;
+
   padding:12px;
+
   font-size:9px;
+
   text-transform:uppercase;
+
   font-weight:900;
+
   cursor:pointer;
+
   transition:.25s;
 }
 
 .aiopts button:hover{
   background:var(--red);
+
   color:#fff;
+
   border-color:var(--red);
 }
 
-/* =========================================
-   REVEAL
-========================================= */
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
 
 .reveal{
   opacity:0;
-  transform:translateY(45px);
+
+  transform:
+    translateY(45px);
+
   transition:
     opacity .9s ease,
-    transform .9s cubic-bezier(.2,.8,.2,1);
+    transform .9s
+      cubic-bezier(.2,.8,.2,1);
 }
 
 .reveal.show{
   opacity:1;
+
   transform:none;
 }
 
-/* =========================================
+
+/* =========================================================
    FOOTER
-========================================= */
+========================================================= */
 
 footer{
-  padding:80px 0 25px;
-  border-top:1px solid var(--line);
+  padding:
+    80px 0
+    25px;
+
+  border-top:
+    1px solid
+    var(--line);
 }
 
 .foot{
   display:flex;
+
   justify-content:space-between;
+
   gap:40px;
+
   align-items:flex-end;
 }
 
 .big{
-  font-size:clamp(58px,9vw,120px);
+  font-size:
+    clamp(
+      58px,
+      9vw,
+      120px
+    );
+
   line-height:.8;
+
   letter-spacing:-.08em;
+
   font-weight:900;
 }
 
@@ -825,25 +1517,38 @@ footer{
 
 .contact{
   color:#777;
+
   font-size:12px;
+
   line-height:1.8;
 }
 
 .bottom{
-  border-top:1px solid var(--line);
+  border-top:
+    1px solid
+    var(--line);
+
   margin-top:70px;
+
   padding-top:18px;
+
   color:#555;
+
   font-size:9px;
+
   display:flex;
+
   justify-content:space-between;
+
   letter-spacing:.1em;
+
   text-transform:uppercase;
 }
 
-/* =========================================
-   RESPONSIVE
-========================================= */
+
+/* =========================================================
+   TABLET
+========================================================= */
 
 @media(max-width:900px){
 
@@ -870,7 +1575,9 @@ footer{
   }
 
   .row{
-    grid-template-columns:55px 1fr;
+    grid-template-columns:
+      55px
+      1fr;
   }
 
   .row p{
@@ -905,24 +1612,55 @@ footer{
   }
 
   .container{
-    width:calc(100% - 30px);
+    width:
+      calc(100% - 30px);
   }
+
 }
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media(max-width:600px){
 
-  .logo img{
-    width:125px;
+  .nav{
+    height:68px;
   }
 
-  .heroText{
-    font-size:15px;
+  .nav.scrolled{
+    height:58px;
+  }
+
+  .logo{
+    height:68px;
+  }
+
+  .logo img{
+    height:44px;
+    max-width:130px;
+  }
+
+  .nav.scrolled .logo{
+    height:58px;
+  }
+
+  .nav.scrolled .logo img{
+    height:38px;
+    max-width:120px;
+  }
+
+  .hero{
+    padding-top:120px;
   }
 
   .heroVisual{
     opacity:.55;
+
     width:360px;
     height:360px;
+
     right:-230px;
   }
 
@@ -942,6 +1680,10 @@ footer{
     inset:60px;
   }
 
+  .heroText{
+    font-size:15px;
+  }
+
   .ai{
     right:16px;
     bottom:16px;
@@ -951,7 +1693,13 @@ footer{
     right:16px;
     bottom:92px;
   }
+
 }
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
 
 @media(prefers-reduced-motion:reduce){
 
@@ -959,42 +1707,82 @@ footer{
   *::before,
   *::after{
     animation-duration:.01ms!important;
+
+    animation-iteration-count:1!important;
+
     transition-duration:.01ms!important;
+
     scroll-behavior:auto!important;
   }
+
 }
+
 </style>
 </head>
 
+
 <body>
 
+
+<!-- =======================================================
+     GLOBAL VISUAL LAYERS
+======================================================= -->
+
 <div class="noise"></div>
+
 <div class="grid"></div>
 
-<!-- =========================
-     NAVIGATION
-========================= -->
 
-<header class="nav">
+<!-- =======================================================
+     PREMIUM HEADER
+======================================================= -->
+
+<header
+  class="nav"
+  id="siteNav"
+>
 
   <div class="container navin">
 
-    <a class="logo" href="#top">
+
+    <!-- LOGO -->
+
+    <a
+      class="logo"
+      href="#top"
+      aria-label="Amir Graphics Home"
+    >
+
       <img
         src="/Amir%20Graphics%20Logo.png"
         alt="Amir Graphics"
       >
+
     </a>
 
-    <nav class="links">
 
-      <a href="#services">Services</a>
+    <!-- DESKTOP NAV -->
 
-      <a href="#work">Work</a>
+    <nav
+      class="links"
+      aria-label="Main Navigation"
+    >
 
-      <a href="#process">Process</a>
+      <a href="#services">
+        Services
+      </a>
 
-      <a href="#about">About</a>
+      <a href="#work">
+        Work
+      </a>
+
+      <a href="#process">
+        Process
+      </a>
+
+      <a href="#about">
+        About
+      </a>
 
       <a
         class="navcta"
@@ -1010,17 +1798,26 @@ footer{
 </header>
 
 
+<!-- =======================================================
+     MAIN
+======================================================= -->
+
 <main id="top">
 
-<!-- =========================
+
+<!-- =======================================================
      HERO
-========================= -->
+======================================================= -->
 
 <section class="hero">
+
+
+  <!-- PARALLAX VISUAL -->
 
   <div
     class="heroVisual"
     id="heroVisual"
+    aria-hidden="true"
   >
 
     <div class="orbit"></div>
@@ -1030,10 +1827,15 @@ footer{
   </div>
 
 
+  <!-- HERO CONTENT -->
+
   <div class="container">
 
+
     <div class="eyebrow reveal">
+
       Creative & Digital Solutions
+
     </div>
 
 
@@ -1052,9 +1854,9 @@ footer{
 
     <p class="heroText reveal">
 
-      Amir Graphics helps businesses build stronger brands,
-      sharper communication and better digital experiences
-      through design, content and technology.
+      Amir Graphics helps businesses build stronger
+      brands, sharper communication and better digital
+      experiences through design, content and technology.
 
     </p>
 
@@ -1082,56 +1884,22 @@ footer{
 
 
   <div class="container scrollmark">
+
     Scroll / Explore ↓
+
   </div>
 
 </section>
 
 
-<!-- =========================
+<!-- =======================================================
      MARQUEE
-========================= -->
+======================================================= -->
 
 <div class="marquee">
 
   <div class="track">
 
-    <span>
-      Branding <b>●</b>
-    </span>
-
-    <span>
-      Packaging <b>●</b>
-    </span>
-
-    <span>
-      Graphic Design <b>●</b>
-    </span>
-
-    <span>
-      Web & UI/UX <b>●</b>
-    </span>
-
-    <span>
-      Video & Motion <b>●</b>
-    </span>
-
-    <span>
-      AI Creative <b>●</b>
-    </span>
-
-    <span>
-      Social Media <b>●</b>
-    </span>
-
-    <span>
-      Digital Marketing <b>●</b>
-    </span>
-
-    <span>
-      Automation & Growth <b>●</b>
-    </span>
-
 
     <span>
       Branding <b>●</b>
@@ -1168,15 +1936,53 @@ footer{
     <span>
       Automation & Growth <b>●</b>
     </span>
+
+
+    <span>
+      Branding <b>●</b>
+    </span>
+
+    <span>
+      Packaging <b>●</b>
+    </span>
+
+    <span>
+      Graphic Design <b>●</b>
+    </span>
+
+    <span>
+      Web & UI/UX <b>●</b>
+    </span>
+
+    <span>
+      Video & Motion <b>●</b>
+    </span>
+
+    <span>
+      AI Creative <b>●</b>
+    </span>
+
+    <span>
+      Social Media <b>●</b>
+    </span>
+
+    <span>
+      Digital Marketing <b>●</b>
+    </span>
+
+    <span>
+      Automation & Growth <b>●</b>
+    </span>
+
 
   </div>
 
 </div>
 
 
-<!-- =========================
+<!-- =======================================================
      SERVICES
-========================= -->
+======================================================= -->
 
 <section
   class="section"
@@ -1185,7 +1991,9 @@ footer{
 
   <div class="container">
 
+
     <div class="head reveal">
+
 
       <div>
 
@@ -1194,8 +2002,11 @@ footer{
         </div>
 
         <h2 class="title">
+
           Nine capabilities.<br>
+
           One creative partner.
+
         </h2>
 
       </div>
@@ -1210,13 +2021,16 @@ footer{
 
       </p>
 
+
     </div>
 
 
     <div class="services">
 
 
-      <!-- 01 BRANDING -->
+      <!-- =================================================
+           01 BRANDING
+      ================================================== -->
 
       <article
         class="card reveal"
@@ -1234,35 +2048,49 @@ footer{
 
         <div class="cardShade"></div>
 
+
         <div class="num">
           01 / BRANDING
         </div>
+
 
         <div class="arrow">
           ↗
         </div>
 
+
         <h3 class="serviceName">
           Branding
         </h3>
+
 
         <p class="serviceDesc">
           Build recognition from the first impression.
         </p>
 
+
         <div class="subs">
+
           <span>Logo Design</span>
+
           <span>Brand Identity</span>
+
           <span>Corporate Identity</span>
+
           <span>Business Cards</span>
+
           <span>Letterheads</span>
+
           <span>Brand Guidelines</span>
+
         </div>
 
       </article>
 
 
-      <!-- 02 PACKAGING -->
+      <!-- =================================================
+           02 PACKAGING
+      ================================================== -->
 
       <article
         class="card reveal"
@@ -1280,35 +2108,49 @@ footer{
 
         <div class="cardShade"></div>
 
+
         <div class="num">
           02 / PACKAGING
         </div>
+
 
         <div class="arrow">
           ↗
         </div>
 
+
         <h3 class="serviceName">
           Packaging
         </h3>
+
 
         <p class="serviceDesc">
           Make the product impossible to ignore.
         </p>
 
+
         <div class="subs">
+
           <span>Product Packaging</span>
+
           <span>Label Design</span>
+
           <span>Box Design</span>
+
           <span>Jar / Bottle Design</span>
+
           <span>Sticker Design</span>
+
           <span>3D Packaging</span>
+
         </div>
 
       </article>
 
 
-      <!-- 03 GRAPHIC DESIGN -->
+      <!-- =================================================
+           03 GRAPHIC DESIGN
+      ================================================== -->
 
       <article
         class="card reveal"
@@ -1326,35 +2168,49 @@ footer{
 
         <div class="cardShade"></div>
 
+
         <div class="num">
           03 / GRAPHIC DESIGN
         </div>
+
 
         <div class="arrow">
           ↗
         </div>
 
+
         <h3 class="serviceName">
           Graphic Design
         </h3>
+
 
         <p class="serviceDesc">
           Turn communication into visual impact.
         </p>
 
+
         <div class="subs">
+
           <span>Brochures</span>
+
           <span>Flyers & Posters</span>
+
           <span>Banners & Hoardings</span>
+
           <span>Catalogues</span>
+
           <span>Social Creatives</span>
+
           <span>Marketing Collateral</span>
+
         </div>
 
       </article>
 
 
-      <!-- 04 WEB -->
+      <!-- =================================================
+           04 WEB
+      ================================================== -->
 
       <article
         class="card reveal"
@@ -1372,35 +2228,49 @@ footer{
 
         <div class="cardShade"></div>
 
+
         <div class="num">
           04 / WEB & UI/UX
         </div>
+
 
         <div class="arrow">
           ↗
         </div>
 
+
         <h3 class="serviceName">
           Web & UI/UX
         </h3>
+
 
         <p class="serviceDesc">
           Give the brand a digital home.
         </p>
 
+
         <div class="subs">
+
           <span>Website Design</span>
+
           <span>Landing Pages</span>
+
           <span>UI / UX</span>
+
           <span>Web Graphics</span>
+
           <span>Digital Campaigns</span>
+
           <span>Responsive Design</span>
+
         </div>
 
       </article>
 
 
-      <!-- 05 VIDEO -->
+      <!-- =================================================
+           05 VIDEO
+      ================================================== -->
 
       <article
         class="card reveal"
@@ -1418,35 +2288,49 @@ footer{
 
         <div class="cardShade"></div>
 
+
         <div class="num">
           05 / VIDEO & MOTION
         </div>
+
 
         <div class="arrow">
           ↗
         </div>
 
+
         <h3 class="serviceName">
           Video & Motion
         </h3>
+
 
         <p class="serviceDesc">
           Make the message move.
         </p>
 
+
         <div class="subs">
+
           <span>Motion Graphics</span>
+
           <span>Reels</span>
+
           <span>Animated Posts</span>
+
           <span>Product Videos</span>
+
           <span>Commercial Concepts</span>
+
           <span>Animation</span>
+
         </div>
 
       </article>
 
 
-      <!-- 06 AI -->
+      <!-- =================================================
+           06 AI
+      ================================================== -->
 
       <article
         class="card reveal"
@@ -1464,35 +2348,49 @@ footer{
 
         <div class="cardShade"></div>
 
+
         <div class="num">
           06 / AI CREATIVE
         </div>
+
 
         <div class="arrow">
           ↗
         </div>
 
+
         <h3 class="serviceName">
           AI Creative
         </h3>
+
 
         <p class="serviceDesc">
           Explore more creative possibilities, faster.
         </p>
 
+
         <div class="subs">
+
           <span>AI Product Visuals</span>
+
           <span>AI Advertising</span>
+
           <span>AI Characters</span>
+
           <span>Cinematic Visuals</span>
+
           <span>AI Video</span>
+
           <span>Campaign Concepts</span>
+
         </div>
 
       </article>
 
 
-      <!-- 07 SOCIAL -->
+      <!-- =================================================
+           07 SOCIAL
+      ================================================== -->
 
       <article
         class="card reveal"
@@ -1510,34 +2408,47 @@ footer{
 
         <div class="cardShade"></div>
 
+
         <div class="num">
           07 / SOCIAL MEDIA
         </div>
+
 
         <div class="arrow">
           ↗
         </div>
 
+
         <h3 class="serviceName">
           Social Media
         </h3>
+
 
         <p class="serviceDesc">
           Build a recognisable content presence.
         </p>
 
+
         <div class="subs">
+
           <span>Content Design</span>
+
           <span>Campaign Creative</span>
+
           <span>Social Branding</span>
+
           <span>Reels</span>
+
           <span>Content Systems</span>
+
         </div>
 
       </article>
 
 
-      <!-- 08 MARKETING -->
+      <!-- =================================================
+           08 MARKETING
+      ================================================== -->
 
       <article
         class="card reveal"
@@ -1555,34 +2466,47 @@ footer{
 
         <div class="cardShade"></div>
 
+
         <div class="num">
           08 / DIGITAL MARKETING
         </div>
+
 
         <div class="arrow">
           ↗
         </div>
 
+
         <h3 class="serviceName">
           Digital Marketing
         </h3>
+
 
         <p class="serviceDesc">
           Connect creative work with visibility.
         </p>
 
+
         <div class="subs">
+
           <span>SEO</span>
+
           <span>Digital Campaigns</span>
+
           <span>Lead Generation</span>
+
           <span>Website Strategy</span>
+
           <span>Content Marketing</span>
+
         </div>
 
       </article>
 
 
-      <!-- 09 AUTOMATION -->
+      <!-- =================================================
+           09 AUTOMATION
+      ================================================== -->
 
       <article
         class="card reveal"
@@ -1600,31 +2524,43 @@ footer{
 
         <div class="cardShade"></div>
 
+
         <div class="num">
           09 / AUTOMATION & GROWTH
         </div>
+
 
         <div class="arrow">
           ↗
         </div>
 
+
         <h3 class="serviceName">
           Automation & Growth
         </h3>
+
 
         <p class="serviceDesc">
           Turn attention into an operating system.
         </p>
 
+
         <div class="subs">
+
           <span>WhatsApp Automation</span>
+
           <span>CRM</span>
+
           <span>Lead Capture</span>
+
           <span>Analytics</span>
+
           <span>Growth Workflows</span>
+
         </div>
 
       </article>
+
 
     </div>
 
@@ -1633,9 +2569,9 @@ footer{
 </section>
 
 
-<!-- =========================
+<!-- =======================================================
      CREATIVE PREVIEW
-========================= -->
+======================================================= -->
 
 <section
   class="section"
@@ -1644,7 +2580,9 @@ footer{
 
   <div class="container">
 
+
     <div class="head reveal">
+
 
       <div>
 
@@ -1653,22 +2591,28 @@ footer{
         </div>
 
         <h2 class="title">
+
           A visual system ready
           for your real work.
+
         </h2>
 
       </div>
 
+
       <p class="desc">
+
         These are capability previews, not claimed client
         projects. Later we can replace every visual with
         your actual Amir Graphics work.
+
       </p>
 
     </div>
 
 
     <div class="work">
+
 
       <article class="workCard reveal">
 
@@ -1681,7 +2625,9 @@ footer{
           "
         ></div>
 
+
         <div class="workShade"></div>
+
 
         <div class="workText">
 
@@ -1689,10 +2635,12 @@ footer{
             Brand / Visual Identity
           </div>
 
+
           <h3>
             Make the first
             impression count.
           </h3>
+
 
           <p>
             Creative direction / Identity / Applications
@@ -1703,7 +2651,9 @@ footer{
       </article>
 
 
-      <article class="workCard small reveal">
+      <article
+        class="workCard small reveal"
+      >
 
         <div
           class="workImg"
@@ -1714,7 +2664,9 @@ footer{
           "
         ></div>
 
+
         <div class="workShade"></div>
+
 
         <div class="workText">
 
@@ -1722,10 +2674,12 @@ footer{
             Digital / Growth
           </div>
 
+
           <h3>
             Design that moves
             business forward.
           </h3>
+
 
           <p>
             Digital / Campaign / Content
@@ -1735,6 +2689,7 @@ footer{
 
       </article>
 
+
     </div>
 
   </div>
@@ -1742,9 +2697,9 @@ footer{
 </section>
 
 
-<!-- =========================
+<!-- =======================================================
      PROCESS
-========================= -->
+======================================================= -->
 
 <section
   class="section"
@@ -1752,6 +2707,7 @@ footer{
 >
 
   <div class="container">
+
 
     <div class="head reveal">
 
@@ -1762,8 +2718,11 @@ footer{
         </div>
 
         <h2 class="title">
+
           Clear thinking.<br>
+
           Better execution.
+
         </h2>
 
       </div>
@@ -1772,6 +2731,7 @@ footer{
 
 
     <div class="process">
+
 
       <div class="row reveal">
 
@@ -1844,6 +2804,7 @@ footer{
 
       </div>
 
+
     </div>
 
   </div>
@@ -1851,9 +2812,9 @@ footer{
 </section>
 
 
-<!-- =========================
+<!-- =======================================================
      ABOUT
-========================= -->
+======================================================= -->
 
 <section
   class="section"
@@ -1862,23 +2823,36 @@ footer{
 
   <div class="container">
 
+
     <div class="about reveal">
+
 
       <div class="label">
         04 / About Amir Graphics
       </div>
 
+
       <h2>
+
         More than a design vendor.<br>
-        A creative <span>partner.</span>
+
+        A creative
+        <span>
+          partner.
+        </span>
+
       </h2>
 
+
       <p>
+
         Amir Graphics brings branding, graphic design,
         websites, content, AI-assisted creative and
         digital systems together for businesses that
         want to look professional and grow with confidence.
+
       </p>
+
 
     </div>
 
@@ -1887,9 +2861,9 @@ footer{
 </section>
 
 
-<!-- =========================
+<!-- =======================================================
      PROJECT FORM
-========================= -->
+======================================================= -->
 
 <section
   class="section project"
@@ -1898,7 +2872,9 @@ footer{
 
   <div class="container">
 
+
     <div class="head reveal">
+
 
       <div>
 
@@ -1906,21 +2882,28 @@ footer{
           05 / Start a Project
         </div>
 
+
         <h2 class="title">
+
           Tell us what you're building.
+
         </h2>
 
       </div>
 
+
       <p class="desc">
+
         Share your requirement. We'll review the project
         and get back to you.
+
       </p>
 
     </div>
 
 
     <div class="projectLayout">
+
 
       <div class="desc reveal">
 
@@ -1942,6 +2925,7 @@ footer{
         class="form reveal"
         id="projectForm"
       >
+
 
         <input
           class="field"
@@ -2047,8 +3031,12 @@ footer{
 
         <div
           id="formStatus"
-          style="font-size:12px;color:#777"
+          style="
+            font-size:12px;
+            color:#777
+          "
         ></div>
+
 
       </form>
 
@@ -2058,22 +3046,30 @@ footer{
 
 </section>
 
+
 </main>
 
 
-<!-- =========================
+<!-- =======================================================
      FOOTER
-========================= -->
+======================================================= -->
 
 <footer>
 
   <div class="container">
 
+
     <div class="foot">
 
+
       <div class="big">
+
         Let's make<br>
-        <span>something.</span>
+
+        <span>
+          something.
+        </span>
+
       </div>
 
 
@@ -2097,6 +3093,7 @@ footer{
 
       </div>
 
+
     </div>
 
 
@@ -2112,14 +3109,15 @@ footer{
 
     </div>
 
+
   </div>
 
 </footer>
 
 
-<!-- =========================
-     AMIR AI
-========================= -->
+<!-- =======================================================
+     AMIR AI BUTTON
+======================================================= -->
 
 <button
   class="ai"
@@ -2134,16 +3132,27 @@ footer{
 </button>
 
 
+<!-- =======================================================
+     AMIR AI PANEL
+======================================================= -->
+
 <div
   class="aipanel"
   id="aiPanel"
 >
 
+
   <div class="aihead">
 
     <div>
-      AMIR <span>AI</span>
+
+      AMIR
+      <span>
+        AI
+      </span>
+
     </div>
+
 
     <div
       class="aiclose"
@@ -2168,105 +3177,192 @@ footer{
 
   <div class="aiopts">
 
+
     <button data-service="Branding">
       Branding
     </button>
+
 
     <button data-service="Packaging">
       Packaging
     </button>
 
+
     <button data-service="Web & UI/UX">
       Website
     </button>
+
 
     <button data-service="Video & Motion">
       Video
     </button>
 
+
     <button data-service="AI Creative">
       AI Creative
     </button>
+
 
     <button data-service="Digital Marketing">
       Marketing
     </button>
 
+
     <button data-service="Automation & Growth">
       Automation
     </button>
+
 
     <button data-service="Project">
       Start Project
     </button>
 
+
   </div>
+
 
 </div>
 
 
+<!-- =======================================================
+     JAVASCRIPT
+======================================================= -->
+
 <script>
 
-/* =========================================
-   SCROLL REVEAL
-========================================= */
 
-const observer =
-new IntersectionObserver(
+/* =========================================================
+   PREMIUM HEADER SCROLL SHRINK
+========================================================= */
 
-  entries => {
+const siteNav =
+  document.getElementById("siteNav");
 
-    entries.forEach(entry => {
 
-      if(entry.isIntersecting){
+let lastScrollY = 0;
 
-        entry.target.classList.add("show");
 
-        observer.unobserve(entry.target);
+function updateHeader(){
 
-      }
+  const currentScroll =
+    window.scrollY || 0;
 
-    });
 
-  },
+  if(currentScroll > 40){
 
-  {
-    threshold:.12
+    siteNav.classList.add(
+      "scrolled"
+    );
+
+  }else{
+
+    siteNav.classList.remove(
+      "scrolled"
+    );
+
   }
 
+
+  lastScrollY =
+    currentScroll;
+
+}
+
+
+window.addEventListener(
+  "scroll",
+  updateHeader,
+  {
+    passive:true
+  }
 );
 
 
+updateHeader();
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const observer =
+  new IntersectionObserver(
+
+    entries => {
+
+      entries.forEach(
+        entry => {
+
+          if(
+            entry.isIntersecting
+          ){
+
+            entry.target.classList.add(
+              "show"
+            );
+
+            observer.unobserve(
+              entry.target
+            );
+
+          }
+
+        }
+      );
+
+    },
+
+    {
+      threshold:.12
+    }
+
+  );
+
+
 document
-.querySelectorAll(".reveal")
-.forEach(element => {
+  .querySelectorAll(".reveal")
+  .forEach(
+    element => {
 
-  observer.observe(element);
+      observer.observe(
+        element
+      );
 
-});
+    }
+  );
 
 
-/* =========================================
-   TRUE HERO PARALLAX
-========================================= */
+/* =========================================================
+   HERO PARALLAX
+========================================================= */
 
 const heroVisual =
-document.getElementById("heroVisual");
+  document.getElementById(
+    "heroVisual"
+  );
+
 
 let ticking=false;
 
 
 function updateParallax(){
 
-  const y=window.scrollY;
+  const y =
+    window.scrollY || 0;
+
 
   if(heroVisual){
 
     heroVisual.style.transform =
-      `translate3d(0,calc(-50% + ${y*.16}px),0)
-       rotate(${y*.018}deg)`;
+      `translate3d(
+        0,
+        calc(-50% + ${y * .16}px),
+        0
+      )
+      rotate(${y * .018}deg)`;
 
   }
+
 
   ticking=false;
 
@@ -2281,7 +3377,9 @@ window.addEventListener(
 
     if(!ticking){
 
-      requestAnimationFrame(updateParallax);
+      requestAnimationFrame(
+        updateParallax
+      );
 
       ticking=true;
 
@@ -2296,224 +3394,330 @@ window.addEventListener(
 );
 
 
-/* =========================================
-   SERVICE CARD DEPTH
-========================================= */
+/* =========================================================
+   SERVICE CARD 3D DEPTH
+========================================================= */
 
 document
-.querySelectorAll("[data-tilt]")
-.forEach(card => {
-
-  card.addEventListener(
-    "mousemove",
-    event => {
-
-      if(window.innerWidth < 900){
-        return;
-      }
-
-      const rect =
-        card.getBoundingClientRect();
-
-      const x =
-        (event.clientX - rect.left)
-        / rect.width - .5;
-
-      const y =
-        (event.clientY - rect.top)
-        / rect.height - .5;
-
-      const rotateY=x*5;
-
-      const rotateX=-y*5;
-
-      card.style.transform =
-        `perspective(900px)
-         rotateX(${rotateX}deg)
-         rotateY(${rotateY}deg)
-         translateY(-5px)`;
-
-    }
-  );
+  .querySelectorAll("[data-tilt]")
+  .forEach(
+    card => {
 
 
-  card.addEventListener(
-    "mouseleave",
-    () => {
+      card.addEventListener(
 
-      card.style.transform="";
+        "mousemove",
 
-    }
-  );
+        event => {
 
-});
+          if(
+            window.innerWidth < 900
+          ){
 
-
-/* =========================================
-   AI PANEL
-========================================= */
-
-const aiBtn=
-document.getElementById("aiBtn");
-
-const aiPanel=
-document.getElementById("aiPanel");
-
-const aiClose=
-document.getElementById("aiClose");
-
-
-aiBtn.addEventListener(
-  "click",
-  () => {
-
-    aiPanel.classList.toggle("open");
-
-  }
-);
-
-
-aiClose.addEventListener(
-  "click",
-  () => {
-
-    aiPanel.classList.remove("open");
-
-  }
-);
-
-
-/* =========================================
-   AI → PROJECT FORM
-========================================= */
-
-document
-.querySelectorAll(".aiopts button")
-.forEach(button => {
-
-  button.addEventListener(
-    "click",
-    () => {
-
-      const selected =
-        button.dataset.service;
-
-      aiPanel.classList.remove("open");
-
-      document
-        .getElementById("project")
-        .scrollIntoView({
-          behavior:"smooth"
-        });
-
-
-      setTimeout(
-        () => {
-
-          const select =
-            document.getElementById("service");
-
-          const match =
-            [...select.options].find(
-              option =>
-                option.value
-                .toLowerCase()
-                === selected.toLowerCase()
-            );
-
-
-          if(match){
-
-            select.value=match.value;
+            return;
 
           }
 
 
-          document
-            .getElementById("message")
-            .focus();
+          const rect =
+            card.getBoundingClientRect();
 
-        },
 
-        650
+          const x =
+            (
+              event.clientX -
+              rect.left
+            )
+            /
+            rect.width
+            -
+            .5;
+
+
+          const y =
+            (
+              event.clientY -
+              rect.top
+            )
+            /
+            rect.height
+            -
+            .5;
+
+
+          const rotateY =
+            x * 5;
+
+
+          const rotateX =
+            -y * 5;
+
+
+          card.style.transform =
+            `perspective(900px)
+             rotateX(${rotateX}deg)
+             rotateY(${rotateY}deg)
+             translateY(-5px)`;
+
+        }
+
+      );
+
+
+      card.addEventListener(
+
+        "mouseleave",
+
+        () => {
+
+          card.style.transform="";
+
+        }
+
       );
 
     }
   );
 
-});
+
+/* =========================================================
+   AI PANEL
+========================================================= */
+
+const aiBtn =
+  document.getElementById(
+    "aiBtn"
+  );
 
 
-/* =========================================
+const aiPanel =
+  document.getElementById(
+    "aiPanel"
+  );
+
+
+const aiClose =
+  document.getElementById(
+    "aiClose"
+  );
+
+
+aiBtn.addEventListener(
+
+  "click",
+
+  () => {
+
+    aiPanel.classList.toggle(
+      "open"
+    );
+
+  }
+
+);
+
+
+aiClose.addEventListener(
+
+  "click",
+
+  () => {
+
+    aiPanel.classList.remove(
+      "open"
+    );
+
+  }
+
+);
+
+
+/* =========================================================
+   AI → PROJECT FORM
+========================================================= */
+
+document
+  .querySelectorAll(
+    ".aiopts button"
+  )
+  .forEach(
+    button => {
+
+      button.addEventListener(
+
+        "click",
+
+        () => {
+
+          const selected =
+            button.dataset.service;
+
+
+          aiPanel.classList.remove(
+            "open"
+          );
+
+
+          document
+            .getElementById(
+              "project"
+            )
+            .scrollIntoView({
+
+              behavior:"smooth"
+
+            });
+
+
+          setTimeout(
+
+            () => {
+
+
+              const select =
+                document.getElementById(
+                  "service"
+                );
+
+
+              const match =
+                [
+                  ...select.options
+                ].find(
+
+                  option =>
+
+                    option.value
+                      .toLowerCase()
+                    ===
+                    selected
+                      .toLowerCase()
+
+                );
+
+
+              if(match){
+
+                select.value =
+                  match.value;
+
+              }
+
+
+              document
+                .getElementById(
+                  "message"
+                )
+                .focus();
+
+
+            },
+
+            650
+
+          );
+
+        }
+
+      );
+
+    }
+  );
+
+
+/* =========================================================
    PROJECT FORM
-========================================= */
+========================================================= */
 
-const projectForm=
-document.getElementById("projectForm");
+const projectForm =
+  document.getElementById(
+    "projectForm"
+  );
 
-const formStatus=
-document.getElementById("formStatus");
+
+const formStatus =
+  document.getElementById(
+    "formStatus"
+  );
 
 
 projectForm.addEventListener(
+
   "submit",
+
   async event => {
 
     event.preventDefault();
 
 
-    formStatus.textContent=
+    formStatus.textContent =
       "Preparing your enquiry…";
 
 
-    const payload={
+    const payload = {
 
       name:
         document
-        .getElementById("name")
-        .value
-        .trim(),
+          .getElementById(
+            "name"
+          )
+          .value
+          .trim(),
 
       company:
         document
-        .getElementById("company")
-        .value
-        .trim(),
+          .getElementById(
+            "company"
+          )
+          .value
+          .trim(),
 
       email:
         document
-        .getElementById("email")
-        .value
-        .trim(),
+          .getElementById(
+            "email"
+          )
+          .value
+          .trim(),
 
       phone:
         document
-        .getElementById("phone")
-        .value
-        .trim(),
+          .getElementById(
+            "phone"
+          )
+          .value
+          .trim(),
 
       service:
         document
-        .getElementById("service")
-        .value,
+          .getElementById(
+            "service"
+          )
+          .value,
 
       message:
         document
-        .getElementById("message")
-        .value
-        .trim()
+          .getElementById(
+            "message"
+          )
+          .value
+          .trim()
 
     };
 
 
     try{
 
+
       /*
-        We deliberately do not guess the Supabase
-        table schema. The database insertion will be
-        connected after the exact existing schema is
-        verified.
+        Supabase configuration is detected
+        without guessing the database schema.
+
+        Database insertion will be connected
+        after the exact Supabase table schema
+        is verified.
       */
+
 
       if(
         window.AMIR_CONFIG &&
@@ -2533,29 +3737,38 @@ projectForm.addEventListener(
       );
 
 
-      formStatus.textContent=
+      formStatus.textContent =
         "Your enquiry is ready to be connected to the lead system.";
 
-      formStatus.style.color=
+
+      formStatus.style.color =
         "#159447";
 
 
     }catch(error){
 
-      console.error(error);
 
-      formStatus.textContent=
+      console.error(
+        error
+      );
+
+
+      formStatus.textContent =
         "Please email info@amirgraphics.in.";
 
-      formStatus.style.color=
+
+      formStatus.style.color =
         "#d00000";
+
 
     }
 
   }
+
 );
 
 </script>
+
 
 </body>
 </html>
