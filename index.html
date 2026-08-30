@@ -2595,6 +2595,199 @@ body::before{
   .partner-logo span{font-size:13px;}
 }
 
+
+/* =========================================================
+   PROJECT IMAGE LIGHTBOX
+   Click any Mountain Aura project visual for large view.
+========================================================= */
+
+.mountain-cover-button,
+.mountain-packaging-button{
+    display:block;
+    width:100%;
+    padding:0;
+    margin:0;
+    border:0;
+    background:none;
+    color:inherit;
+    font:inherit;
+    text-align:left;
+    cursor:zoom-in;
+}
+
+.mountain-cover-button:focus-visible,
+.mountain-packaging-button:focus-visible{
+    outline:2px solid var(--red);
+    outline-offset:-2px;
+}
+
+.mountain-cover-button img,
+.mountain-packaging-button img{
+    cursor:zoom-in;
+}
+
+.project-lightbox{
+    position:fixed;
+    inset:0;
+    z-index:5000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:30px;
+    background:rgba(0,0,0,.94);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transition:opacity .35s ease, visibility .35s ease;
+}
+
+.project-lightbox.open{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+}
+
+.project-lightbox-inner{
+    position:relative;
+    width:min(1500px,96vw);
+    height:min(92vh,1000px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.project-lightbox-image-wrap{
+    position:relative;
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:25px 80px;
+}
+
+.project-lightbox-image{
+    max-width:100%;
+    max-height:100%;
+    width:auto;
+    height:auto;
+    object-fit:contain;
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 30px 100px rgba(0,0,0,.7);
+    user-select:none;
+}
+
+.project-lightbox-close,
+.project-lightbox-prev,
+.project-lightbox-next{
+    position:absolute;
+    z-index:3;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:48px;
+    height:48px;
+    border:1px solid rgba(255,255,255,.2);
+    background:rgba(10,10,10,.8);
+    color:#fff;
+    cursor:pointer;
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    transition:
+        background .25s ease,
+        border-color .25s ease,
+        transform .25s var(--ease);
+}
+
+.project-lightbox-close{
+    top:8px;
+    right:8px;
+    border-radius:50%;
+    font-size:27px;
+    line-height:1;
+}
+
+.project-lightbox-prev,
+.project-lightbox-next{
+    top:50%;
+    transform:translateY(-50%);
+    border-radius:50%;
+    font-size:24px;
+}
+
+.project-lightbox-prev{left:8px;}
+.project-lightbox-next{right:8px;}
+
+.project-lightbox-close:hover,
+.project-lightbox-prev:hover,
+.project-lightbox-next:hover{
+    background:var(--red);
+    border-color:var(--red);
+}
+
+.project-lightbox-prev:hover,
+.project-lightbox-next:hover{
+    transform:translateY(-50%) scale(1.06);
+}
+
+.project-lightbox-close:hover{
+    transform:scale(1.06);
+}
+
+.project-lightbox-caption{
+    position:absolute;
+    left:50%;
+    bottom:10px;
+    transform:translateX(-50%);
+    max-width:calc(100% - 160px);
+    padding:9px 14px;
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(0,0,0,.72);
+    color:#aaa;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    text-align:center;
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+}
+
+.project-lightbox-counter{
+    position:absolute;
+    top:12px;
+    left:50%;
+    transform:translateX(-50%);
+    color:#777;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.15em;
+}
+
+body.lightbox-open{overflow:hidden;}
+
+@media(max-width:600px){
+    .project-lightbox{padding:12px;}
+    .project-lightbox-inner{width:100%;height:92vh;}
+    .project-lightbox-image-wrap{padding:65px 8px 65px;}
+    .project-lightbox-image{max-width:100%;max-height:100%;}
+    .project-lightbox-close,
+    .project-lightbox-prev,
+    .project-lightbox-next{width:42px;height:42px;}
+    .project-lightbox-close{top:5px;right:5px;}
+    .project-lightbox-prev{left:5px;}
+    .project-lightbox-next{right:5px;}
+    .project-lightbox-caption{
+        bottom:5px;
+        max-width:calc(100% - 90px);
+        font-size:8px;
+        padding:8px 10px;
+    }
+    .project-lightbox-counter{top:13px;font-size:9px;}
+}
+
 </style>
 </head>
 
@@ -3317,39 +3510,95 @@ body::before{
         <div class="client-project-visual mountain-aura">
 
           <div class="mountain-cover">
-            <img
-              src="assets/clients/mountain-aura/cover/mountain-aura-cover.webp?v=1"
-              alt="Mountain Aura — brand and packaging project"
-              loading="eager"
-              decoding="async"
+            <button
+              type="button"
+              class="mountain-cover-button"
+              data-lightbox-src="assets/clients/mountain-aura/cover/mountain-aura-cover.webp?v=1"
+              data-lightbox-title="Mountain Aura / Brand Project"
+              aria-label="Open Mountain Aura brand project in large view"
             >
-            <span class="mountain-cover-label">Mountain Aura / Brand Project</span>
+              <img
+                src="assets/clients/mountain-aura/cover/mountain-aura-cover.webp?v=1"
+                alt="Mountain Aura — brand and packaging project"
+                loading="eager"
+                decoding="async"
+              >
+            </button>
+            <span class="mountain-cover-label">Mountain Aura / Brand Project · Click to enlarge</span>
           </div>
 
           <div class="mountain-packaging" aria-label="Mountain Aura packaging project visuals">
 
             <div class="mountain-packaging-item">
-              <img src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-01.webp?v=1" alt="Mountain Aura packaging visual 01" loading="lazy" decoding="async">
+              <button
+                type="button"
+                class="mountain-packaging-button"
+                data-lightbox-src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-01.webp?v=1"
+                data-lightbox-title="Mountain Aura / Packaging Visual 1"
+                aria-label="Open Mountain Aura packaging visual 1 in large view"
+              >
+                <img src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-01.webp?v=1" alt="Mountain Aura packaging visual 01" loading="lazy" decoding="async">
+              </button>
             </div>
 
             <div class="mountain-packaging-item">
-              <img src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-02.webp?v=1" alt="Mountain Aura packaging visual 02" loading="lazy" decoding="async">
+              <button
+                type="button"
+                class="mountain-packaging-button"
+                data-lightbox-src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-02.webp?v=1"
+                data-lightbox-title="Mountain Aura / Packaging Visual 2"
+                aria-label="Open Mountain Aura packaging visual 2 in large view"
+              >
+                <img src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-02.webp?v=1" alt="Mountain Aura packaging visual 02" loading="lazy" decoding="async">
+              </button>
             </div>
 
             <div class="mountain-packaging-item">
-              <img src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-03.webp?v=1" alt="Mountain Aura packaging visual 03" loading="lazy" decoding="async">
+              <button
+                type="button"
+                class="mountain-packaging-button"
+                data-lightbox-src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-03.webp?v=1"
+                data-lightbox-title="Mountain Aura / Packaging Visual 3"
+                aria-label="Open Mountain Aura packaging visual 3 in large view"
+              >
+                <img src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-03.webp?v=1" alt="Mountain Aura packaging visual 03" loading="lazy" decoding="async">
+              </button>
             </div>
 
             <div class="mountain-packaging-item">
-              <img src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-04.webp?v=1" alt="Mountain Aura packaging visual 04" loading="lazy" decoding="async">
+              <button
+                type="button"
+                class="mountain-packaging-button"
+                data-lightbox-src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-04.webp?v=1"
+                data-lightbox-title="Mountain Aura / Packaging Visual 4"
+                aria-label="Open Mountain Aura packaging visual 4 in large view"
+              >
+                <img src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-04.webp?v=1" alt="Mountain Aura packaging visual 04" loading="lazy" decoding="async">
+              </button>
             </div>
 
             <div class="mountain-packaging-item">
-              <img src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-05.webp?v=1" alt="Mountain Aura packaging visual 05" loading="lazy" decoding="async">
+              <button
+                type="button"
+                class="mountain-packaging-button"
+                data-lightbox-src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-05.webp?v=1"
+                data-lightbox-title="Mountain Aura / Packaging Visual 5"
+                aria-label="Open Mountain Aura packaging visual 5 in large view"
+              >
+                <img src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-05.webp?v=1" alt="Mountain Aura packaging visual 05" loading="lazy" decoding="async">
+              </button>
             </div>
 
             <div class="mountain-packaging-item">
-              <img src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-06.webp?v=1" alt="Mountain Aura packaging visual 06" loading="lazy" decoding="async">
+              <button
+                type="button"
+                class="mountain-packaging-button"
+                data-lightbox-src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-06.webp?v=1"
+                data-lightbox-title="Mountain Aura / Packaging Visual 6"
+                aria-label="Open Mountain Aura packaging visual 6 in large view"
+              >
+                <img src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-06.webp?v=1" alt="Mountain Aura packaging visual 06" loading="lazy" decoding="async">
+              </button>
             </div>
 
           </div>
@@ -4385,6 +4634,64 @@ body::before{
 </a>
 
 
+
+<!-- ======================================================
+     PROJECT IMAGE LIGHTBOX
+====================================================== -->
+
+<div
+    class="project-lightbox"
+    id="projectLightbox"
+    aria-hidden="true"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Project image viewer"
+>
+    <div class="project-lightbox-inner">
+
+        <div class="project-lightbox-counter" id="projectLightboxCounter">
+            1 / 7
+        </div>
+
+        <button
+            type="button"
+            class="project-lightbox-close"
+            id="projectLightboxClose"
+            aria-label="Close image viewer"
+        >×</button>
+
+        <button
+            type="button"
+            class="project-lightbox-prev"
+            id="projectLightboxPrev"
+            aria-label="Previous project image"
+        >‹</button>
+
+        <div class="project-lightbox-image-wrap">
+            <img
+                class="project-lightbox-image"
+                id="projectLightboxImage"
+                src=""
+                alt=""
+            >
+        </div>
+
+        <button
+            type="button"
+            class="project-lightbox-next"
+            id="projectLightboxNext"
+            aria-label="Next project image"
+        >›</button>
+
+        <div
+            class="project-lightbox-caption"
+            id="projectLightboxCaption"
+        ></div>
+
+    </div>
+</div>
+
+
 <!-- ======================================================
      JAVASCRIPT
 ====================================================== -->
@@ -5135,6 +5442,177 @@ document.addEventListener(
 
     }
 );
+
+
+/* =========================================================
+   PROJECT IMAGE LIGHTBOX
+========================================================= */
+
+const projectLightbox = document.getElementById("projectLightbox");
+const projectLightboxImage = document.getElementById("projectLightboxImage");
+const projectLightboxCaption = document.getElementById("projectLightboxCaption");
+const projectLightboxCounter = document.getElementById("projectLightboxCounter");
+const projectLightboxClose = document.getElementById("projectLightboxClose");
+const projectLightboxPrev = document.getElementById("projectLightboxPrev");
+const projectLightboxNext = document.getElementById("projectLightboxNext");
+
+const lightboxTriggers = Array.from(
+    document.querySelectorAll("[data-lightbox-src]")
+);
+
+let lightboxIndex = 0;
+let lightboxLastFocused = null;
+
+function updateProjectLightbox(){
+
+    if(!lightboxTriggers.length) return;
+
+    const trigger = lightboxTriggers[lightboxIndex];
+
+    projectLightboxImage.src =
+        trigger.dataset.lightboxSrc;
+
+    projectLightboxImage.alt =
+        trigger.dataset.lightboxTitle || "Project Visual";
+
+    projectLightboxCaption.textContent =
+        trigger.dataset.lightboxTitle || "Project Visual";
+
+    projectLightboxCounter.textContent =
+        `${lightboxIndex + 1} / ${lightboxTriggers.length}`;
+
+    const showNavigation =
+        lightboxTriggers.length > 1;
+
+    projectLightboxPrev.style.display =
+        showNavigation ? "flex" : "none";
+
+    projectLightboxNext.style.display =
+        showNavigation ? "flex" : "none";
+}
+
+function openProjectLightbox(index){
+
+    if(!lightboxTriggers.length) return;
+
+    lightboxLastFocused = document.activeElement;
+
+    lightboxIndex =
+        (index + lightboxTriggers.length) %
+        lightboxTriggers.length;
+
+    updateProjectLightbox();
+
+    projectLightbox.classList.add("open");
+    projectLightbox.setAttribute("aria-hidden","false");
+
+    document.body.classList.add("lightbox-open");
+
+    requestAnimationFrame(() => {
+        projectLightboxClose.focus();
+    });
+}
+
+function closeProjectLightbox(){
+
+    projectLightbox.classList.remove("open");
+    projectLightbox.setAttribute("aria-hidden","true");
+
+    document.body.classList.remove("lightbox-open");
+
+    projectLightboxImage.src = "";
+
+    if(
+        lightboxLastFocused &&
+        typeof lightboxLastFocused.focus === "function"
+    ){
+        lightboxLastFocused.focus();
+    }
+}
+
+function showProjectLightboxNext(){
+
+    lightboxIndex =
+        (lightboxIndex + 1) %
+        lightboxTriggers.length;
+
+    updateProjectLightbox();
+}
+
+function showProjectLightboxPrev(){
+
+    lightboxIndex =
+        (lightboxIndex - 1 + lightboxTriggers.length) %
+        lightboxTriggers.length;
+
+    updateProjectLightbox();
+}
+
+lightboxTriggers.forEach((trigger,index) => {
+
+    trigger.addEventListener(
+        "click",
+        () => openProjectLightbox(index)
+    );
+
+});
+
+projectLightboxClose.addEventListener(
+    "click",
+    closeProjectLightbox
+);
+
+projectLightboxNext.addEventListener(
+    "click",
+    showProjectLightboxNext
+);
+
+projectLightboxPrev.addEventListener(
+    "click",
+    showProjectLightboxPrev
+);
+
+projectLightbox.addEventListener(
+    "click",
+    event => {
+
+        if(
+            event.target === projectLightbox ||
+            event.target.classList.contains(
+                "project-lightbox-image-wrap"
+            )
+        ){
+            closeProjectLightbox();
+        }
+
+    }
+);
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(
+            !projectLightbox.classList.contains("open")
+        ){
+            return;
+        }
+
+        if(event.key === "Escape"){
+            closeProjectLightbox();
+        }
+
+        if(event.key === "ArrowRight"){
+            showProjectLightboxNext();
+        }
+
+        if(event.key === "ArrowLeft"){
+            showProjectLightboxPrev();
+        }
+
+    }
+);
+
 
 </script>
 
