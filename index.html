@@ -2538,6 +2538,156 @@ body::before{
   line-height:1.6;
 }
 
+/* =========================================================
+   GENERIC CLIENT PROJECT VISUALS
+   Same structure as Mountain Aura:
+   cover + 6 clickable work visuals
+========================================================= */
+
+.client-project-visual.generic-client{
+  display:block;
+  min-height:0;
+  padding:0;
+  background:#080808;
+}
+
+.generic-client-cover{
+  position:relative;
+  width:100%;
+  aspect-ratio:16/10;
+  overflow:hidden;
+  background:#111;
+}
+
+.generic-client-cover-button{
+  position:relative;
+  z-index:20 !important;
+  display:block;
+  width:100%;
+  height:100%;
+  min-height:1px;
+  padding:0;
+  margin:0;
+  border:0;
+  outline:0;
+  background:transparent;
+  cursor:zoom-in !important;
+  pointer-events:auto !important;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.generic-client-cover-button *,
+.generic-client-work-button *{
+  pointer-events:none !important;
+}
+
+.generic-client-cover-button:focus-visible,
+.generic-client-work-button:focus-visible{
+  outline:2px solid var(--red);
+  outline-offset:-2px;
+}
+
+.generic-client-cover img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform 1s var(--ease);
+}
+
+.client-project:hover .generic-client-cover img{
+  transform:scale(1.035);
+}
+
+.generic-client-cover::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(to top,rgba(0,0,0,.42),transparent 48%);
+}
+
+.generic-client-cover-label{
+  pointer-events:none;
+  position:absolute;
+  left:18px;
+  bottom:18px;
+  z-index:3;
+  padding:8px 11px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.48);
+  backdrop-filter:blur(10px);
+  color:#fff;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+
+.generic-client-work{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:6px;
+  padding:7px;
+  background:#070707;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+.generic-client-work-item{
+  position:relative;
+  aspect-ratio:1/1;
+  overflow:hidden;
+  background:#111;
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.generic-client-work-button{
+  position:relative;
+  z-index:20 !important;
+  display:block;
+  width:100%;
+  height:100%;
+  padding:0;
+  margin:0;
+  border:0;
+  outline:0;
+  background:transparent;
+  cursor:zoom-in !important;
+  pointer-events:auto !important;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.generic-client-work img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .55s var(--ease),opacity .35s ease;
+}
+
+.generic-client-work-item:hover img{
+  transform:scale(1.08);
+  opacity:.9;
+}
+
+.generic-client-work-item::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  border:1px solid transparent;
+  transition:border-color .3s ease;
+}
+
+.generic-client-work-item:hover::after{
+  border-color:rgba(237,28,36,.65);
+}
+
+@media(max-width:600px){
+  .generic-client-work{
+    gap:4px;
+    padding:5px;
+  }
+}
+
 .partners{background:#090909;}
 
 .partners-head{
@@ -3637,7 +3787,128 @@ body.lightbox-open{overflow:hidden;}
       </article>
 
       <article class="client-project reveal">
-        <div class="client-project-visual sudha"><span class="visual-placeholder">PROJECT VISUAL</span></div>
+        <div class="client-project-visual generic-client">
+
+          <div class="generic-client-cover">
+            <button
+              type="button"
+              class="generic-client-cover-button"
+              data-lightbox-src="assets/clients/sudha-healthcare/cover/sudha-healthcare-cover.webp?v=1"
+              data-lightbox-title="Sudha Healthcare / Brand Project"
+              aria-label="Open Sudha Healthcare brand project in large view"
+            >
+              <img
+                src="assets/clients/sudha-healthcare/cover/sudha-healthcare-cover.webp?v=1"
+                alt="Sudha Healthcare — brand project"
+                loading="lazy"
+                decoding="async"
+              >
+            </button>
+            <span class="generic-client-cover-label">Sudha Healthcare / Brand Project · Click to enlarge</span>
+          </div>
+
+          <div class="generic-client-work" aria-label="Sudha Healthcare project visuals">
+
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/sudha-healthcare/work/sudha-healthcare-01.webp?v=1"
+                data-lightbox-title="Sudha Healthcare / Project Visual 1"
+                aria-label="Open Sudha Healthcare project visual 1 in large view"
+              >
+                <img
+                  src="assets/clients/sudha-healthcare/work/sudha-healthcare-01.webp?v=1"
+                  alt="Sudha Healthcare project visual 1"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/sudha-healthcare/work/sudha-healthcare-02.webp?v=1"
+                data-lightbox-title="Sudha Healthcare / Project Visual 2"
+                aria-label="Open Sudha Healthcare project visual 2 in large view"
+              >
+                <img
+                  src="assets/clients/sudha-healthcare/work/sudha-healthcare-02.webp?v=1"
+                  alt="Sudha Healthcare project visual 2"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/sudha-healthcare/work/sudha-healthcare-03.webp?v=1"
+                data-lightbox-title="Sudha Healthcare / Project Visual 3"
+                aria-label="Open Sudha Healthcare project visual 3 in large view"
+              >
+                <img
+                  src="assets/clients/sudha-healthcare/work/sudha-healthcare-03.webp?v=1"
+                  alt="Sudha Healthcare project visual 3"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/sudha-healthcare/work/sudha-healthcare-04.webp?v=1"
+                data-lightbox-title="Sudha Healthcare / Project Visual 4"
+                aria-label="Open Sudha Healthcare project visual 4 in large view"
+              >
+                <img
+                  src="assets/clients/sudha-healthcare/work/sudha-healthcare-04.webp?v=1"
+                  alt="Sudha Healthcare project visual 4"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/sudha-healthcare/work/sudha-healthcare-05.webp?v=1"
+                data-lightbox-title="Sudha Healthcare / Project Visual 5"
+                aria-label="Open Sudha Healthcare project visual 5 in large view"
+              >
+                <img
+                  src="assets/clients/sudha-healthcare/work/sudha-healthcare-05.webp?v=1"
+                  alt="Sudha Healthcare project visual 5"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/sudha-healthcare/work/sudha-healthcare-06.webp?v=1"
+                data-lightbox-title="Sudha Healthcare / Project Visual 6"
+                aria-label="Open Sudha Healthcare project visual 6 in large view"
+              >
+                <img
+                  src="assets/clients/sudha-healthcare/work/sudha-healthcare-06.webp?v=1"
+                  alt="Sudha Healthcare project visual 6"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+
+          </div>
+        </div>
+
         <div class="client-project-info">
           <div class="client-meta">HEALTHCARE · HOSPITAL · BRAND</div>
           <h3>Sudha Healthcare</h3>
@@ -3647,7 +3918,128 @@ body.lightbox-open{overflow:hidden;}
       </article>
 
       <article class="client-project reveal">
-        <div class="client-project-visual exzellent"><span class="visual-placeholder">PROJECT VISUAL</span></div>
+        <div class="client-project-visual generic-client">
+
+          <div class="generic-client-cover">
+            <button
+              type="button"
+              class="generic-client-cover-button"
+              data-lightbox-src="assets/clients/exzellent/cover/exzellent-cover.webp?v=1"
+              data-lightbox-title="EXZELLENT / Brand Project"
+              aria-label="Open EXZELLENT brand project in large view"
+            >
+              <img
+                src="assets/clients/exzellent/cover/exzellent-cover.webp?v=1"
+                alt="EXZELLENT — brand project"
+                loading="lazy"
+                decoding="async"
+              >
+            </button>
+            <span class="generic-client-cover-label">EXZELLENT / Brand Project · Click to enlarge</span>
+          </div>
+
+          <div class="generic-client-work" aria-label="EXZELLENT project visuals">
+
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/exzellent/work/exzellent-01.webp?v=1"
+                data-lightbox-title="EXZELLENT / Project Visual 1"
+                aria-label="Open EXZELLENT project visual 1 in large view"
+              >
+                <img
+                  src="assets/clients/exzellent/work/exzellent-01.webp?v=1"
+                  alt="EXZELLENT project visual 1"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/exzellent/work/exzellent-02.webp?v=1"
+                data-lightbox-title="EXZELLENT / Project Visual 2"
+                aria-label="Open EXZELLENT project visual 2 in large view"
+              >
+                <img
+                  src="assets/clients/exzellent/work/exzellent-02.webp?v=1"
+                  alt="EXZELLENT project visual 2"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/exzellent/work/exzellent-03.webp?v=1"
+                data-lightbox-title="EXZELLENT / Project Visual 3"
+                aria-label="Open EXZELLENT project visual 3 in large view"
+              >
+                <img
+                  src="assets/clients/exzellent/work/exzellent-03.webp?v=1"
+                  alt="EXZELLENT project visual 3"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/exzellent/work/exzellent-04.webp?v=1"
+                data-lightbox-title="EXZELLENT / Project Visual 4"
+                aria-label="Open EXZELLENT project visual 4 in large view"
+              >
+                <img
+                  src="assets/clients/exzellent/work/exzellent-04.webp?v=1"
+                  alt="EXZELLENT project visual 4"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/exzellent/work/exzellent-05.webp?v=1"
+                data-lightbox-title="EXZELLENT / Project Visual 5"
+                aria-label="Open EXZELLENT project visual 5 in large view"
+              >
+                <img
+                  src="assets/clients/exzellent/work/exzellent-05.webp?v=1"
+                  alt="EXZELLENT project visual 5"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/exzellent/work/exzellent-06.webp?v=1"
+                data-lightbox-title="EXZELLENT / Project Visual 6"
+                aria-label="Open EXZELLENT project visual 6 in large view"
+              >
+                <img
+                  src="assets/clients/exzellent/work/exzellent-06.webp?v=1"
+                  alt="EXZELLENT project visual 6"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+
+          </div>
+        </div>
+
         <div class="client-project-info">
           <div class="client-meta">EDUCATION · LANGUAGE · DIGITAL</div>
           <h3>EXZELLENT</h3>
@@ -3657,7 +4049,128 @@ body.lightbox-open{overflow:hidden;}
       </article>
 
       <article class="client-project reveal">
-        <div class="client-project-visual balaji"><span class="visual-placeholder">PROJECT VISUAL</span></div>
+        <div class="client-project-visual generic-client">
+
+          <div class="generic-client-cover">
+            <button
+              type="button"
+              class="generic-client-cover-button"
+              data-lightbox-src="assets/clients/balaji-textiles/cover/balaji-textiles-cover.webp?v=1"
+              data-lightbox-title="Balaji Textiles / Brand Project"
+              aria-label="Open Balaji Textiles brand project in large view"
+            >
+              <img
+                src="assets/clients/balaji-textiles/cover/balaji-textiles-cover.webp?v=1"
+                alt="Balaji Textiles — brand project"
+                loading="lazy"
+                decoding="async"
+              >
+            </button>
+            <span class="generic-client-cover-label">Balaji Textiles / Brand Project · Click to enlarge</span>
+          </div>
+
+          <div class="generic-client-work" aria-label="Balaji Textiles project visuals">
+
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/balaji-textiles/work/balaji-textiles-01.webp?v=1"
+                data-lightbox-title="Balaji Textiles / Project Visual 1"
+                aria-label="Open Balaji Textiles project visual 1 in large view"
+              >
+                <img
+                  src="assets/clients/balaji-textiles/work/balaji-textiles-01.webp?v=1"
+                  alt="Balaji Textiles project visual 1"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/balaji-textiles/work/balaji-textiles-02.webp?v=1"
+                data-lightbox-title="Balaji Textiles / Project Visual 2"
+                aria-label="Open Balaji Textiles project visual 2 in large view"
+              >
+                <img
+                  src="assets/clients/balaji-textiles/work/balaji-textiles-02.webp?v=1"
+                  alt="Balaji Textiles project visual 2"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/balaji-textiles/work/balaji-textiles-03.webp?v=1"
+                data-lightbox-title="Balaji Textiles / Project Visual 3"
+                aria-label="Open Balaji Textiles project visual 3 in large view"
+              >
+                <img
+                  src="assets/clients/balaji-textiles/work/balaji-textiles-03.webp?v=1"
+                  alt="Balaji Textiles project visual 3"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/balaji-textiles/work/balaji-textiles-04.webp?v=1"
+                data-lightbox-title="Balaji Textiles / Project Visual 4"
+                aria-label="Open Balaji Textiles project visual 4 in large view"
+              >
+                <img
+                  src="assets/clients/balaji-textiles/work/balaji-textiles-04.webp?v=1"
+                  alt="Balaji Textiles project visual 4"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/balaji-textiles/work/balaji-textiles-05.webp?v=1"
+                data-lightbox-title="Balaji Textiles / Project Visual 5"
+                aria-label="Open Balaji Textiles project visual 5 in large view"
+              >
+                <img
+                  src="assets/clients/balaji-textiles/work/balaji-textiles-05.webp?v=1"
+                  alt="Balaji Textiles project visual 5"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/balaji-textiles/work/balaji-textiles-06.webp?v=1"
+                data-lightbox-title="Balaji Textiles / Project Visual 6"
+                aria-label="Open Balaji Textiles project visual 6 in large view"
+              >
+                <img
+                  src="assets/clients/balaji-textiles/work/balaji-textiles-06.webp?v=1"
+                  alt="Balaji Textiles project visual 6"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+
+          </div>
+        </div>
+
         <div class="client-project-info">
           <div class="client-meta">RETAIL · TEXTILES · BRAND</div>
           <h3>Balaji Textiles</h3>
@@ -3667,7 +4180,128 @@ body.lightbox-open{overflow:hidden;}
       </article>
 
       <article class="client-project reveal">
-        <div class="client-project-visual sudha-oil"><span class="visual-placeholder">PROJECT VISUAL</span></div>
+        <div class="client-project-visual generic-client">
+
+          <div class="generic-client-cover">
+            <button
+              type="button"
+              class="generic-client-cover-button"
+              data-lightbox-src="assets/clients/sudha-oil-mill/cover/sudha-oil-mill-cover.webp?v=1"
+              data-lightbox-title="Sudha Oil Mill / Brand Project"
+              aria-label="Open Sudha Oil Mill brand project in large view"
+            >
+              <img
+                src="assets/clients/sudha-oil-mill/cover/sudha-oil-mill-cover.webp?v=1"
+                alt="Sudha Oil Mill — brand project"
+                loading="lazy"
+                decoding="async"
+              >
+            </button>
+            <span class="generic-client-cover-label">Sudha Oil Mill / Brand Project · Click to enlarge</span>
+          </div>
+
+          <div class="generic-client-work" aria-label="Sudha Oil Mill project visuals">
+
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/sudha-oil-mill/work/sudha-oil-mill-01.webp?v=1"
+                data-lightbox-title="Sudha Oil Mill / Project Visual 1"
+                aria-label="Open Sudha Oil Mill project visual 1 in large view"
+              >
+                <img
+                  src="assets/clients/sudha-oil-mill/work/sudha-oil-mill-01.webp?v=1"
+                  alt="Sudha Oil Mill project visual 1"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/sudha-oil-mill/work/sudha-oil-mill-02.webp?v=1"
+                data-lightbox-title="Sudha Oil Mill / Project Visual 2"
+                aria-label="Open Sudha Oil Mill project visual 2 in large view"
+              >
+                <img
+                  src="assets/clients/sudha-oil-mill/work/sudha-oil-mill-02.webp?v=1"
+                  alt="Sudha Oil Mill project visual 2"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/sudha-oil-mill/work/sudha-oil-mill-03.webp?v=1"
+                data-lightbox-title="Sudha Oil Mill / Project Visual 3"
+                aria-label="Open Sudha Oil Mill project visual 3 in large view"
+              >
+                <img
+                  src="assets/clients/sudha-oil-mill/work/sudha-oil-mill-03.webp?v=1"
+                  alt="Sudha Oil Mill project visual 3"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/sudha-oil-mill/work/sudha-oil-mill-04.webp?v=1"
+                data-lightbox-title="Sudha Oil Mill / Project Visual 4"
+                aria-label="Open Sudha Oil Mill project visual 4 in large view"
+              >
+                <img
+                  src="assets/clients/sudha-oil-mill/work/sudha-oil-mill-04.webp?v=1"
+                  alt="Sudha Oil Mill project visual 4"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/sudha-oil-mill/work/sudha-oil-mill-05.webp?v=1"
+                data-lightbox-title="Sudha Oil Mill / Project Visual 5"
+                aria-label="Open Sudha Oil Mill project visual 5 in large view"
+              >
+                <img
+                  src="assets/clients/sudha-oil-mill/work/sudha-oil-mill-05.webp?v=1"
+                  alt="Sudha Oil Mill project visual 5"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/sudha-oil-mill/work/sudha-oil-mill-06.webp?v=1"
+                data-lightbox-title="Sudha Oil Mill / Project Visual 6"
+                aria-label="Open Sudha Oil Mill project visual 6 in large view"
+              >
+                <img
+                  src="assets/clients/sudha-oil-mill/work/sudha-oil-mill-06.webp?v=1"
+                  alt="Sudha Oil Mill project visual 6"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+
+          </div>
+        </div>
+
         <div class="client-project-info">
           <div class="client-meta">FMCG · MANUFACTURING · BRAND</div>
           <h3>Sudha Oil Mill</h3>
@@ -3677,7 +4311,128 @@ body.lightbox-open{overflow:hidden;}
       </article>
 
       <article class="client-project reveal">
-        <div class="client-project-visual security"><span class="visual-placeholder">PROJECT VISUAL</span></div>
+        <div class="client-project-visual generic-client">
+
+          <div class="generic-client-cover">
+            <button
+              type="button"
+              class="generic-client-cover-button"
+              data-lightbox-src="assets/clients/a1-sf-security/cover/a1-sf-security-cover.webp?v=1"
+              data-lightbox-title="A1 SF Security / Brand Project"
+              aria-label="Open A1 SF Security brand project in large view"
+            >
+              <img
+                src="assets/clients/a1-sf-security/cover/a1-sf-security-cover.webp?v=1"
+                alt="A1 SF Security — brand project"
+                loading="lazy"
+                decoding="async"
+              >
+            </button>
+            <span class="generic-client-cover-label">A1 SF Security / Brand Project · Click to enlarge</span>
+          </div>
+
+          <div class="generic-client-work" aria-label="A1 SF Security project visuals">
+
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/a1-sf-security/work/a1-sf-security-01.webp?v=1"
+                data-lightbox-title="A1 SF Security / Project Visual 1"
+                aria-label="Open A1 SF Security project visual 1 in large view"
+              >
+                <img
+                  src="assets/clients/a1-sf-security/work/a1-sf-security-01.webp?v=1"
+                  alt="A1 SF Security project visual 1"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/a1-sf-security/work/a1-sf-security-02.webp?v=1"
+                data-lightbox-title="A1 SF Security / Project Visual 2"
+                aria-label="Open A1 SF Security project visual 2 in large view"
+              >
+                <img
+                  src="assets/clients/a1-sf-security/work/a1-sf-security-02.webp?v=1"
+                  alt="A1 SF Security project visual 2"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/a1-sf-security/work/a1-sf-security-03.webp?v=1"
+                data-lightbox-title="A1 SF Security / Project Visual 3"
+                aria-label="Open A1 SF Security project visual 3 in large view"
+              >
+                <img
+                  src="assets/clients/a1-sf-security/work/a1-sf-security-03.webp?v=1"
+                  alt="A1 SF Security project visual 3"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/a1-sf-security/work/a1-sf-security-04.webp?v=1"
+                data-lightbox-title="A1 SF Security / Project Visual 4"
+                aria-label="Open A1 SF Security project visual 4 in large view"
+              >
+                <img
+                  src="assets/clients/a1-sf-security/work/a1-sf-security-04.webp?v=1"
+                  alt="A1 SF Security project visual 4"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/a1-sf-security/work/a1-sf-security-05.webp?v=1"
+                data-lightbox-title="A1 SF Security / Project Visual 5"
+                aria-label="Open A1 SF Security project visual 5 in large view"
+              >
+                <img
+                  src="assets/clients/a1-sf-security/work/a1-sf-security-05.webp?v=1"
+                  alt="A1 SF Security project visual 5"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+            <div class="generic-client-work-item">
+              <button
+                type="button"
+                class="generic-client-work-button"
+                data-lightbox-src="assets/clients/a1-sf-security/work/a1-sf-security-06.webp?v=1"
+                data-lightbox-title="A1 SF Security / Project Visual 6"
+                aria-label="Open A1 SF Security project visual 6 in large view"
+              >
+                <img
+                  src="assets/clients/a1-sf-security/work/a1-sf-security-06.webp?v=1"
+                  alt="A1 SF Security project visual 6"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </button>
+            </div>
+
+          </div>
+        </div>
+
         <div class="client-project-info">
           <div class="client-meta">SECURITY · SERVICES · BRAND</div>
           <h3>A1 SF Security</h3>
