@@ -3901,6 +3901,13 @@ footer a:hover,
     .ag-v2-media img{transform:none!important}
 }
 
+
+/* Section 03 click affordance — scoped only to Selected Client Work */
+#selected-client-work [data-client-work-clickable],
+#client-work [data-client-work-clickable]{
+    cursor:pointer;
+}
+
 </style>
 </head>
 
@@ -7914,6 +7921,56 @@ lightboxTriggers.forEach(trigger => {
         }
     );
 
+})();
+
+
+
+/* =========================================================
+   SELECTED CLIENT WORK — CLICKABLE CARDS
+   V1.0 additive patch; Section 03 only.
+========================================================= */
+(function(){
+    "use strict";
+
+    const section = document.querySelector("#selected-client-work, #client-work");
+    if(!section) return;
+
+    const cards = section.querySelectorAll(
+        "article, .client-project, .project-card, .work-card"
+    );
+
+    cards.forEach(card => {
+        if(card.tagName === "A" || card.tagName === "BUTTON") return;
+        if(card.querySelector("a, button")) return;
+
+        const media = card.querySelector("img, video");
+        if(!media) return;
+
+        card.dataset.clientWorkClickable = "true";
+        card.setAttribute("role","button");
+        card.setAttribute("tabindex","0");
+
+        const openExisting = () => {
+            media.dispatchEvent(new MouseEvent("click", {
+                bubbles:true,
+                cancelable:true,
+                view:window
+            }));
+        };
+
+        card.addEventListener("click", e => {
+            if(e.target.closest("a,button")) return;
+            if(e.target === media) return;
+            openExisting();
+        });
+
+        card.addEventListener("keydown", e => {
+            if(e.key !== "Enter" && e.key !== " ") return;
+            if(e.target.closest("a,button")) return;
+            e.preventDefault();
+            openExisting();
+        });
+    });
 })();
 
 </script>
