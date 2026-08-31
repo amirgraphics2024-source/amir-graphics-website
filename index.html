@@ -3901,12 +3901,6 @@ footer a:hover,
     .ag-v2-media img{transform:none!important}
 }
 
-
-/* Section 03 only — clickable card affordance */
-#client-work [data-ag-section03-card="true"]{
-    cursor:zoom-in;
-}
-
 </style>
 </head>
 
@@ -4649,7 +4643,7 @@ footer a:hover,
 
     <div class="client-work-grid">
 
-      <article class="client-project reveal" data-ag-section03-card="true">
+      <article class="client-project reveal" onclick="if(!event.target.closest('button,a')){this.querySelector('[data-lightbox-src]').click();}" tabindex="0" role="button">
         <div class="client-project-visual mountain-aura">
 
           <div class="mountain-cover">
@@ -4755,7 +4749,7 @@ footer a:hover,
         </div>
       </article>
 
-      <article class="client-project reveal" data-ag-section03-card="true">
+      <article class="client-project reveal" onclick="if(!event.target.closest('button,a')){this.querySelector('[data-lightbox-src]').click();}" tabindex="0" role="button">
         <div class="client-project-visual generic-client">
 
           <div class="generic-client-cover">
@@ -4886,7 +4880,7 @@ footer a:hover,
         </div>
       </article>
 
-      <article class="client-project reveal" data-ag-section03-card="true">
+      <article class="client-project reveal" onclick="if(!event.target.closest('button,a')){this.querySelector('[data-lightbox-src]').click();}" tabindex="0" role="button">
         <div class="client-project-visual generic-client">
 
           <div class="generic-client-cover">
@@ -5017,7 +5011,7 @@ footer a:hover,
         </div>
       </article>
 
-      <article class="client-project reveal" data-ag-section03-card="true">
+      <article class="client-project reveal" onclick="if(!event.target.closest('button,a')){this.querySelector('[data-lightbox-src]').click();}" tabindex="0" role="button">
         <div class="client-project-visual generic-client">
 
           <div class="generic-client-cover">
@@ -5148,7 +5142,7 @@ footer a:hover,
         </div>
       </article>
 
-      <article class="client-project reveal" data-ag-section03-card="true">
+      <article class="client-project reveal" onclick="if(!event.target.closest('button,a')){this.querySelector('[data-lightbox-src]').click();}" tabindex="0" role="button">
         <div class="client-project-visual generic-client">
 
           <div class="generic-client-cover">
@@ -5279,7 +5273,7 @@ footer a:hover,
         </div>
       </article>
 
-      <article class="client-project reveal" data-ag-section03-card="true">
+      <article class="client-project reveal" onclick="if(!event.target.closest('button,a')){this.querySelector('[data-lightbox-src]').click();}" tabindex="0" role="button">
         <div class="client-project-visual generic-client">
 
           <div class="generic-client-cover">
@@ -7919,64 +7913,6 @@ lightboxTriggers.forEach(trigger => {
 
         }
     );
-
-})();
-
-
-
-
-/* =========================================================
-   SECTION 03 — CARD CLICK PATCH
-   V1.1: uses the existing lightbox trigger only.
-   No other section is changed.
-========================================================= */
-(function(){
-
-    function initSection03CardClicks(){
-
-        const cards = document.querySelectorAll(
-            '#client-work [data-ag-section03-card="true"]'
-        );
-
-        cards.forEach(function(card){
-
-            if(card.dataset.agSection03Bound === "1") return;
-
-            const trigger = card.querySelector(
-                "[data-lightbox-src]"
-            );
-
-            if(!trigger) return;
-
-            card.dataset.agSection03Bound = "1";
-            card.style.cursor = "zoom-in";
-
-            card.addEventListener("click", function(event){
-
-                if(event.target.closest("button,a")) return;
-
-                /*
-                 * The existing lightbox button remains the source of truth.
-                 * We only invoke its existing click handler.
-                 */
-                trigger.click();
-
-            });
-
-        });
-
-    }
-
-    if(document.readyState === "loading"){
-        document.addEventListener(
-            "DOMContentLoaded",
-            initSection03CardClicks
-        );
-    }else{
-        initSection03CardClicks();
-    }
-
-    window.addEventListener("load", initSection03CardClicks);
 
 })();
 
