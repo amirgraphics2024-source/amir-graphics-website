@@ -3901,6 +3901,12 @@ footer a:hover,
     .ag-v2-media img{transform:none!important}
 }
 
+
+/* Section 03 only — clickable card affordance */
+#client-work [data-ag-section03-card="true"]{
+    cursor:zoom-in;
+}
+
 </style>
 </head>
 
@@ -4641,9 +4647,9 @@ footer a:hover,
       <p class="section-intro">A growing selection of work created for businesses across FMCG, healthcare, education, retail and digital. Real project visuals can replace these placeholders as the portfolio is updated.</p>
     </div>
 
-    <div class="client-work-grid" data-ag-client-click="true">
+    <div class="client-work-grid">
 
-      <article class="client-project reveal">
+      <article class="client-project reveal" data-ag-section03-card="true">
         <div class="client-project-visual mountain-aura">
 
           <div class="mountain-cover">
@@ -4662,7 +4668,9 @@ footer a:hover,
               >
             </button>
             <span class="mountain-cover-label">Mountain Aura / Brand Project · Click to enlarge</span>
-<div class="mountain-packaging" aria-label="Mountain Aura packaging project visuals" data-ag-client-click="true">
+          </div>
+
+          <div class="mountain-packaging" aria-label="Mountain Aura packaging project visuals">
 
             <div class="mountain-packaging-item">
               <button
@@ -4674,7 +4682,6 @@ footer a:hover,
               >
                 <img src="assets/clients/mountain-aura/packaging/mountain-aura-packaging-01.webp?v=1" alt="Mountain Aura packaging visual 01" loading="lazy" decoding="async">
               </button>
-            </div></button>
             </div>
 
             <div class="mountain-packaging-item">
@@ -4744,7 +4751,11 @@ footer a:hover,
           <div class="client-meta">FMCG · PACKAGING · BRAND</div>
           <h3>Mountain Aura</h3>
           <strong>Product Identity</strong>
-          <p>Packaging & Promotio<article class="client-project reveal" data-ag-client-click="true">
+          <p>Packaging & Promotional Creative</p>
+        </div>
+      </article>
+
+      <article class="client-project reveal" data-ag-section03-card="true">
         <div class="client-project-visual generic-client">
 
           <div class="generic-client-cover">
@@ -4872,7 +4883,10 @@ footer a:hover,
           <h3>Sudha Healthcare</h3>
           <strong>Healthcare Communication</strong>
           <p>Hospital Branding, Awareness & Promotional Creative</p>
-        </d<article class="client-project reveal" data-ag-client-click="true">
+        </div>
+      </article>
+
+      <article class="client-project reveal" data-ag-section03-card="true">
         <div class="client-project-visual generic-client">
 
           <div class="generic-client-cover">
@@ -5000,7 +5014,10 @@ footer a:hover,
           <h3>EXZELLENT</h3>
           <strong>Education Brand Experience</strong>
           <p>Brand Direction, Digital & Content Creative</p>
-        </d<article class="client-project reveal" data-ag-client-click="true">
+        </div>
+      </article>
+
+      <article class="client-project reveal" data-ag-section03-card="true">
         <div class="client-project-visual generic-client">
 
           <div class="generic-client-cover">
@@ -5128,7 +5145,10 @@ footer a:hover,
           <h3>Balaji Textiles</h3>
           <strong>Retail Brand Communication</strong>
           <p>Showroom Branding, Signage & Promotional Creative</p>
-        </d<article class="client-project reveal" data-ag-client-click="true">
+        </div>
+      </article>
+
+      <article class="client-project reveal" data-ag-section03-card="true">
         <div class="client-project-visual generic-client">
 
           <div class="generic-client-cover">
@@ -5256,7 +5276,10 @@ footer a:hover,
           <h3>Sudha Oil Mill</h3>
           <strong>Product & Brand Communication</strong>
           <p>Brand Creative, Product Communication & Promotional Design</p>
-        </d<article class="client-project reveal" data-ag-client-click="true">
+        </div>
+      </article>
+
+      <article class="client-project reveal" data-ag-section03-card="true">
         <div class="client-project-visual generic-client">
 
           <div class="generic-client-cover">
@@ -5382,10 +5405,6 @@ footer a:hover,
         <div class="client-project-info">
           <div class="client-meta">SECURITY · SERVICES · BRAND</div>
           <h3>A1 SF Security</h3>
-          <strong>Corporate Communication</strong>
-          <p>Brand & Business Communication Creative</p>
-        </div>
-      </article>     <h3>A1 SF Security</h3>
           <strong>Corporate Communication</strong>
           <p>Brand & Business Communication Creative</p>
         </div>
@@ -7905,86 +7924,60 @@ lightboxTriggers.forEach(trigger => {
 
 
 
+
 /* =========================================================
-   V1.1 — SELECTED CLIENT WORK CLICK FIX
-   Section 03 only. Master V1.0 remains untouched.
+   SECTION 03 — CARD CLICK PATCH
+   V1.1: uses the existing lightbox trigger only.
+   No other section is changed.
 ========================================================= */
 (function(){
-    "use strict";
 
-    function initClientWorkClicks(){
-        const heading = Array.from(document.querySelectorAll("body *")).find(el =>
-            el.children.length === 0 &&
-            /03\s*\/\s*Selected Client Work/i.test((el.textContent || "").trim())
+    function initSection03CardClicks(){
+
+        const cards = document.querySelectorAll(
+            '#client-work [data-ag-section03-card="true"]'
         );
 
-        if(!heading) return;
+        cards.forEach(function(card){
 
-        const section = heading.closest("section");
-        if(!section) return;
+            if(card.dataset.agSection03Bound === "1") return;
 
-        const cards = section.querySelectorAll("[data-ag-client-click]");
+            const trigger = card.querySelector(
+                "[data-lightbox-src]"
+            );
 
-        cards.forEach(card => {
-            if(card.dataset.agClickBound === "1") return;
+            if(!trigger) return;
 
-            const media = card.querySelector("img, video");
-            if(!media) return;
+            card.dataset.agSection03Bound = "1";
+            card.style.cursor = "zoom-in";
 
-            card.dataset.agClickBound = "1";
-            card.style.cursor = "pointer";
+            card.addEventListener("click", function(event){
 
-            const trigger = () => {
-                /* 1. If the media already has an inline onclick, trigger it. */
-                if(typeof media.onclick === "function"){
-                    media.click();
-                    return;
-                }
+                if(event.target.closest("button,a")) return;
 
-                /* 2. Trigger the media's normal click event so the site's
-                      existing delegated lightbox handler can receive it. */
-                media.click();
+                /*
+                 * The existing lightbox button remains the source of truth.
+                 * We only invoke its existing click handler.
+                 */
+                trigger.click();
 
-                /* 3. If no existing handler opened anything, try the common
-                      image/gallery modal patterns already present in the page. */
-                const modal = document.querySelector(
-                    "#lightbox, .lightbox, #imageModal, .image-modal, [data-lightbox-modal]"
-                );
-
-                if(modal && (
-                    modal.classList.contains("active") ||
-                    modal.classList.contains("open") ||
-                    getComputedStyle(modal).display !== "none"
-                )){
-                    return;
-                }
-            };
-
-            card.addEventListener("click", e => {
-                if(e.target.closest("a,button,input,textarea,select")) return;
-                if(e.target === media) return;
-                trigger();
             });
 
-            card.addEventListener("keydown", e => {
-                if(e.key !== "Enter" && e.key !== " ") return;
-                if(e.target.closest("a,button,input,textarea,select")) return;
-                e.preventDefault();
-                trigger();
-            });
-
-            card.setAttribute("tabindex", "0");
-            card.setAttribute("role", "button");
         });
+
     }
 
     if(document.readyState === "loading"){
-        document.addEventListener("DOMContentLoaded", initClientWorkClicks);
+        document.addEventListener(
+            "DOMContentLoaded",
+            initSection03CardClicks
+        );
     }else{
-        initClientWorkClicks();
+        initSection03CardClicks();
     }
 
-    window.addEventListener("load", initClientWorkClicks);
+    window.addEventListener("load", initSection03CardClicks);
+
 })();
 
 </script>
