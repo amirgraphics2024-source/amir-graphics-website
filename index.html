@@ -4644,7 +4644,7 @@ footer a:hover,
     <div class="client-work-grid">
 
       <article class="client-project reveal">
-        <div class="client-project-visual mountain-aura">
+        <div class="client-project-visual mountain-aura" onclick="if(!event.target.closest('button,a')){var b=this.querySelector('button[data-lightbox-src]');if(b)b.click();}" role="button" tabindex="0" onkeydown="if((event.key==='Enter'||event.key===' ')&&!event.target.closest('button,a')){event.preventDefault();var b=this.querySelector('button[data-lightbox-src]');if(b)b.click();}">
 
           <div class="mountain-cover">
             <button
@@ -4750,7 +4750,7 @@ footer a:hover,
       </article>
 
       <article class="client-project reveal">
-        <div class="client-project-visual generic-client">
+        <div class="client-project-visual generic-client" onclick="if(!event.target.closest('button,a')){var b=this.querySelector('button[data-lightbox-src]');if(b)b.click();}" role="button" tabindex="0" onkeydown="if((event.key==='Enter'||event.key===' ')&&!event.target.closest('button,a')){event.preventDefault();var b=this.querySelector('button[data-lightbox-src]');if(b)b.click();}">
 
           <div class="generic-client-cover">
             <button
@@ -4881,7 +4881,7 @@ footer a:hover,
       </article>
 
       <article class="client-project reveal">
-        <div class="client-project-visual generic-client">
+        <div class="client-project-visual generic-client" onclick="if(!event.target.closest('button,a')){var b=this.querySelector('button[data-lightbox-src]');if(b)b.click();}" role="button" tabindex="0" onkeydown="if((event.key==='Enter'||event.key===' ')&&!event.target.closest('button,a')){event.preventDefault();var b=this.querySelector('button[data-lightbox-src]');if(b)b.click();}">
 
           <div class="generic-client-cover">
             <button
@@ -5012,7 +5012,7 @@ footer a:hover,
       </article>
 
       <article class="client-project reveal">
-        <div class="client-project-visual generic-client">
+        <div class="client-project-visual generic-client" onclick="if(!event.target.closest('button,a')){var b=this.querySelector('button[data-lightbox-src]');if(b)b.click();}" role="button" tabindex="0" onkeydown="if((event.key==='Enter'||event.key===' ')&&!event.target.closest('button,a')){event.preventDefault();var b=this.querySelector('button[data-lightbox-src]');if(b)b.click();}">
 
           <div class="generic-client-cover">
             <button
@@ -5143,7 +5143,7 @@ footer a:hover,
       </article>
 
       <article class="client-project reveal">
-        <div class="client-project-visual generic-client">
+        <div class="client-project-visual generic-client" onclick="if(!event.target.closest('button,a')){var b=this.querySelector('button[data-lightbox-src]');if(b)b.click();}" role="button" tabindex="0" onkeydown="if((event.key==='Enter'||event.key===' ')&&!event.target.closest('button,a')){event.preventDefault();var b=this.querySelector('button[data-lightbox-src]');if(b)b.click();}">
 
           <div class="generic-client-cover">
             <button
@@ -5274,7 +5274,7 @@ footer a:hover,
       </article>
 
       <article class="client-project reveal">
-        <div class="client-project-visual generic-client">
+        <div class="client-project-visual generic-client" onclick="if(!event.target.closest('button,a')){var b=this.querySelector('button[data-lightbox-src]');if(b)b.click();}" role="button" tabindex="0" onkeydown="if((event.key==='Enter'||event.key===' ')&&!event.target.closest('button,a')){event.preventDefault();var b=this.querySelector('button[data-lightbox-src]');if(b)b.click();}">
 
           <div class="generic-client-cover">
             <button
@@ -7916,77 +7916,6 @@ lightboxTriggers.forEach(trigger => {
 
 })();
 
-</script>
-
-
-
-<script>
-/* =========================================================
-   SECTION 03 — COMPLETE VISUAL/CARD CLICK
-   Surgical patch: uses the EXISTING project lightbox.
-   No other section is modified.
-========================================================= */
-(function(){
-
-    const section = document.getElementById("client-work");
-
-    if(!section || typeof openProjectLightbox !== "function"){
-        return;
-    }
-
-    section.addEventListener("click", function(event){
-
-        /* Never interfere with the existing buttons/links. */
-        if(event.target.closest("button,a")){
-            return;
-        }
-
-        const visual = event.target.closest(".client-project-visual");
-
-        if(!visual || !section.contains(visual)){
-            return;
-        }
-
-        let trigger = null;
-
-        /* Packaging visual: open the exact packaging image clicked. */
-        const packagingItem =
-            event.target.closest(".mountain-packaging-item");
-
-        if(packagingItem && visual.contains(packagingItem)){
-            trigger =
-                packagingItem.querySelector(
-                    "[data-lightbox-src]"
-                );
-        }
-
-        /* Cover / other visual area: use that card's cover image. */
-        if(!trigger){
-            trigger =
-                visual.querySelector(
-                    ".mountain-cover [data-lightbox-src]"
-                );
-        }
-
-        if(!trigger){
-            return;
-        }
-
-        const index =
-            Array.from(
-                document.querySelectorAll("[data-lightbox-src]")
-            ).indexOf(trigger);
-
-        if(index < 0){
-            return;
-        }
-
-        event.preventDefault();
-        openProjectLightbox(index);
-
-    });
-
-})();
 </script>
 
 </body>
