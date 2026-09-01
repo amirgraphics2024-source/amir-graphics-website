@@ -3901,6 +3901,12 @@ footer a:hover,
     .ag-v2-media img{transform:none!important}
 }
 
+
+/* Section 03 only — card is clickable */
+#client-work .client-project{
+    cursor:zoom-in;
+}
+
 </style>
 </head>
 
@@ -4644,7 +4650,7 @@ footer a:hover,
     <div class="client-work-grid">
 
       <article class="client-project reveal">
-        <div class="client-project-visual data-section03-visual-clickable="true" tabindex="0" role="button" mountain-aura">
+        <div class="client-project-visual mountain-aura">
 
           <div class="mountain-cover">
             <button
@@ -4750,7 +4756,7 @@ footer a:hover,
       </article>
 
       <article class="client-project reveal">
-        <div class="client-project-visual data-section03-visual-clickable="true" tabindex="0" role="button" generic-client">
+        <div class="client-project-visual generic-client">
 
           <div class="generic-client-cover">
             <button
@@ -4881,7 +4887,7 @@ footer a:hover,
       </article>
 
       <article class="client-project reveal">
-        <div class="client-project-visual data-section03-visual-clickable="true" tabindex="0" role="button" generic-client">
+        <div class="client-project-visual generic-client">
 
           <div class="generic-client-cover">
             <button
@@ -5012,7 +5018,7 @@ footer a:hover,
       </article>
 
       <article class="client-project reveal">
-        <div class="client-project-visual data-section03-visual-clickable="true" tabindex="0" role="button" generic-client">
+        <div class="client-project-visual generic-client">
 
           <div class="generic-client-cover">
             <button
@@ -5143,7 +5149,7 @@ footer a:hover,
       </article>
 
       <article class="client-project reveal">
-        <div class="client-project-visual data-section03-visual-clickable="true" tabindex="0" role="button" generic-client">
+        <div class="client-project-visual generic-client">
 
           <div class="generic-client-cover">
             <button
@@ -5274,7 +5280,7 @@ footer a:hover,
       </article>
 
       <article class="client-project reveal">
-        <div class="client-project-visual data-section03-visual-clickable="true" tabindex="0" role="button" generic-client">
+        <div class="client-project-visual generic-client">
 
           <div class="generic-client-cover">
             <button
@@ -5406,65 +5412,6 @@ footer a:hover,
 
     </div>
   </div>
-
-<script>
-/* =========================================================
-   SECTION 03 — VISUAL CLICK TO ENLARGE
-   ONLY Section 03 is affected.
-   Uses the existing lightbox and existing image triggers.
-========================================================= */
-(function(){
-    "use strict";
-
-    const section = document.querySelector("#client-work");
-    if(!section) return;
-
-    section.querySelectorAll(
-        '[data-section03-visual-clickable="true"]'
-    ).forEach(function(visual){
-
-        if(visual.dataset.section03VisualBound === "1") return;
-
-        const coverTrigger = visual.querySelector(
-            '[data-lightbox-src]'
-        );
-
-        if(!coverTrigger) return;
-
-        visual.dataset.section03VisualBound = "1";
-        visual.style.cursor = "zoom-in";
-
-        visual.addEventListener("click", function(event){
-
-            /* Existing image buttons keep their own exact behavior. */
-            if(event.target.closest("button,a")) return;
-
-            event.preventDefault();
-            event.stopPropagation();
-
-            /*
-             * Clicking the cover/label/empty visual area opens
-             * the existing cover lightbox. No new lightbox is created.
-             */
-            coverTrigger.click();
-
-        });
-
-        visual.addEventListener("keydown", function(event){
-
-            if(event.key !== "Enter" && event.key !== " ") return;
-            if(event.target.closest("button,a")) return;
-
-            event.preventDefault();
-            coverTrigger.click();
-
-        });
-
-    });
-
-})();
-</script>
-
 </section>
 
 
@@ -7971,6 +7918,80 @@ lightboxTriggers.forEach(trigger => {
             );
 
         }
+    );
+
+})();
+
+
+
+/* =========================================================
+   SECTION 03 — COMPLETE CARD/VISUAL CLICK
+   Uses the existing lightbox only.
+   No HTML/CSS structure of any section is changed.
+========================================================= */
+(function(){
+
+    const clientWorkSection =
+        document.getElementById("client-work");
+
+    if(!clientWorkSection){
+        return;
+    }
+
+    clientWorkSection.addEventListener(
+        "click",
+        function(event){
+
+            /*
+             * Existing lightbox buttons already have their own
+             * direct click handler. Leave those clicks untouched.
+             */
+            if(event.target.closest("button,a")){
+                return;
+            }
+
+            const card =
+                event.target.closest(".client-project");
+
+            if(!card || !clientWorkSection.contains(card)){
+                return;
+            }
+
+            /*
+             * If the user clicked a packaging visual, open that exact
+             * existing lightbox trigger. Otherwise, use the cover trigger.
+             */
+            let trigger =
+                event.target.closest(
+                    ".mountain-packaging-item"
+                );
+
+            if(trigger){
+                trigger =
+                    trigger.querySelector(
+                        "button[data-lightbox-src]"
+                    );
+            }else{
+                trigger =
+                    card.querySelector(
+                        ".mountain-cover button[data-lightbox-src]"
+                    );
+            }
+
+            if(!trigger){
+                return;
+            }
+
+            event.preventDefault();
+
+            /*
+             * Invoke the existing button. Its existing handler calls
+             * openProjectLightbox(), so no second lightbox system exists.
+             */
+            trigger.click();
+
+        },
+        false
     );
 
 })();
