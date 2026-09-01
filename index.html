@@ -3901,12 +3901,6 @@ footer a:hover,
     .ag-v2-media img{transform:none!important}
 }
 
-
-/* Section 03 only — card is clickable */
-#client-work .client-project{
-    cursor:zoom-in;
-}
-
 </style>
 </head>
 
@@ -7922,80 +7916,77 @@ lightboxTriggers.forEach(trigger => {
 
 })();
 
+</script>
 
 
+
+<script>
 /* =========================================================
-   SECTION 03 — COMPLETE CARD/VISUAL CLICK
-   Uses the existing lightbox only.
-   No HTML/CSS structure of any section is changed.
+   SECTION 03 — COMPLETE VISUAL/CARD CLICK
+   Surgical patch: uses the EXISTING project lightbox.
+   No other section is modified.
 ========================================================= */
 (function(){
 
-    const clientWorkSection =
-        document.getElementById("client-work");
+    const section = document.getElementById("client-work");
 
-    if(!clientWorkSection){
+    if(!section || typeof openProjectLightbox !== "function"){
         return;
     }
 
-    clientWorkSection.addEventListener(
-        "click",
-        function(event){
+    section.addEventListener("click", function(event){
 
-            /*
-             * Existing lightbox buttons already have their own
-             * direct click handler. Leave those clicks untouched.
-             */
-            if(event.target.closest("button,a")){
-                return;
-            }
+        /* Never interfere with the existing buttons/links. */
+        if(event.target.closest("button,a")){
+            return;
+        }
 
-            const card =
-                event.target.closest(".client-project");
+        const visual = event.target.closest(".client-project-visual");
 
-            if(!card || !clientWorkSection.contains(card)){
-                return;
-            }
+        if(!visual || !section.contains(visual)){
+            return;
+        }
 
-            /*
-             * If the user clicked a packaging visual, open that exact
-             * existing lightbox trigger. Otherwise, use the cover trigger.
-             */
-            let trigger =
-                event.target.closest(
-                    ".mountain-packaging-item"
+        let trigger = null;
+
+        /* Packaging visual: open the exact packaging image clicked. */
+        const packagingItem =
+            event.target.closest(".mountain-packaging-item");
+
+        if(packagingItem && visual.contains(packagingItem)){
+            trigger =
+                packagingItem.querySelector(
+                    "[data-lightbox-src]"
                 );
+        }
 
-            if(trigger){
-                trigger =
-                    trigger.querySelector(
-                        "button[data-lightbox-src]"
-                    );
-            }else{
-                trigger =
-                    card.querySelector(
-                        ".mountain-cover button[data-lightbox-src]"
-                    );
-            }
+        /* Cover / other visual area: use that card's cover image. */
+        if(!trigger){
+            trigger =
+                visual.querySelector(
+                    ".mountain-cover [data-lightbox-src]"
+                );
+        }
 
-            if(!trigger){
-                return;
-            }
+        if(!trigger){
+            return;
+        }
 
-            event.preventDefault();
+        const index =
+            Array.from(
+                document.querySelectorAll("[data-lightbox-src]")
+            ).indexOf(trigger);
 
-            /*
-             * Invoke the existing button. Its existing handler calls
-             * openProjectLightbox(), so no second lightbox system exists.
-             */
-            trigger.click();
+        if(index < 0){
+            return;
+        }
 
-        },
-        false
-    );
+        event.preventDefault();
+        openProjectLightbox(index);
+
+    });
 
 })();
-
 </script>
 
 </body>
