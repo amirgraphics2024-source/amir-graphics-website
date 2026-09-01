@@ -4643,8 +4643,8 @@ footer a:hover,
 
     <div class="client-work-grid">
 
-      <article class="client-project reveal" onclick="if(!event.target.closest('button,a')){this.querySelector('[data-lightbox-src]').click();}" tabindex="0" role="button">
-        <div class="client-project-visual mountain-aura">
+      <article class="client-project reveal">
+        <div class="client-project-visual data-section03-visual-clickable="true" tabindex="0" role="button" mountain-aura">
 
           <div class="mountain-cover">
             <button
@@ -4749,8 +4749,8 @@ footer a:hover,
         </div>
       </article>
 
-      <article class="client-project reveal" onclick="if(!event.target.closest('button,a')){this.querySelector('[data-lightbox-src]').click();}" tabindex="0" role="button">
-        <div class="client-project-visual generic-client">
+      <article class="client-project reveal">
+        <div class="client-project-visual data-section03-visual-clickable="true" tabindex="0" role="button" generic-client">
 
           <div class="generic-client-cover">
             <button
@@ -4880,8 +4880,8 @@ footer a:hover,
         </div>
       </article>
 
-      <article class="client-project reveal" onclick="if(!event.target.closest('button,a')){this.querySelector('[data-lightbox-src]').click();}" tabindex="0" role="button">
-        <div class="client-project-visual generic-client">
+      <article class="client-project reveal">
+        <div class="client-project-visual data-section03-visual-clickable="true" tabindex="0" role="button" generic-client">
 
           <div class="generic-client-cover">
             <button
@@ -5011,8 +5011,8 @@ footer a:hover,
         </div>
       </article>
 
-      <article class="client-project reveal" onclick="if(!event.target.closest('button,a')){this.querySelector('[data-lightbox-src]').click();}" tabindex="0" role="button">
-        <div class="client-project-visual generic-client">
+      <article class="client-project reveal">
+        <div class="client-project-visual data-section03-visual-clickable="true" tabindex="0" role="button" generic-client">
 
           <div class="generic-client-cover">
             <button
@@ -5142,8 +5142,8 @@ footer a:hover,
         </div>
       </article>
 
-      <article class="client-project reveal" onclick="if(!event.target.closest('button,a')){this.querySelector('[data-lightbox-src]').click();}" tabindex="0" role="button">
-        <div class="client-project-visual generic-client">
+      <article class="client-project reveal">
+        <div class="client-project-visual data-section03-visual-clickable="true" tabindex="0" role="button" generic-client">
 
           <div class="generic-client-cover">
             <button
@@ -5273,8 +5273,8 @@ footer a:hover,
         </div>
       </article>
 
-      <article class="client-project reveal" onclick="if(!event.target.closest('button,a')){this.querySelector('[data-lightbox-src]').click();}" tabindex="0" role="button">
-        <div class="client-project-visual generic-client">
+      <article class="client-project reveal">
+        <div class="client-project-visual data-section03-visual-clickable="true" tabindex="0" role="button" generic-client">
 
           <div class="generic-client-cover">
             <button
@@ -5406,6 +5406,65 @@ footer a:hover,
 
     </div>
   </div>
+
+<script>
+/* =========================================================
+   SECTION 03 — VISUAL CLICK TO ENLARGE
+   ONLY Section 03 is affected.
+   Uses the existing lightbox and existing image triggers.
+========================================================= */
+(function(){
+    "use strict";
+
+    const section = document.querySelector("#client-work");
+    if(!section) return;
+
+    section.querySelectorAll(
+        '[data-section03-visual-clickable="true"]'
+    ).forEach(function(visual){
+
+        if(visual.dataset.section03VisualBound === "1") return;
+
+        const coverTrigger = visual.querySelector(
+            '[data-lightbox-src]'
+        );
+
+        if(!coverTrigger) return;
+
+        visual.dataset.section03VisualBound = "1";
+        visual.style.cursor = "zoom-in";
+
+        visual.addEventListener("click", function(event){
+
+            /* Existing image buttons keep their own exact behavior. */
+            if(event.target.closest("button,a")) return;
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            /*
+             * Clicking the cover/label/empty visual area opens
+             * the existing cover lightbox. No new lightbox is created.
+             */
+            coverTrigger.click();
+
+        });
+
+        visual.addEventListener("keydown", function(event){
+
+            if(event.key !== "Enter" && event.key !== " ") return;
+            if(event.target.closest("button,a")) return;
+
+            event.preventDefault();
+            coverTrigger.click();
+
+        });
+
+    });
+
+})();
+</script>
+
 </section>
 
 
